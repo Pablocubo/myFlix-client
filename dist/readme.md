@@ -1,4 +1,4 @@
-# MyFlix Client
+# MyFlix Client.
 
 This project is the front-end implementation for the MyFlix app. It utilizes Parcel as the build tool to compile and bundle the source code.
 
