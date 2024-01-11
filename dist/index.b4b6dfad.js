@@ -142,13 +142,13 @@
       this[globalName] = mainExports;
     }
   }
-})({"aptX1":[function(require,module,exports) {
+})({"d5irm":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "4c0640aaa83944bd";
+module.bundle.HMR_BUNDLE_ID = "022c1b16b4b6dfad";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -2939,17 +2939,17 @@ process.umask = function() {
     return 0;
 };
 
-},{}],"61G8r":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$ec91 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{}],"d8Dch":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$98a3 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$ec91.prelude(module);
+$parcel$ReactRefreshHelpers$98a3.prelude(module);
 
 try {
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _client = require("react-dom/client");
 //Import statement to indicate that you need to bundle `./index.scss` 
-var _indexScss = require("./index.scss");
+var _indexScss = require("./index.scss"); //import statement that you need to bundle './index.scss'
 // Main component (will eventually use all the others)
 const MyFlixApplication = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -2957,12 +2957,12 @@ const MyFlixApplication = ()=>{
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             children: "Good morning"
         }, void 0, false, {
-            fileName: "myFlix-client/src/index.jsx",
+            fileName: "src/index.jsx",
             lineNumber: 10,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
-        fileName: "myFlix-client/src/index.jsx",
+        fileName: "src/index.jsx",
         lineNumber: 9,
         columnNumber: 5
     }, undefined);
@@ -2973,19 +2973,19 @@ const container = document.querySelector("#root");
 const root = (0, _client.createRoot)(container);
 // Tell React to render our app in the root DOM element
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(MyFlixApplication, {}, void 0, false, {
-    fileName: "myFlix-client/src/index.jsx",
+    fileName: "src/index.jsx",
     lineNumber: 20,
     columnNumber: 13
 }, undefined));
 var _c;
 $RefreshReg$(_c, "MyFlixApplication");
 
-  $parcel$ReactRefreshHelpers$ec91.postlude(module);
+  $parcel$ReactRefreshHelpers$98a3.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./index.scss":"TZFhz","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27172,7 +27172,7 @@ module.exports = require("ef03b89c8fe2794e");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{}],"TZFhz":[function() {},{}],"LvBOQ":[function(require,module,exports) {
+},{}],"lJZlQ":[function() {},{}],"LvBOQ":[function(require,module,exports) {
 "use strict";
 var Refresh = require("f49c07d3f7913792");
 function debounce(func, delay) {
@@ -27310,6 +27310,6 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"f49c07d3f7913792":"7ilz1"}]},["aptX1","7tNP8","61G8r"], "61G8r", "parcelRequireaec4")
+},{"f49c07d3f7913792":"7ilz1"}]},["d5irm","7tNP8","d8Dch"], "d8Dch", "parcelRequireaec4")
 
-//# sourceMappingURL=index.a83944bd.js.map
+//# sourceMappingURL=index.b4b6dfad.js.map
