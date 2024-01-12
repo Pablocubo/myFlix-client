@@ -1,71 +1,60 @@
 import { useState } from "react";
-import { Container } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Row, Col } from 'react-bootstrap';
-import { MovieCard } from "../movie-card/movie-card";
-import { MovieView } from "../movie-view/movie-view";
+import { BookCard } from "../movie-card/movie-card";
+import { BookView } from "../movie-view/movie-view";
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([
+  const [books, setBooks] = useState([
     {
       id: 1,
-      Title: 'The Shawshank Redemption',
-      Description: 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.',
-      Genre: {
-        Name: 'Drama',
-        Description: 'Movies portraying realistic or fictional human emotions and experiences.'
-      },
-      Director: {
-        Name: 'Frank Darabont',
-        Bio: 'Director known for various acclaimed films.',
-        Birth: '1959',
-        Death: ''
-      },
-      ImagePath: 'shawshank_redemption.jpg',
-      Featured: true
+      title: "Silence of the Lambs",
+      description: "A young F.B.I. cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer, a madman who skins his victims.",
+      genre: "Thriller",
+      image:
+        "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/uS9m8OBk1A8eM9I042bx8XXpqAq.jpg",
+      director: "Jonathan Demme",
     },
     {
       id: 2,
-      Title: 'The Godfather',
-      Description: 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.',
-      Genre: {
-        Name: 'Crime',
-        Description: 'Movies involving criminal activities, investigations, and schemes.'
-      },
-      Director: {
-        Name: 'Francis Ford Coppola',
-        Bio: 'Director known for various acclaimed films.',
-        Birth: '1939',
-        Death: ''
-      },
-      ImagePath: 'godfather.jpg',
-      Featured: true
+      title: "The Dark Knight",
+      description: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+      genre: "Action",
+      image:
+        "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+      director: "Chistopher Nolan",
     },
-    // Add more movie objects as needed
+    {
+      id: 3,
+      title: "The Godfather",
+      description: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+      genre: "Crime",
+      image:
+        "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+      director: "Francis Ford Coppola",
+    },
+
   ]);
 
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  if (selectedMovie) {
+  const [selectedBook, setSelectedBook] = useState(null);
+  if (selectedBook) {
     return (
-      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+      <BookView book={selectedBook} onBackClick={() => setSelectedBook(null)} />
     );
   }
 
-  if (movies.length === 0) {
+  if (books.length === 0) {
     return <div>The list is empty!</div>;
   }
   return (
-    <Container>
-      <Row>
-        {movies.map((movie) => (
-          <Col key={movie.id} xs={12} md={4}>
-            <MovieCard
-              movie={movie}
-              onMovieClick={(newSelectedMovie) => setSelectedMovie(newSelectedMovie)}
-            />
-          </Col>
-        ))}
-      </Row>
-    </Container>
+    <div>
+      {books.map((book) => (
+        <BookCard
+          key={book.id}
+          book={book}
+          onBookClick={(newSelectedBook) => {
+            setSelectedBook(newSelectedBook);
+          }}
+        />
+      ))}
+    </div>
   );
-}
+};
