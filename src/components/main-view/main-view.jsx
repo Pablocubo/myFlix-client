@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { BookCard } from "../movie-card/movie-card";
-import { BookView } from "../movie-view/movie-view";
+import { MovieCard } from "../movie-card/movie-card";
+import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
-  const [books, setBooks] = useState([
+  const [movies, setMovies] = useState([
     {
       id: 1,
       title: "Silence of the Lambs",
@@ -34,24 +34,24 @@ export const MainView = () => {
 
   ]);
 
-  const [selectedBook, setSelectedBook] = useState(null);
-  if (selectedBook) {
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  if (selectedMovie) {
     return (
-      <BookView book={selectedBook} onBackClick={() => setSelectedBook(null)} />
+      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
     );
   }
 
-  if (books.length === 0) {
+  if (movies.length === 0) {
     return <div>The list is empty!</div>;
   }
   return (
     <div>
-      {books.map((book) => (
-        <BookCard
-          key={book.id}
-          book={book}
-          onBookClick={(newSelectedBook) => {
-            setSelectedBook(newSelectedBook);
+      {movies.map((movie) => (
+        <MovieCard
+          key={movie.id}
+          movie={movie}
+          onMovieClick={(newSelectedMovie) => {
+            setSelectedMovie(newSelectedMovie);
           }}
         />
       ))}

@@ -1,24 +1,24 @@
-export const BookView = ({ book, onBackClick }) => {
+export const MovieView = ({ movie, onBackClick }) => {
   return (
     <div>
       <div>
-        <img src={book.image} />
+        <img src={movie.image} />
       </div>
       <div>
         <span>Title: </span>
-        <span>{book.title}</span>
+        <span>{movie.title}</span>
       </div>
       <div>
         <span>Description: </span>
-        <span>{book.description}</span>
+        <span>{movie.description}</span>
       </div>
       <div>
         <span>Genre: </span>
-        <span>{book.genre}</span>
+        <span>{movie.genre}</span>
       </div>
       <div>
         <span>Director: </span>
-        <span>{book.director}</span>
+        <span>{movie.director}</span>
       </div>
       <button onClick={onBackClick}>Back</button>
     </div>
