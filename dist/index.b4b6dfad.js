@@ -27197,7 +27197,7 @@ const MainView = ()=>{
         fetch("https://letflix-0d183cd4a94e.herokuapp.com/movies").then((response)=>response.json()).then((data)=>{
             const moviesFromApi = data.map((movie)=>({
                     _id: movie._id,
-                    title: movie.Title,
+                    Title: movie.Title,
                     Description: movie.Description,
                     Genre: {
                         Name: movie.Genre.Name,
@@ -28735,7 +28735,7 @@ const MovieCard = ({ movie, onMovieClick })=>{
         onClick: ()=>{
             onMovieClick(movie);
         },
-        children: movie.title
+        children: movie.Title
     }, void 0, false, {
         fileName: "src/components/movie-card/movie-card.jsx",
         lineNumber: 5,
