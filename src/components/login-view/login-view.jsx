@@ -30,7 +30,12 @@ export const LoginView = ({onLoggedIn}) => {
         } else {
           alert("Login failed");
         }
+      })
+      .catch((error) => {
+        console.error("Error during login:", error);
+        // Handle the error as needed
       });
+    
     
   };
 
