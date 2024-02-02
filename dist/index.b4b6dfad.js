@@ -27228,29 +27228,7 @@ const MainView = ()=>{
     }, [
         token
     ]);
-    /*     const moviesFromApi = data.map((movie) => ({
-            _id: movie._id,
-            Title: movie.Title,
-            Description: movie.Description,
-            Genre: {
-              Name: movie.Genre.Name,
-              Description: movie.Genre.Description
-            },
-            Director: {
-              Name: movie.Director.Name,
-              Bio: movie.Director.Bio,
-              Birth: movie.Director.Birth
-              
-            }
-          }));
-    
-          setMovies(moviesFromApi);
-        })
-        .catch((error) => {
-          console.error('Error fetching data:', error);
-          // Handle error if needed
-        });
-    }, []); */ if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+    if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
                 onLoggedIn: (user, token)=>{
@@ -27259,13 +27237,13 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 78,
+                lineNumber: 54,
                 columnNumber: 11
             }, undefined),
             "or",
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 83,
+                lineNumber: 59,
                 columnNumber: 9
             }, undefined)
         ]
@@ -27275,14 +27253,14 @@ const MainView = ()=>{
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 90,
+        lineNumber: 66,
         columnNumber: 7
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 95,
+        lineNumber: 71,
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
@@ -27296,17 +27274,17 @@ const MainView = ()=>{
                             onMovieClick: (newSelectedMovie)=>setSelectedMovie(newSelectedMovie)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 103,
+                            lineNumber: 79,
                             columnNumber: 13
                         }, undefined)
                     }, movie.id, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 102,
+                        lineNumber: 78,
                         columnNumber: 11
                     }, undefined))
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 100,
+                lineNumber: 76,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27317,13 +27295,13 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 110,
+                lineNumber: 86,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 99,
+        lineNumber: 75,
         columnNumber: 5
     }, undefined);
 };
@@ -29953,7 +29931,7 @@ const LoginView = ({ onLoggedIn })=>{
             if (data.user) {
                 localStorage.setItem("user", JSON.stringify(data.user));
                 localStorage.setItem("token", data.token);
-                onLoggedIn(data.user, data.token); //Here you write depending on if with tokens or a simple if (response.ok) { onLoggedIn(username);
+                onLoggedIn(data.user, data.token);
             } else alert("Login failed");
         });
     };
@@ -29970,13 +29948,13 @@ const LoginView = ({ onLoggedIn })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 41,
+                        lineNumber: 42,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 39,
+                lineNumber: 40,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -29989,13 +29967,13 @@ const LoginView = ({ onLoggedIn })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 50,
+                        lineNumber: 51,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 48,
+                lineNumber: 49,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -30003,13 +29981,13 @@ const LoginView = ({ onLoggedIn })=>{
                 children: "Submit"
             }, void 0, false, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 57,
+                lineNumber: 58,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/login-view/login-view.jsx",
-        lineNumber: 38,
+        lineNumber: 39,
         columnNumber: 5
     }, undefined);
 };
@@ -30050,7 +30028,7 @@ const SignupView = ()=>{
             Email: email,
             Birthday: birthday
         };
-        fetch("https://your-api-domain.com/signup", {
+        fetch("https://letflix-0d183cd4a94e.herokuapp.com/users", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {

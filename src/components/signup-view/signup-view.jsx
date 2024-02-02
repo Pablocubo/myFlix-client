@@ -16,7 +16,7 @@ export const SignupView = () => {
     Birthday: birthday
   };
 
-  fetch("https://your-api-domain.com/signup", {
+  fetch("https://letflix-0d183cd4a94e.herokuapp.com/users", {
     method: "POST",
     body: JSON.stringify(data),
     headers: {

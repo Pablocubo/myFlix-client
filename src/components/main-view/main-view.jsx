@@ -17,7 +17,7 @@ export const MainView = () => {
   useEffect(() => {
     if (!token) return;
 
-    fetch('https://letflix-0d183cd4a94e.herokuapp.com/movies', {
+    fetch("https://letflix-0d183cd4a94e.herokuapp.com/movies", {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -47,31 +47,7 @@ export const MainView = () => {
   });
 }, [token]);
 
-      /*     const moviesFromApi = data.map((movie) => ({
-            _id: movie._id,
-            Title: movie.Title,
-            Description: movie.Description,
-            Genre: {
-              Name: movie.Genre.Name,
-              Description: movie.Genre.Description
-            },
-            Director: {
-              Name: movie.Director.Name,
-              Bio: movie.Director.Bio,
-              Birth: movie.Director.Birth
-              
-            }
-          }));
-    
-          setMovies(moviesFromApi);
-        })
-        .catch((error) => {
-          console.error('Error fetching data:', error);
-          // Handle error if needed
-        });
-    }, []); */
-
-
+  
     if (!user) {
       return (
         <>
