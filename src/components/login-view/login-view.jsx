@@ -5,7 +5,6 @@ export const LoginView = ({onLoggedIn}) => {
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
-
     event.preventDefault();
 
     const data = {
@@ -35,9 +34,7 @@ export const LoginView = ({onLoggedIn}) => {
         console.error("Error during login:", error);
         // Handle the error as needed
       });
-    
-    
-  };
+    };
 
 
   return (

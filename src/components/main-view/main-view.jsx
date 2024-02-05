@@ -17,7 +17,7 @@ export const MainView = () => {
   useEffect(() => {
     if (!token) return;
 
-    fetch("https://letflix-0d183cd4a94e.herokuapp.com/movies", {
+    fetch("SIGNUP_URL", {
     headers: {
       Authorization: `Bearer ${token}`
     }
