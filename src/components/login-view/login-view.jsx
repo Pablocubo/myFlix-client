@@ -8,8 +8,8 @@ export const LoginView = ({onLoggedIn}) => {
     event.preventDefault();
 
     const data = {
-      access: username,
-      secret: password,
+      Username: username,
+      Password: password,
     };
 
     fetch("https://letflix-0d183cd4a94e.herokuapp.com/login", {
