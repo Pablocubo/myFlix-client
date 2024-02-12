@@ -1,4 +1,8 @@
 import "./movie-view.scss";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Container, Col, Row, Button, Card, CardGroup } from 'react-bootstrap';
+
 
 
 export const MovieView = ({ movie, onBackClick }) => {

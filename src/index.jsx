@@ -9,11 +9,11 @@ import './index.scss'; //import statement that you need to bundle './index.scss'
 const App = () => {
 
   return (
-    <Container>
+    <Container style={{border: "1px solid red"}}>
       <MainView />
     </Container>
-  )
-}
+  );
+};
 
 // Finds the root of your app
 const container = document.querySelector("#root");
