@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
@@ -108,7 +108,7 @@ export const MainView = () => {
           </Col>
         ))}
       </Row>
-      <button onClick={() => { setUser(null); setToken(null) }}>Logout</button>
+      <Button onClick={() => { setUser(null); setToken(null) }}>Logout</Button>
     </Container>
   );
 };

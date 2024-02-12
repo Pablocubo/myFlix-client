@@ -27351,7 +27351,7 @@ const MainView = ()=>{
                 lineNumber: 101,
                 columnNumber: 7
             }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                 onClick: ()=>{
                     setUser(null);
                     setToken(null);
