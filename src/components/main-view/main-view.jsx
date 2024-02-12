@@ -37,8 +37,13 @@ export const MainView = () => {
       Director: {
         Name: movie.Director.Name,
         Bio: movie.Director.Bio,
-        Birth: movie.Director.Birth
-      }
+        Birth: movie.Director.Birth,
+        Death: movie.Director.Death // Include the 'Death' field if it exists in the backend schema
+      },
+      Actors: movie.Actors,
+      Bio: movie.Bio,
+      ImagePath: movie.ImagePath,
+      Featured: movie.Featured
     }));
 
     setMovies(moviesFromApi);
@@ -95,7 +100,7 @@ export const MainView = () => {
     <Container>
       <Row>
         {movies.map((movie) => (
-          <Col key={movie.id} xs={12} md={4}>
+          <Col key={movie._id} xs={12} md={4}>
             <MovieCard
               movie={movie}
               onMovieClick={(newSelectedMovie) => setSelectedMovie(newSelectedMovie)}

@@ -9,7 +9,7 @@ import './index.scss'; //import statement that you need to bundle './index.scss'
 const App = () => {
 
   return (
-    <Container style={{border: "1px solid red"}}>
+    <Container>
       <MainView />
     </Container>
   );
