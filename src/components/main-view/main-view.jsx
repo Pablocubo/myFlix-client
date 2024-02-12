@@ -66,11 +66,7 @@ export const MainView = () => {
             }} />
           </Col>
         </Row>
-        <Row>
-          <Col>
-            or
-          </Col>
-        </Row>
+       
         <Row>
           <Col>
             <SignupView />

@@ -48,7 +48,7 @@ export const LoginView = ({ onLoggedIn }) => {
                   Login
                 </Card.Title>
                 <Form onSubmit={handleSubmit}>
-                  <Form.Group controlId="formGroupUsername">
+                  <Form.Group controlId="formGroupUsername" className="mb-3">
                     <Form.Control
                       type="text"
                       value={username}
@@ -59,7 +59,7 @@ export const LoginView = ({ onLoggedIn }) => {
                     />
                   </Form.Group>
   
-                  <Form.Group controlId="formPassword">
+                  <Form.Group controlId="formPassword" className="mb-3">
                     <Form.Control
                       type="password"
                       value={password}
@@ -68,7 +68,7 @@ export const LoginView = ({ onLoggedIn }) => {
                       placeholder="Password"
                     />
                   </Form.Group>
-                  <Button variant="primary" type="submit" onClick={handleSubmit} block style={{ width: "100%" }}>
+                  <Button variant="primary" type="submit" onClick={handleSubmit} block style={{ width: "100%", marginTop: '10px', marginBottom: '10px' }}> 
                     Submit
                   </Button>
                 </Form>

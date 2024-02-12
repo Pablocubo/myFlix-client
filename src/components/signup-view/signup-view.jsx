@@ -39,8 +39,8 @@ export const SignupView = () => {
 
   return (
     <Container>
-      <Row>
-        <Col>
+      <Row className="justify-content-center">
+          <Col md={6}>
         <CardGroup>
           <Card.Body>
             <Card.Title style={{ marginBottom: "20px"}}>¿First time on Letflix? Subscribe now.</Card.Title>
@@ -89,7 +89,7 @@ export const SignupView = () => {
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit">Sign up</Button>
+      <Button variant="primary" type="submit" style={{ marginTop: '10px', marginBottom: '10px' }}>Sign up</Button>
     </Form>
 </Card.Body>
         </CardGroup>
