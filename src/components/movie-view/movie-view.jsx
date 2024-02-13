@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom'; // Ensure Link is imported
 
-export const MovieView = ({ movie, onBackClick }) => {
+export const MovieView = ({ movie }) => {
   if (!movie) return null; // Handle case when movie data is not available
 
   const { Title, Description, Genre, Director, ImagePath } = movie;
@@ -40,7 +41,7 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>Birth: </span>
         <span>{Director ? Director.Birth : ''}</span>
       </div>
-      <Button onClick={onBackClick} className="back-button" style={{ cursor: "pointer" }}>Back</Button>
+      <Link to="/" className="btn btn-primary back-button" style={{ cursor: "pointer" }}>Back</Link>
     </div>
   );
 };
@@ -58,14 +59,11 @@ MovieView.propTypes = {
       Name: PropTypes.string,
       Bio: PropTypes.string,
       Birth: PropTypes.string,
-      Death: PropTypes.string
+      Death: PropTypes.string // Only include if you're displaying it
     }),
     ImagePath: PropTypes.string.isRequired,
-    Actors: PropTypes.arrayOf(PropTypes.string),
-    Bio: PropTypes.string,
-    Featured: PropTypes.bool
-  }),
-  onBackClick: PropTypes.func.isRequired
+  }).isRequired,
 };
 
+export default MovieView; // default export 
 

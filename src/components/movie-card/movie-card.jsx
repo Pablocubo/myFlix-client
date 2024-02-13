@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'; // Import React, useState, and useEffect
 import PropTypes from 'prop-types';
 import { Button, Card, Col } from 'react-bootstrap'; // Import Button and Card from react-bootstrap
+import { Link } from 'react-router-dom';
 
 export const MovieCard = ({ movie, onMovieClick }) => {
   const [imageAccessible, setImageAccessible] = useState(false);
@@ -25,18 +26,18 @@ export const MovieCard = ({ movie, onMovieClick }) => {
 
   return (
     <Col xs={12} sm={6} md={4} lg={3} className="mb-4">
-    <Card style={{ width: '18rem', height: '21rem' }}>
-      <Card.Img variant="top" src={movie.ImagePath} alt={movie.Title} />
-      <Card.Body>
-        <Card.Title>{movie.Title}</Card.Title>
-        <Card.Text>{movie.Description}</Card.Text>
-      </Card.Body>
-      <Card.Body>
-        <Button onClick={() => onMovieClick(movie)} variant="link">
-          Open
-        </Button>
-      </Card.Body>
-    </Card>
+      <Card style={{ width: '18rem', height: '21rem' }}>
+        <Card.Img variant="top" src={movie.ImagePath} alt={movie.Title} />
+        <Card.Body>
+          <Card.Title>{movie.Title}</Card.Title>
+          <Card.Text>{movie.Description}</Card.Text>
+        </Card.Body>
+        <Card.Body>
+          <Link to={`/movies/${movie._id}`} className="btn btn-link">
+            Open
+          </Link>
+        </Card.Body>
+      </Card>
     </Col>
   );
 };
@@ -48,5 +49,6 @@ MovieCard.propTypes = {
     ImagePath: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
   }).isRequired,
-  onMovieClick: PropTypes.func.isRequired,
 };
+
+export default MovieCard;
