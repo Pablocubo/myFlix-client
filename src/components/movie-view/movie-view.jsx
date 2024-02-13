@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 
 export const MovieView = ({ movie, onBackClick }) => {
   if (!movie) return null; // Handle case when movie data is not available
@@ -39,7 +40,7 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>Birth: </span>
         <span>{Director ? Director.Birth : ''}</span>
       </div>
-      <button onClick={onBackClick} className="back-button" style={{ cursor: "pointer" }}>Back</button>
+      <Button onClick={onBackClick} className="back-button" style={{ cursor: "pointer" }}>Back</Button>
     </div>
   );
 };

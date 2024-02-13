@@ -5,6 +5,7 @@ import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+/* import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"; */
 
 
 
@@ -57,7 +58,7 @@ export const MainView = () => {
   
     if (!user) {
       return (
-        <Container>
+        <Container>   {/* // working on this, before was <Container> */}
         <Row>
           <Col>
             <LoginView onLoggedIn={(user, token) => {
@@ -94,7 +95,7 @@ export const MainView = () => {
 
   return (
     <Container>
-      <Row>
+      <Row xs={1} md={2} lg={3} xl={4} className="g-4">
         {movies.map((movie) => (
           <Col key={movie._id} xs={12} md={4}>
             <MovieCard
@@ -104,7 +105,7 @@ export const MainView = () => {
           </Col>
         ))}
       </Row>
-      <Button onClick={() => { setUser(null); setToken(null) }}>Logout</Button>
+      <Button onClick={() => { setUser(null); setToken(null) }} style={{ margin: '10px 0' }}>Logout</Button>
     </Container>
   );
 };

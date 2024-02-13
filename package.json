@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "react-scripts test",
-    "start": "parcel src/index.html"
+    "start": "parcel serve src/index.html"
   },
   "author": "",
   "license": "ISC",
@@ -14,10 +13,12 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1"
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.11.0",
+    "parcel": "^2.11.0",
     "process": "^0.11.10"
   }
 }
