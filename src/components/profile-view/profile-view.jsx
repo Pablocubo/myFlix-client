@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card'
 import { Link } from 'react-router-dom';
 import axios from 'axios'; */
 
-  const RegistrationForm = () => {
+  const ProfileView = () => {
     // State variables to store form field values
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -71,4 +71,4 @@ import axios from 'axios'; */
     );
   };
   
-  export default RegistrationForm;
+  export default ProfileView;
