@@ -3,25 +3,27 @@ import { Navbar, Nav, Container, Row, Col } from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap'; // Ensure it's imported
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
-
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProfileView from "../profile-view/profile-view";
-// Import your Profile component
-
-
 
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
+  // Safely parse stored user data from localStorage
+  let storedUser = null;
+  try {
+    const userData = localStorage.getItem("user");
+    storedUser = userData ? JSON.parse(userData) : null;
+  } catch (error) {
+    console.error('Error parsing user from localStorage:', error);
+  }
+
   const storedToken = localStorage.getItem("token");
-  const [user, setUser] = useState(storedUser ? storedUser : null);
-  const [token, setToken] = useState(storedToken ? storedToken : null);
-
+  const [user, setUser] = useState(storedUser);
+  const [token, setToken] = useState(storedToken);
   const [movies, setMovies] = useState([]);
-
 
   useEffect(() => {
     if (!token) return;

@@ -26,9 +26,10 @@ export const LoginView = ({ onLoggedIn }) => {
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
-          onLoggedIn(data);  // Verificar este codigo para arreglar BUG en Browser es data? era data.user...
+          onLoggedIn({ user: data.user, token: data.token });  // Verificar este codigo para arreglar BUG en Browser es data? era data.user...
         } else {
-          alert("Login failed");
+          console.log("data.user:", data.user);
+          alert("no such user");
         }
       })
       .catch((error) => {
@@ -68,7 +69,7 @@ export const LoginView = ({ onLoggedIn }) => {
                       placeholder="Password"
                     />
                   </Form.Group>
-                  <Button variant="primary" type="submit" onClick={handleSubmit} block style={{ width: "100%", marginTop: '10px', marginBottom: '10px' }}> 
+                  <Button variant="primary" type="submit" block style={{ width: "100%", marginTop: '10px', marginBottom: '10px' }}> 
                     Submit
                   </Button>
                 </Form>
@@ -79,3 +80,4 @@ export const LoginView = ({ onLoggedIn }) => {
       </Container>
   );
 };
+
