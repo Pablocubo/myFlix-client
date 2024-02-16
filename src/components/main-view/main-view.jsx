@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Container, Row, Col } from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap'; // Ensure it's imported
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProfileView from "../profile-view/profile-view";
- // Import your Profile component
+// Import your Profile component
 
 
 
@@ -19,7 +21,7 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken ? storedToken : null);
 
   const [movies, setMovies] = useState([]);
-  
+
 
   useEffect(() => {
     if (!token) return;
@@ -60,11 +62,11 @@ export const MainView = () => {
   }, [token]);
 
 
-  const onLoggedIn = (authData) => {
-    setUser(authData.user);
-    setToken(authData.token);
-    localStorage.setItem('token', authData.token);
-    localStorage.setItem('user', JSON.stringify(authData.user));
+  const onLoggedIn = (data) => {
+    setUser(data.user);
+    setToken(data.token);
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
   };
 
   return (

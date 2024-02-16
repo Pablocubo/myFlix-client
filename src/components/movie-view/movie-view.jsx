@@ -59,11 +59,11 @@ MovieView.propTypes = {
       Name: PropTypes.string,
       Bio: PropTypes.string,
       Birth: PropTypes.string,
-      Death: PropTypes.string // Only include if you're displaying it
+      Death: PropTypes.string // Only include if you're displaying it . therefor independt of database config. here I manage what info to display? check that.
     }),
     ImagePath: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-export default MovieView; // default export 
+export default MovieView; // default export , check out difference from this and export const MovieView = ({ movie }) => {
 
