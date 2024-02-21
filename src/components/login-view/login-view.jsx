@@ -26,7 +26,7 @@ export const LoginView = ({ onLoggedIn }) => {
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
-          onLoggedIn({ user: data.user, token: data.token });  // Verificar este codigo para arreglar BUG en Browser es data? era data.user...
+          onLoggedIn({ user: data.user, token: data.token });  
         } else {
           console.log("data.user:", data.user);
           alert("no such user");

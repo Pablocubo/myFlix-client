@@ -25,18 +25,16 @@ export const MovieCard = ({ movie, onMovieClick }) => {
   }, [movie]);
 
   return (
-    <Col xs={12} sm={6} md={4} lg={3} className="mb-4">
-      <Card style={{ width: '18rem', height: '21rem' }}>
+    <Col xs={4} sm={6} md={4} lg={3} className="mb-4">
+      <Card className="mb-4 mb-lg-0" style={{ width: '18rem', height: '21rem' }}>
         <Card.Img variant="top" src={movie.ImagePath} alt={movie.Title} />
-        <Card.Body>
-          <Card.Title>{movie.Title}</Card.Title>
-          <Card.Text>{movie.Description}</Card.Text>
-        </Card.Body>
-        <Card.Body>
-          <Link to={`/movies/${movie._id}`} className="btn btn-link">
-            Open
-          </Link>
-        </Card.Body>
+        <Card.Body className="d-flex flex-column"> {/* Esto permite organizar el contenido de manera vertical */}
+      <Card.Title>{movie.Title}</Card.Title>
+      <Card.Text className="flex-grow-1">{movie.Description}</Card.Text> {/* Asegura que el texto llene el espacio disponible, empujando el botón hacia abajo */}
+      <Link to={`/movies/${movie._id}`} className="mt-auto btn btn-link"> {/* Coloca el enlace en la parte inferior */}
+        Open
+      </Link>
+    </Card.Body>
       </Card>
     </Col>
   );

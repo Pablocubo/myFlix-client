@@ -96,7 +96,7 @@ export const MainView = () => {
               ) : (
                 <>
                   <LinkContainer to="/">
-                    <Nav.Link>Home</Nav.Link>
+                    <Nav.Link>Movies</Nav.Link>
                   </LinkContainer>
                   <LinkContainer to="/profile">
                     <Nav.Link>Profile</Nav.Link>
