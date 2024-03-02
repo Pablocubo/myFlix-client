@@ -2,10 +2,12 @@ import React from 'react';
 
 function UserInfo({ email, name }) {
   return (
-<>
-<p>User: {User.Username}</p>
-<p>Email: {User.Email}</p>
-</>
-
-  )
+    <>
+    <h4>Your Info</h4>
+      <p>User: {name || 'Loading...'}</p>
+      <p>Email: {email || 'Loading...'}</p>
+    </>
+  );
 }
+
+export default UserInfo;

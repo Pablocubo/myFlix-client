@@ -3,7 +3,7 @@ import { Navbar, Nav, Container, Row, Col } from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap'; // Ensure it's imported
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { MovieCard } from "../movie-card/movie-card";
@@ -47,7 +47,7 @@ export const MainView = () => {
             Name: movie.Director.Name,
             Bio: movie.Director.Bio,
             Birth: movie.Director.Birth,
-            Death: movie.Director.Death // Include the 'Death' field if it exists in the backend schema
+            Death: movie.Director.Death // Include the 'Death' field if it exists in the backend schema 
           },
           Actors: movie.Actors,
           Bio: movie.Bio,
@@ -83,7 +83,7 @@ export const MainView = () => {
             <Nav className="me-auto">
               {!user ? (
                 <>
-                  <LinkContainer to="/movies">
+                  <LinkContainer to="/movies">    
                     <Nav.Link>Movies</Nav.Link>
                   </LinkContainer>
                   <LinkContainer to="/login">
@@ -140,6 +140,31 @@ export const MainView = () => {
             <Route key={movie._id} path={`/movies/${movie._id}`} element={<MovieView movie={movie} />} />
           ))}
           <Route path="/profile" element={<ProfileView />} />
+          <Route
+            path="/login"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={10}>
+                    <LoginView onLoggedIn={(user) => setUser(user)} />
+                  </Col>
+                )}
+              </>
+            }
+          />
+          <Route path="/signup" element={
+        <>
+          {user ? (
+            <Navigate to="/" />
+          ) : (
+            <Col md={10}>
+              <SignupView onSignedUp={(user) => setUser(user)} />
+            </Col>
+          )}
+        </>
+      }/>
         </Routes>
       </Container>
     </BrowserRouter>
