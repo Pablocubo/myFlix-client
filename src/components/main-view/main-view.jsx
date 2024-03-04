@@ -83,9 +83,6 @@ export const MainView = () => {
             <Nav className="me-auto">
               {!user ? (
                 <>
-                  <LinkContainer to="/movies">    
-                    <Nav.Link>Movies</Nav.Link>
-                  </LinkContainer>
                   <LinkContainer to="/login">
                     <Nav.Link>Login</Nav.Link>
                   </LinkContainer>

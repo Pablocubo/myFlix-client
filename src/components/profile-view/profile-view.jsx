@@ -19,13 +19,15 @@ export default function ProfileView({ movies, onUpdateUserInfo }) {
   const getUser = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('https://letflix-0d183cd4a94e.herokuapp.com/users', {
+      const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username: null;
+      const response = await axios.get(`https://letflix-0d183cd4a94e.herokuapp.com/users/${username}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
+      
       setUser(response.data);
-      setFavoriteMovieList(response.data.favoriteMovies);
+      setFavoriteMovieList(response.data.FavoriteMovies);
     } catch (error) {
       setError(error.toString());
     } finally {
