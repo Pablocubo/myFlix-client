@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
-import UserInfo from './user-info';
-import FavoriteMovies from './favorite-movies';
-import UpdateUser from './update-user';
 import axios from 'axios';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import UserInfo from './user-info';
+import UpdateUser from './update-user';
 
-export default function ProfileView({ movies, onUpdateUserInfo }) {
+export default function ProfileView() {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,13 +17,13 @@ export default function ProfileView({ movies, onUpdateUserInfo }) {
   const getUser = async () => {
     try {
       const token = localStorage.getItem('token');
-      const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username: null;
+      const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
       const response = await axios.get(`https://letflix-0d183cd4a94e.herokuapp.com/users/${username}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
       setUser(response.data);
       setFavoriteMovieList(response.data.FavoriteMovies);
     } catch (error) {
@@ -42,6 +40,13 @@ export default function ProfileView({ movies, onUpdateUserInfo }) {
     alert('User info updated!');
   };
 
+  const handleUpdate = (e) => {
+    // This function could be used to update the user's state as they type in a form field
+    // Assuming the form fields are controlled components, here's a basic example:
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
+
   const removeFav = async (movieId) => {
     try {
       const token = localStorage.getItem('token');
@@ -55,13 +60,6 @@ export default function ProfileView({ movies, onUpdateUserInfo }) {
     } catch (error) {
       setError(error.toString());
     }
-  };
-
-  const handleUpdate = (e) => {
-    // This function could be used to update the user's state as they type in a form field
-    // Assuming the form fields are controlled components, here's a basic example:
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
   };
 
   if (isLoading) {
@@ -88,9 +86,26 @@ export default function ProfileView({ movies, onUpdateUserInfo }) {
               <UpdateUser user={user} handleSubmit={handleSubmit} handleUpdate={handleUpdate} />
             </Card.Body>
           </Card>
+          <Card>
+            <Card.Body>
+              <h4>Favorite Movies</h4>
+              <Row>
+                {favoriteMovieList.map(({ ImagePath, Title, _id }) => (
+                  <Col xs={12} md={6} lg={3} key={_id} className="fav-movie">
+                    <Card>
+                      <Card.Img variant="top" src={ImagePath} alt={Title} />
+                      <Card.Body>
+                        <Card.Title>{Title}</Card.Title>
+                        <Button variant="secondary" onClick={() => removeFav(_id)}>Remove</Button>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
-      <FavoriteMovies favoriteMovieList={favoriteMovieList} removeFav={removeFav} />
     </Container>
   );
 }

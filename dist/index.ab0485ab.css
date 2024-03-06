@@ -13344,38 +13344,6 @@ textarea.form-control-lg {
   }
 }
 
-.fav-movie {
-  margin-bottom: 20px;
-}
-
-.fav-movie figure {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-  margin: auto;
-  position: relative;
-  overflow: hidden;
-}
-
-.fav-movie figure img {
-  height: 400px;
-  margin: auto;
-  display: block;
-}
-
-.fav-movie figure figcaption {
-  text-align: center;
-}
-
-.fav-movie button.btn {
-  margin: auto;
-  display: block;
-}
-
-.card {
-  margin-bottom: 20px;
-}
-
 .my-flix {
   color: #4682b4;
 }

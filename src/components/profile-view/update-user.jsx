@@ -30,12 +30,12 @@ function UpdateUser({ user, handleSubmit, handleUpdate }) { // Asumiendo que use
         </Form.Group>
 
         <Form.Group>
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Date Birth</Form.Label>
           <Form.Control
-            type='password'
-            name='password'
-            placeholder='New password'
-            defaultValue={user.Username}
+            type='date'
+            name='Birthday'
+            placeholder='New date Birth'
+            defaultValue={user.Birthday ? user.Birthday.split('T')[0] : ''}
             onChange={e => handleUpdate(e)}
              />
         </Form.Group>
@@ -45,8 +45,9 @@ function UpdateUser({ user, handleSubmit, handleUpdate }) { // Asumiendo que use
           <Form.Control
             type='email'
             name='email'
+            placeholder='New Email'
             defaultValue={user.Email}
-            onChange={e => handleUpdate(e.target.value)}
+            onChange={e => handleUpdate(e)}
             />
           </Form.Group>
 
