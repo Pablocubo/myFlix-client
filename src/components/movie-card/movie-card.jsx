@@ -8,7 +8,7 @@ export const MovieCard = ({ movie, addFavorite, removeFavorite }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleAddFavorite = () => {
-    addFavorite(movie);
+    addFavorite(movie._id);
     setIsFavorite(true);
   };
 

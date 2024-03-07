@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { Row, Col, Figure, Button, Card } from 'react-bootstrap'; // or the corresponding library
+import { Row, Col, Figure, Button, Card } from 'react-bootstrap'; 
 import axios from 'axios'; // Import axios here
 import './profile-view.scss';
 

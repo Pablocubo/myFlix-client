@@ -66,4 +66,3 @@ MovieView.propTypes = {
 };
 
 export default MovieView; // default export , check out difference from this and export const MovieView = ({ movie }) => {
-

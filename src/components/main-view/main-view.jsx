@@ -63,12 +63,27 @@ export const MainView = () => {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-    };
-  
-  const addFavorite = (movie) => {
-    setFavorites([...favorites, movie]);
   };
-  
+
+  const addFavorite = (movie) => {
+    const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
+    const token = localStorage.getItem("token")
+    fetch("https://letflix-0d183cd4a94e.herokuapp.com/user/" + username + "/movies/" + movie._id, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('data', data)
+        setFavorites([...favorites, movie]);
+      })
+      .catch((error) => {
+        console.error('Error adding favorite movie:', error);
+      });
+  };
+
   const removeFavorite = (movieId) => {
     setFavorites(favorites.filter((movie) => movie._id !== movieId));
   };
@@ -84,7 +99,7 @@ export const MainView = () => {
     setUser(null);
     setToken(null);
     localStorage.clear();
-  }
+  };
 
   return (
     <BrowserRouter>
