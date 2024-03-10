@@ -78,8 +78,8 @@ export const MainView = () => {
     .then(async (response) => {
         if (response.ok) {
             alert("Favorite movie added successfully!");
-            // You may optionally update the UI here
-            // Example: setFavoriteMovieList(updatedFavoriteMovies);
+            
+            setFavorites(prevFavorites => [...prevFavorites, movie]);
         } else {
             alert("Error adding favorite movie");
             throw new Error('Failed to add the favorite movie');
@@ -88,15 +88,12 @@ export const MainView = () => {
     .catch(error => {
         console.error('Error adding favorite movie:', error);
     });
-};
-
-
-  // Remove Favorite Movie
+  };
+  
   const removeFav = (movie) => {
     const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
     const token = localStorage.getItem('token');
     fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${movie._id}`, {
-
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -105,10 +102,8 @@ export const MainView = () => {
     })
       .then(async (response) => {
         if (response.ok) {
-          // Handle successful removal by updating the UI
           console.log('Favorite movie removed successfully');
-          // Update the favorite movie list in the UI or trigger a re-fetch of favorite movies
-          // Example: setFavoriteMovieList(updatedFavoriteMovies);
+          setFavorites(prevFavorites => prevFavorites.filter(favMovie => favMovie._id !== movie._id));
         } else {
           throw new Error('Failed to remove the favorite movie');
         }
@@ -117,12 +112,13 @@ export const MainView = () => {
         console.error('Error removing favorite movie:', error);
       });
   };
-
+  
   const onLoggedIn = (data) => {
     setUser(data.user);
     setToken(data.token);
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data.user));
+    localStorage.setItem('favoriteMovies', JSON.stringify(data.user.FavoriteMovies));
   };
 
   const onLoggedOut = () => {
@@ -159,9 +155,10 @@ export const MainView = () => {
                   {movies.map((movie) => (
                     <Col key={movie._id} xs={12} md={4}>
                       <MovieCard
-                        movie={movie}
+                        movie={movie} // Pass the whole movie object to MovieCard, show all the movie details
                         addFav={() => addFav(movie)}
-                        removeFav={() => removeFav(movie._id)}
+                        removeFav={() => removeFav(movie._id)}  // Pass the movie id to removeFav only id needed for remove
+                        isFavorite={favorites.includes(movie._id)}
                       />
                     </Col>
                   ))}
@@ -172,7 +169,7 @@ export const MainView = () => {
           {movies.map((movie) => (
             <Route key={movie._id} path={`/movies/${movie._id}`} element={<MovieView movie={movie} />} />
           ))}
-          <Route path="/profile" element={<ProfileView user={user} movies={movies} setUser={setUser} removeFav={removeFav} />} />
+          <Route path="/profile" element={<ProfileView user={user} movies={movies} setUser={setUser} addFav={addFav} removeFav={removeFav} />} />
           <Route path="/favorites" element={<FavoriteMovies setFavoriteMovieList={setFavorites} user={user} />} />
           <Route
             path="/login"

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { Row, Col, Figure, Button, Card } from 'react-bootstrap';
+import { MovieCard } from "../movie-card/movie-card";
 import './profile-view.scss';
 
 
@@ -8,8 +9,8 @@ function FavoriteMovies({ favoriteMovieList = [], setFavoriteMovieList }) {
   const removeFav = (id) => {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
-    const url = `https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${movie._id}`;
-
+    const movie = favoriteMovieList.find(movie => movie._id === id); // Resolve movie variable
+    const url = `https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${id}`;
 
     fetch(url, {
       method: 'DELETE',
@@ -45,17 +46,7 @@ function FavoriteMovies({ favoriteMovieList = [], setFavoriteMovieList }) {
           {favoriteMovieList.map(({ ImagePath, Title, _id }) => {
             return (
               <Col xs={12} md={6} lg={3} key={_id} className="fav-movie">
-                <Figure>
-                  <Link to={`/movies/${_id}`}>
-                    <Figure.Image
-                      src={ImagePath}
-                      alt={Title}
-                    />
-                    <Figure.Caption>
-                      {Title}
-                    </Figure.Caption>
-                  </Link>
-                </Figure>
+                <MovieCard movie={{ ImagePath, Title, _id }} /> {/* Render MovieCard component */}
                 <Button variant="secondary" onClick={() => removeFav(_id)}>Remove</Button>
               </Col>
             )

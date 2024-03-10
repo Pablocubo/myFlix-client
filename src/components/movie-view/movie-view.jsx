@@ -1,48 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom'; // Ensure Link is imported
+import { Button, Card, Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export const MovieView = ({ movie }) => {
-  if (!movie) return null; // Handle case when movie data is not available
+  if (!movie) return null;
 
   const { Title, Description, Genre, Director, ImagePath } = movie;
 
   return (
-    <div>
-      <div>
-        <img src={ImagePath} alt={Title} />
-      </div>
-      <div>
-        <span>Title: </span>
-        <span>{Title}</span>
-      </div>
-      <div>
-        <span>Description: </span>
-        <span>{Description}</span>
-      </div>
-      <div>
-        <span>Genre: </span>
-        <span>{Genre ? Genre.Name : ''}</span>
-      </div>
-      <div>
-        <span>Description: </span>
-        <span>{Genre ? Genre.Description : ''}</span>
-      </div>
-      <div>
-        <span>Director: </span>
-        <span>{Director ? Director.Name : ''}</span>
-      </div>
-      <div>
-        <span>Bio: </span>
-        <span>{Director ? Director.Bio : ''}</span>
-      </div>
-      <div>
-        <span>Birth: </span>
-        <span>{Director ? Director.Birth : ''}</span>
-      </div>
-      <Link to="/" className="btn btn-primary back-button" style={{ cursor: "pointer" }}>Back</Link>
-    </div>
+    <Row className="justify-content-center">
+      <Col md={4}> {/* This will make the card take half the width on medium-sized screens and above */}
+        <Card>
+          <Card.Img variant="top" src={ImagePath} alt={`Cover of ${Title}`} />
+          <Card.Body>
+            <Card.Title>{Title}</Card.Title>
+            <Card.Text>{Description}</Card.Text>
+            <Card.Text>
+              <strong>Genre:</strong> {Genre ? Genre.Name : 'N/A'}
+            </Card.Text>
+            <Card.Text>
+              {Genre && Genre.Description}
+            </Card.Text>
+            <Card.Text>
+              <strong>Director:</strong> {Director ? Director.Name : 'N/A'}
+            </Card.Text>
+            <Card.Text>
+              {Director && <div><strong>Bio:</strong> {Director.Bio}</div>}
+              {Director && Director.Birth && <div><strong>Birth:</strong> {Director.Birth}</div>}
+            </Card.Text>
+          </Card.Body>
+          <Card.Footer>
+            <Link to="/" className="btn btn-primary">Back</Link>
+          </Card.Footer>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 
@@ -58,11 +51,10 @@ MovieView.propTypes = {
     Director: PropTypes.shape({
       Name: PropTypes.string,
       Bio: PropTypes.string,
-      Birth: PropTypes.string,
-      Death: PropTypes.string // Only include if you're displaying it . therefor independt of database config. here I manage what info to display? check that.
+      Birth: PropTypes.string
     }),
     ImagePath: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-export default MovieView; // default export , check out difference from this and export const MovieView = ({ movie }) => {
+export default MovieView;
