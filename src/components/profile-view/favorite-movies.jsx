@@ -1,24 +1,36 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { Row, Col, Figure, Button, Card } from 'react-bootstrap'; 
-import axios from 'axios'; // Import axios here
+import { Row, Col, Figure, Button, Card } from 'react-bootstrap';
 import './profile-view.scss';
 
-function FavoriteMovies({ favoriteMovieList = [] }) { // Default to an empty array if favoriteMovieList is not provided
+
+function FavoriteMovies({ favoriteMovieList = [], setFavoriteMovieList }) {
   const removeFav = (id) => {
-    let token = localStorage.getItem('token');
-    let user = localStorage.getItem('user'); // Ensure 'user' is correctly retrieved
-    let url = `https://letflix-0d183cd4a94e.herokuapp.com/users/${user}/movies/${id}`;
-    axios.delete(url, {
-      headers: { Authorization: `Bearer ${token}` }, // Corrected typo from 'Authoriation' to 'Authorization'
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
+    const url = `https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${movie._id}`;
+
+
+    fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
     })
-    .then(response => {
-      // Handle successful removal here, possibly by updating state to remove the movie from the UI
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.error('Could not remove the movie:', error);
-    });
+      .then(response => {
+        if (response.ok) {
+          // Handle successful removal by updating the UI
+          console.log('Favorite movie removed successfully');
+          // Remove the movie from the UI
+          setFavoriteMovieList(prevMovies => prevMovies.filter(movie => movie._id !== id));
+        } else {
+          throw new Error('Failed to remove the movie');
+        }
+      })
+      .catch(error => {
+        console.error('Could not remove the movie:', error);
+      });
   }
 
   return (
@@ -55,4 +67,4 @@ function FavoriteMovies({ favoriteMovieList = [] }) { // Default to an empty arr
   )
 }
 
-export default FavoriteMovies
+export default FavoriteMovies;

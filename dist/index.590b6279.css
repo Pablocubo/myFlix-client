@@ -1,3 +1,18 @@
+.photo-container {
+  background-color: #ccc;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 130px;
+  height: 130px;
+  margin: 20px auto 30px;
+  display: flex;
+}
+
+.photo-container span {
+  font-size: 24px;
+}
+
 .fav-movie {
   margin-bottom: 20px;
 }
@@ -28,12 +43,6 @@
 
 .card {
   margin-bottom: 20px;
-}
-
-.center-person-square {
-  color: #add8e6;
-  margin: auto;
-  display: block;
 }
 
 :root, [data-bs-theme="light"] {
@@ -13386,4 +13395,4 @@ textarea.form-control-lg {
   color: #4682b4;
 }
 
-/*# sourceMappingURL=index.83325510.css.map */
+/*# sourceMappingURL=index.590b6279.css.map */

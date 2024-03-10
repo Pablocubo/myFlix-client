@@ -1,7 +1,18 @@
 import { Row, Col, Container, Nav, Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Assuming onLoggedOut clears the user session (e.g., removing tokens from local storage)
+    if (onLoggedOut) {
+      onLoggedOut();
+    }
+    // Redirect to login page
+    navigate('/login');
+  };
+
   return (
     <Row>
     <Col className="w-100">
@@ -32,7 +43,7 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                   Profile
                 </Nav.Link>
                 
-                <Nav.Link className="navLink" onClick={onLoggedOut}>Logout</Nav.Link>
+                <Nav.Link className="navLink" onClick={handleLogout}>Logout</Nav.Link>
               </>
             )}
           </Nav>

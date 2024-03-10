@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Navbar, Container, Row, Col } from "react-bootstrap";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import ProfileView from "../profile-view/profile-view";
-import FavoriteMovies from "../profile-view/favorite-movies";
+import { BrowserRouter, Routes, Route, Navigate, } from "react-router-dom";
+import FavoriteMovies from '../profile-view/favorite-movies';
 
 export const MainView = () => {
   let storedUser = null;
@@ -24,7 +24,7 @@ export const MainView = () => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    // Fetch movies when token changes
+    // Fetch movies when token changes (working good movies are being fethed)
     if (token) {
       fetchMovies();
     }
@@ -65,27 +65,57 @@ export const MainView = () => {
       });
   };
 
-  const addFavorite = (movie) => {
+  const addFav = (movie) => {
     const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
-    const token = localStorage.getItem("token")
-    fetch("https://letflix-0d183cd4a94e.herokuapp.com/user/" + username + "/movies/" + movie._id, {
-      method: "POST",
+    const token = localStorage.getItem("token");
+    fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${movie._id}`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(async (response) => {
+        if (response.ok) {
+            alert("Favorite movie added successfully!");
+            // You may optionally update the UI here
+            // Example: setFavoriteMovieList(updatedFavoriteMovies);
+        } else {
+            alert("Error adding favorite movie");
+            throw new Error('Failed to add the favorite movie');
+        }
+    })
+    .catch(error => {
+        console.error('Error adding favorite movie:', error);
+    });
+};
+
+
+  // Remove Favorite Movie
+  const removeFav = (movie) => {
+    const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
+    const token = localStorage.getItem('token');
+    fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${movie._id}`, {
+
+      method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
       }
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('data', data)
-        setFavorites([...favorites, movie]);
+      .then(async (response) => {
+        if (response.ok) {
+          // Handle successful removal by updating the UI
+          console.log('Favorite movie removed successfully');
+          // Update the favorite movie list in the UI or trigger a re-fetch of favorite movies
+          // Example: setFavoriteMovieList(updatedFavoriteMovies);
+        } else {
+          throw new Error('Failed to remove the favorite movie');
+        }
       })
-      .catch((error) => {
-        console.error('Error adding favorite movie:', error);
+      .catch(error => {
+        console.error('Error removing favorite movie:', error);
       });
-  };
-
-  const removeFavorite = (movieId) => {
-    setFavorites(favorites.filter((movie) => movie._id !== movieId));
   };
 
   const onLoggedIn = (data) => {
@@ -99,6 +129,7 @@ export const MainView = () => {
     setUser(null);
     setToken(null);
     localStorage.clear();
+
   };
 
   return (
@@ -129,20 +160,20 @@ export const MainView = () => {
                     <Col key={movie._id} xs={12} md={4}>
                       <MovieCard
                         movie={movie}
-                        addFavorite={addFavorite}
-                        removeFavorite={removeFavorite}
+                        addFav={() => addFav(movie)}
+                        removeFav={() => removeFav(movie._id)}
                       />
                     </Col>
                   ))}
                 </Row>
-                <FavoriteMovies favoriteMovieList={favorites} removeFav={removeFavorite} />
               </>
             )
           } />
           {movies.map((movie) => (
             <Route key={movie._id} path={`/movies/${movie._id}`} element={<MovieView movie={movie} />} />
           ))}
-          <Route path="/profile" element={<ProfileView />} />
+          <Route path="/profile" element={<ProfileView user={user} movies={movies} setUser={setUser} removeFav={removeFav} />} />
+          <Route path="/favorites" element={<FavoriteMovies setFavoriteMovieList={setFavorites} user={user} />} />
           <Route
             path="/login"
             element={
