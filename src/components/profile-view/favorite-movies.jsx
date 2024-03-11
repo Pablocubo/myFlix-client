@@ -10,25 +10,7 @@ const FavoriteMovies = ({ user }) => {
 
   useEffect(() => {
     if (user && user.favoriteMovies) {
-      const fetchFavoriteMovies = async () => {
-        const moviesDetailsPromises = user.favoriteMovies.map(async (movieId) => {
-          try {
-            const response = await fetch(`https://letflix-0d183cd4a94e.herokuapp.com/movies/${movieId}`);
-            if (!response.ok) {
-              throw new Error('Failed to fetch movie details.');
-            }
-            return await response.json();
-          } catch (error) {
-            console.error("Error fetching movie details:", error);
-            return null;
-          }
-        });
-
-        const moviesDetails = await Promise.all(moviesDetailsPromises);
-        setFavoriteMovies(moviesDetails.filter(movie => movie !== null));
-      };
-
-      fetchFavoriteMovies();
+      setFavoriteMovies(user.favoriteMovies);
     }
   }, [user]);
 
@@ -39,9 +21,9 @@ const FavoriteMovies = ({ user }) => {
         {favoriteMovies.map((movie) => (
           <Col key={movie._id} md={4}>
             <Link to={`/movies/${movie._id}`}>
-              <MovieCard 
+              <MovieCard
                 key={movie._id}
-                isFavorite={user.favoriteMovies.includes(movie._id)}
+                isFavorite={user.favoriteMovies.includes(movie.title)}
                 movie={movie} />
             </Link>
           </Col>

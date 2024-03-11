@@ -43888,7 +43888,7 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ","react-bootstrap":"3AD9A","../profile-view/favorite-movies":"dTTQH","./update-user":"2SBwg","moment":"jwcsj","react-router-dom":"fdOAw"}],"dTTQH":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","../profile-view/favorite-movies":"dTTQH","./update-user":"2SBwg","moment":"jwcsj","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ","react-router-dom":"fdOAw"}],"dTTQH":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$8767 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -43913,23 +43913,7 @@ const FavoriteMovies = ({ user })=>{
     _s();
     const [favoriteMovies, setFavoriteMovies] = (0, _react.useState)([]);
     (0, _react.useEffect)(()=>{
-        if (user && user.favoriteMovies) {
-            const fetchFavoriteMovies = async ()=>{
-                const moviesDetailsPromises = user.favoriteMovies.map(async (movieId)=>{
-                    try {
-                        const response = await fetch(`https://letflix-0d183cd4a94e.herokuapp.com/movies/${movieId}`);
-                        if (!response.ok) throw new Error("Failed to fetch movie details.");
-                        return await response.json();
-                    } catch (error) {
-                        console.error("Error fetching movie details:", error);
-                        return null;
-                    }
-                });
-                const moviesDetails = await Promise.all(moviesDetailsPromises);
-                setFavoriteMovies(moviesDetails.filter((movie)=>movie !== null));
-            };
-            fetchFavoriteMovies();
-        }
+        if (user && user.favoriteMovies) setFavoriteMovies(user.favoriteMovies);
     }, [
         user
     ]);
@@ -43939,7 +43923,7 @@ const FavoriteMovies = ({ user })=>{
                 children: "List of Favorite Movies"
             }, void 0, false, {
                 fileName: "src/components/profile-view/favorite-movies.jsx",
-                lineNumber: 37,
+                lineNumber: 19,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
@@ -43948,32 +43932,32 @@ const FavoriteMovies = ({ user })=>{
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
                             to: `/movies/${movie._id}`,
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                                isFavorite: user.favoriteMovies.includes(movie._id),
+                                isFavorite: user.favoriteMovies.includes(movie.title),
                                 movie: movie
                             }, movie._id, false, {
                                 fileName: "src/components/profile-view/favorite-movies.jsx",
-                                lineNumber: 42,
+                                lineNumber: 24,
                                 columnNumber: 15
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/profile-view/favorite-movies.jsx",
-                            lineNumber: 41,
+                            lineNumber: 23,
                             columnNumber: 13
                         }, undefined)
                     }, movie._id, false, {
                         fileName: "src/components/profile-view/favorite-movies.jsx",
-                        lineNumber: 40,
+                        lineNumber: 22,
                         columnNumber: 11
                     }, undefined))
             }, void 0, false, {
                 fileName: "src/components/profile-view/favorite-movies.jsx",
-                lineNumber: 38,
+                lineNumber: 20,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/favorite-movies.jsx",
-        lineNumber: 36,
+        lineNumber: 18,
         columnNumber: 5
     }, undefined);
 };
@@ -43993,7 +43977,7 @@ $RefreshReg$(_c, "FavoriteMovies");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ","prop-types":"7wKI2","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6","react-router-dom":"fdOAw","../movie-card/movie-card":"bwuIu"}],"2SBwg":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","prop-types":"7wKI2","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6","react-router-dom":"fdOAw","../movie-card/movie-card":"bwuIu","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ"}],"2SBwg":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$95d1 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

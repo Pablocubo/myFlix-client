@@ -158,9 +158,9 @@ export const MainView = () => {
                   {movies.map((movie) => (
                     <Col key={movie._id} xs={12} md={4}>
                       <MovieCard
-                        movie={movie} 
+                        movie={movie} // Pass the whole movie object to MovieCard, show all the movie details
                         addFav={() => addFav(movie)}
-                        removeFav={() => removeFav(movie)}  
+                        removeFav={() => removeFav(movie)}  // Pass the movie id to removeFav only id needed for remove
                         isFavorite={favorites.includes(movie._id)}
                       />
                     </Col>
