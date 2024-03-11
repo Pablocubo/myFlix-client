@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { propTypes } from "prop-types";
+import { useNavigate } from "react-router-dom"; // For React Router v6
 import { Form, Button, Card, CardGroup, Container, Col, Row } from "react-bootstrap";
 
 export const SignupView = () => {
@@ -8,34 +8,40 @@ export const SignupView = () => {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
 
-  const handleSubmit = (event) => {
-  event.preventDefault();
+  const navigate = useNavigate(); // For navigation
+
+   // Mark handleSubmit as async
+   const handleSubmit = async (event) => {
+    event.preventDefault();
+
 
   const data = {
     Username: username,
     Password: password,
     Email: email,
-    Birthday: birthday
+    Birthday: birthday,
   };
 
-  fetch("https://letflix-0d183cd4a94e.herokuapp.com/users", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  }).then((response) => {
+  try {
+    const response = await fetch('https://letflix-0d183cd4a94e.herokuapp.com/users', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
     if (response.ok) {
-      alert("Signup successful");
-      window.location.reload();
+      alert('Signup successful');
+      navigate('/main-view'); // Adjust the route as per your routing setup
     } else {
-      alert("Signup failed");
+      const responseBody = await response.json();
+      alert(`Signup failed: ${responseBody.message}`);
     }
-  }).catch((error) => {
+  } catch (error) {
     console.error('Error during signup:', error);
-    alert("Signup failed");
-  });
+    alert('Signup failed');
+  }
 };
+
 
   return (
     <Container>
@@ -97,4 +103,4 @@ export const SignupView = () => {
       </Row>
     </Container>
     );
-};
+  };

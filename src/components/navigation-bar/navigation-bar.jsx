@@ -1,34 +1,56 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Row, Col, Container, Nav, Navbar } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 
-function BasicExample() {
+export const NavigationBar = ({ user, onLoggedOut }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Assuming onLoggedOut clears the user session (e.g., removing tokens from local storage)
+    if (onLoggedOut) {
+      onLoggedOut();
+    }
+    // Redirect to login page
+    navigate('/login');
+  };
+
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Row>
+    <Col className="w-100">
+    <Navbar className="navBar" expand="md">
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">
+          <span className="h1" >Letflix</span>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
+          <Nav className="h5 mt-1">
+            {!user && (
+              <>
+                <Nav.Link className="navLink" as={Link} to="/login">
+                  Login
+                </Nav.Link>
+                <Nav.Link className="navLink" as={Link} to="/signup">
+                  Signup
+                </Nav.Link>
+              </>
+            )}
+            {user && (
+              <>
+                <Nav.Link className="navLink" as={Link} to="/">
+                  Home
+                </Nav.Link>
+                <Nav.Link className="navLink" as={Link} to={'/profile'}>
+                  Profile
+                </Nav.Link>
+                
+                <Nav.Link className="navLink" onClick={handleLogout}>Logout</Nav.Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
-      </Container>
+        </Container>
     </Navbar>
-  );
-}
-
-export default BasicExample;
+        </Col>
+      </Row>
+  )
+};

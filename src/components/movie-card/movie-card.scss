@@ -1,0 +1,20 @@
+.card-container {
+  position: relative;
+}
+
+.card-img {
+  display: block;
+  width: 150px; 
+  height: 400px; 
+  object-fit: fill;
+}
+
+.fav-button {
+  cursor: pointer;
+  transition: 0.2s linear;
+  position: absolute;
+}
+
+.fav-button:hover {
+  transform: scale(1.2);
+}

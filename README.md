@@ -1,6 +1,6 @@
 # MyFlix Client.
 
-This project is the front-end implementation for the MyFlix app. It utilizes Parcel as the build tool to compile and bundle the source code.
+This project is the front-end implementation for the LetFlix app. It utilizes Parcel as the build tool to compile and bundle the source code.
 
 ## Project Structure
 
@@ -10,6 +10,16 @@ myFlix-client
 ├── .gitignore
 ├── package.json
 └── src
+components:
+main-view.jsx
+login-view.jsx
+signup-view.jsx
+movie-view.jsx
+movie-card.jsx
+profile-view.jsx
+user-info.jsx
+navigation-bar.jsx
+
 ├── index.html
 ├── index.scss
 └── index.jsx

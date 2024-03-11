@@ -1,52 +1,51 @@
-import React, { useState, useEffect } from 'react'; // Import React, useState, and useEffect
 import PropTypes from 'prop-types';
-import { Button, Card, Col } from 'react-bootstrap'; // Import Button and Card from react-bootstrap
+import { Button, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { BookmarkHeart, BookmarkHeartFill } from "react-bootstrap-icons";
+import "./movie-card.scss";
 
-export const MovieCard = ({ movie, onMovieClick }) => {
-  const [imageAccessible, setImageAccessible] = useState(false);
+export const MovieCard = ({ movie, addFav, removeFav, isFavorite }) => {
+  const handleAddFav = () => {
+    addFav(movie._id);
+  };
 
-  useEffect(() => {
-    const imageUrl = movie.ImagePath;
-
-    const checkImageAccessibility = async (imageUrl) => {
-      try {
-        const img = new Image();
-        img.onload = () => setImageAccessible(true);
-        img.onerror = () => setImageAccessible(false);
-        img.src = imageUrl;
-      } catch (error) {
-        console.error('Error checking image accessibility:', error);
-        setImageAccessible(false);
-      }
-    };
-
-    checkImageAccessibility(imageUrl);
-  }, [movie]);
+  const handleRemoveFav = () => {
+    removeFav(movie._id);
+  };
 
   return (
-    <Col xs={12} sm={6} md={4} lg={3} className="mb-4">
-    <Card style={{ width: '18rem', height: '21rem' }}>
-      <Card.Img variant="top" src={movie.ImagePath} alt={movie.Title} />
-      <Card.Body>
-        <Card.Title>{movie.Title}</Card.Title>
-        <Card.Text>{movie.Description}</Card.Text>
-      </Card.Body>
-      <Card.Body>
-        <Button onClick={() => onMovieClick(movie)} variant="link">
-          Open
-        </Button>
+    <Card className="h-100 mt-5 card-shadow">
+      <div className="card-container position-relative d-inline-block">
+        <Card.Img variant="top" src={movie.ImagePath} />
+        <div>
+        {!isFavorite ? (
+          <BookmarkHeart size={40} color="#87CEFA" className="fav-button mt-2 me-2 top-0 end-0" onClick={handleAddFav} />
+        ) : (
+          <BookmarkHeartFill size={40} color="orange" className="fav-button mt-2 me-2 top-0 end-0" onClick={handleRemoveFav} />
+        )}
+      </div>
+      </div>
+      <Card.Body className="d-flex flex-column align-items-center mt-2">
+        <Card.Title className="movie-card-title mb-2">{movie.Title}</Card.Title>
+        <Card.Text className="mb-2">{movie.Director.Name}</Card.Text>
+        <Card.Text>{movie.Genre.Name}</Card.Text>
+        <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
+          <Button variant="link" className="text-decoration-none">
+            Open
+          </Button>
+        </Link>
       </Card.Body>
     </Card>
-    </Col>
   );
-};
+}
 
-// Define the PropTypes for the MovieCard component
 MovieCard.propTypes = {
   movie: PropTypes.shape({
-    Title: PropTypes.string.isRequired,
-    ImagePath: PropTypes.string.isRequired,
-    Description: PropTypes.string.isRequired,
+    Title: PropTypes.string,
   }).isRequired,
-  onMovieClick: PropTypes.func.isRequired,
+  addFav: PropTypes.func.isRequired,
+  removeFav: PropTypes.func.isRequired,
+  isFavorite: PropTypes.bool.isRequired
 };
+
+export default MovieCard;
