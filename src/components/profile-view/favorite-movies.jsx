@@ -5,50 +5,45 @@ import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 
-const FavoriteMovies = ({ user, favoriteMovies }) => {
-  const [movieDetails, setMovieDetails] = useState({});
+const FavoriteMovies = ({ user }) => {
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   useEffect(() => {
-    // Fetch movie details when favoriteMovies or user changes
-    fetchMovieDetails();
-  }, [favoriteMovies, user]);
+    if (user && user.favoriteMovies) {
+      const fetchFavoriteMovies = async () => {
+        const moviesDetailsPromises = user.favoriteMovies.map(async (movieId) => {
+          try {
+            const response = await fetch(`https://letflix-0d183cd4a94e.herokuapp.com/movies/${movieId}`);
+            if (!response.ok) {
+              throw new Error('Failed to fetch movie details.');
+            }
+            return await response.json();
+          } catch (error) {
+            console.error("Error fetching movie details:", error);
+            return null;
+          }
+        });
 
-  const fetchMovieDetails = async () => {
-    // Iterate through favoriteMovies and fetch details for each movie
-    const detailsPromises = favoriteMovies.map(async (movie) => {
-      try {
-        const response = await fetch(`https://letflix-0d183cd4a94e.herokuapp.com/movies/${movie._id}`);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch movie details for movie with ID ${movie._id}`);
-        }
-        const movieDetails = await response.json();
-        return movieDetails;
-      } catch (error) {
-        console.error(error);
-        return null;
-      }
-    });
+        const moviesDetails = await Promise.all(moviesDetailsPromises);
+        setFavoriteMovies(moviesDetails.filter(movie => movie !== null));
+      };
 
-    // Wait for all detailsPromises to resolve
-    const details = await Promise.all(detailsPromises);
-    setMovieDetails(details);
-  };
+      fetchFavoriteMovies();
+    }
+  }, [user]);
 
   return (
-    <Col className="mb-5">
-      <h3 className="title">List of favorite movies</h3>
+    <Col>
+      <h3>List of Favorite Movies</h3>
       <Row>
-        {favoriteMovies.map((movies) => (
-          <Col key={movie._id} md={6}>
-            {movieDetails[index] && (
-              <Link to={`/movies/${movie._id}`}>
-                <MovieCard
-                  key={movie._id}
-                  isFavorite={user.FavoriteMovies.includes(movie._id)}
-                  movie={movieDetails[index]}
-                />
-              </Link>
-            )}
+        {favoriteMovies.map((movie) => (
+          <Col key={movie._id} md={4}>
+            <Link to={`/movies/${movie._id}`}>
+              <MovieCard 
+                key={movie._id}
+                isFavorite={user.favoriteMovies.includes(movie._id)}
+                movie={movie} />
+            </Link>
           </Col>
         ))}
       </Row>
@@ -57,8 +52,9 @@ const FavoriteMovies = ({ user, favoriteMovies }) => {
 };
 
 FavoriteMovies.propTypes = {
-  favoriteMovies: PropTypes.array.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.shape({
+    favoriteMovies: PropTypes.arrayOf(PropTypes.string), // Adjust prop type to allow undefined initially
+  }),
 };
 
 export default FavoriteMovies;

@@ -3,6 +3,7 @@ import { Row, Col, Card, Button, Container } from 'react-bootstrap';
 import FavoriteMovies from '../profile-view/favorite-movies';
 import { UpdateUser } from "./update-user";
 import moment from 'moment';
+import { Link } from "react-router-dom";
 
 const ProfileView = ({ token, user, movies, onSubmit }) => {
 
@@ -133,7 +134,7 @@ const ProfileView = ({ token, user, movies, onSubmit }) => {
       </Row>
       <hr />
       <Row className="justify-content-center">
-        <FavoriteMovies user={user} favoriteMovies={favoriteMovies} />
+      <FavoriteMovies user={user} />
       </Row>
     </>
   );
