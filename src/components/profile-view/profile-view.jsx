@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Button, Container } from 'react-bootstrap';
 import FavoriteMovies from '../profile-view/favorite-movies';
 import { UpdateUser } from "./update-user";
+import moment from 'moment';
 
 const ProfileView = ({ token, user, movies, onSubmit }) => {
+
+  const storedUser = JSON.parse(localStorage.getItem("user"));
   // Initialize state with empty values or defaults
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
-
-  // Update state when user prop is available
+   // Format the birthday using Moment.js
+   const formattedBirthday = moment(user.birthdate).format('MMMM Do, YYYY');
+  
   useEffect(() => {
     if (user) {
       setUsername(user.UserName || "");
@@ -19,23 +23,20 @@ const ProfileView = ({ token, user, movies, onSubmit }) => {
     }
   }, [user]);
 
-  
-   const favoriteMovies = movies.filter(m => user?.FavoriteMovies?.includes(m._id));
+
+  const favoriteMovies = movies.filter(m => user?.FavoriteMovies?.includes(m._id));
 
 
-// Preparing formData with current state values
-const formData = {
-  UserName: username,
-  Email: email,
-  Password: password,
-  Birthdate: birthdate
-};
+  // Preparing formData with current state values
+  const formData = {
+    UserName: username,
+    Email: email,
+    Password: password,
+    Birthdate: birthdate
+  };
 
-const handleSubmit = (event) => {
-  event.preventDefault();
-
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
     // Send updated user information to the server, endpoint /users/:username
     fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${storedUser.UserName}`, {
@@ -46,22 +47,22 @@ const handleSubmit = (event) => {
         Authorization: `Bearer ${token}`
       }
     })
-    .then((response) => {
-      if (response.ok) {
-        alert("Update successful");
-        return response.json();
-      }
-      alert("Update failed");
-    })
-    .then((data) => {
-      localStorage.setItem("user", JSON.stringify(data));
-      onSubmit(data);
-      // Update local state with new user data
-      setUser(data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+      .then((response) => {
+        if (response.ok) {
+          alert("Update successful");
+          return response.json();
+        }
+        alert("Update failed");
+      })
+      .then((data) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        onSubmit(data);
+        // Update local state with new user data
+        setUser(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const handleUpdate = (e) => {
@@ -79,7 +80,7 @@ const handleSubmit = (event) => {
         setBirthdate(e.target.value);
         break;
       default:
-        // It's good practice to handle default case
+      // It's good practice to handle default case
     }
   }
 
@@ -106,15 +107,19 @@ const handleSubmit = (event) => {
       <Row>
         <Card>
           <Card.Body>
-            <Card.Title><h2> Hello {username}! </h2></Card.Title>
+            <Card.Title><h2> Hello {user.username} </h2></Card.Title>
             <Card.Text>
-              {email}
+              <strong>Username:</strong> {user.username}
             </Card.Text>
-            <br />
-            <Button onClick={() => handleDeleteAccount(storedUser._id)}
-              className="button-delete mt-3"
-              type="submit" variant="outline-secondary">
-              Delete account</Button>
+            <Card.Text>
+              <strong>Email:</strong> {user.email}
+            </Card.Text>
+            <Card.Text>
+              <strong>Birthday:</strong> {formattedBirthday}
+            </Card.Text>
+            <Button onClick={() => handleDeleteAccount(user._id)} className="button-delete mt-3" type="submit" variant="outline-secondary">
+              Delete account
+            </Button>
           </Card.Body>
         </Card>
         <Col>
