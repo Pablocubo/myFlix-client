@@ -107,7 +107,7 @@ const ProfileView = ({ token, user, movies, onSubmit }) => {
       <Row>
         <Card>
           <Card.Body>
-            <Card.Title><h2> Hello {user.username} </h2></Card.Title>
+            <Card.Title><h2> Hello {user.username}! </h2></Card.Title>
             <Card.Text>
               <strong>Username:</strong> {user.username}
             </Card.Text>

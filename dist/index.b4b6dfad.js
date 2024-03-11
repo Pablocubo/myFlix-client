@@ -43743,7 +43743,7 @@ const ProfileView = ({ token, user, movies, onSubmit })=>{
                                         children: [
                                             " Hello ",
                                             user.username,
-                                            " "
+                                            "! "
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
@@ -44157,7 +44157,7 @@ const FavoriteMovies = ({ user, favoriteMovies })=>{
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
-                children: favoriteMovies.map((movieId)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                children: favoriteMovies.map((movies)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                         md: 6,
                         children: movieDetails[index] && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
                             to: `/movies/${movie._id}`,
@@ -44174,7 +44174,7 @@ const FavoriteMovies = ({ user, favoriteMovies })=>{
                             lineNumber: 44,
                             columnNumber: 15
                         }, undefined)
-                    }, movieId, false, {
+                    }, movie._id, false, {
                         fileName: "src/components/profile-view/favorite-movies.jsx",
                         lineNumber: 42,
                         columnNumber: 11

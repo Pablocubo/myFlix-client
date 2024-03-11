@@ -38,8 +38,8 @@ const FavoriteMovies = ({ user, favoriteMovies }) => {
     <Col className="mb-5">
       <h3 className="title">List of favorite movies</h3>
       <Row>
-        {favoriteMovies.map((movieId) => (
-          <Col key={movieId} md={6}>
+        {favoriteMovies.map((movies) => (
+          <Col key={movie._id} md={6}>
             {movieDetails[index] && (
               <Link to={`/movies/${movie._id}`}>
                 <MovieCard
