@@ -42,7 +42,10 @@ export const MovieCard = ({ movie, addFav, removeFav, isFavorite }) => {
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string,
-  }).isRequired
+  }).isRequired,
+  addFav: PropTypes.func.isRequired,
+  removeFav: PropTypes.func.isRequired,
+  isFavorite: PropTypes.bool.isRequired
 };
 
 export default MovieCard;

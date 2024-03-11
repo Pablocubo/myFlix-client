@@ -1,64 +1,69 @@
-import React from 'react'; // Eliminada la importación innecesaria de { Component }
-import { Form, Button } from 'react-bootstrap';
+import React from "react";
+import Form from"react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import PropTypes from "prop-types";
 
+export const UpdateUser = ({ formData, handleUpdate, handleSubmit }) => {
 
-function UpdateUser({ user, handleSubmit, handleUpdate }) { // Asumiendo que user, handleSubmit, y handleUpdate son pasados como props
   return (
-    <>
-      <h4>Update Info</h4>
-      <Form>
-        <Form.Group>
-          <Form.Label>Username</Form.Label>
+    <Row>
+      <Form onSubmit={handleSubmit}>
+        <br />
+        <h2> Update profile information </h2>
+        <Form.Group controlId="formUsername">
+          <Form.Label>Username:</Form.Label>
           <Form.Control
-            type='text'
-            name='Username'
-            defaultValue={user.Username}
-            onChange={e => handleUpdate(e)}
+            type="text"
+            minLength={5}
+            value={formData.UserName}
+            onChange={(e) => handleUpdate(e)}
             required
-            placeholder="Enter a username"
+          />
+        <br />
+        </Form.Group>
+        <Form.Group controlId="formBirthday">
+          <Form.Label> Birthday: </Form.Label>
+          <Form.Control
+            type="date"
+            value={formData.Birthdate}
+            onChange={(e) => handleUpdate(e)}
+            required
           />
         </Form.Group>
-
-        <Form.Group>
-          <Form.Label>Password</Form.Label>
+        <br />
+        <Form.Group controlId="formEmail">
+          <Form.Label> Email: </Form.Label>
           <Form.Control
-            type='password'
-            name='password'
-            placeholder='New password'
-            defaultValue={user.Username}
-            onChange={e => handleUpdate(e)} />
+            type="email"
+            value={formData.Email}
+            onChange={(e) => handleUpdate(e)}
+            required
+          />
         </Form.Group>
-
-        <Form.Group>
-          <Form.Label>Date Birth</Form.Label>
+        <br />
+        <Form.Group controlId="formPassword">
+          <Form.Label>Password:
+          </Form.Label>
           <Form.Control
-            type='date'
-            name='Birthday'
-            placeholder='New date Birth'
-            defaultValue={user.Birthday ? user.Birthday.split('T')[0] : ''}
-            onChange={e => handleUpdate(e)}
-             />
+            type="password"
+            minLength={8}
+            value={formData.Password}
+            onChange={(e) => handleUpdate(e)}
+          />
         </Form.Group>
-
-        <Form.Group>
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type='email'
-            name='email'
-            placeholder='New Email'
-            defaultValue={user.Email}
-            onChange={e => handleUpdate(e)}
-            />
-          </Form.Group>
-
-          <Button variant='primary' type='submit'
-            onClick={handleSubmit}>
-            Submit
-          </Button>
-         
-      </Form>
-    </>
+        <br />
+        <Button variant="primary" type="submit">
+          {" "}
+          Submit changes{" "}
+        </Button> 
+        </Form>  
+      <br /> 
+     </Row>   
   );
-}
-
-export default UpdateUser // Corregido el nombre de exportación
+};
+UpdateUser.propTypes = {
+  formData: PropTypes.object.isRequired,
+  handleUpdate: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired
+};

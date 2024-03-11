@@ -1,61 +1,64 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
-import { Row, Col, Figure, Button, Card } from 'react-bootstrap';
 import { MovieCard } from "../movie-card/movie-card";
-import './profile-view.scss';
 
+const FavoriteMovies = ({ user, favoriteMovies }) => {
+  const [movieDetails, setMovieDetails] = useState({});
 
-function FavoriteMovies({ favoriteMovieList = [], setFavoriteMovieList }) {
-  const removeFav = (id) => {
-    const token = localStorage.getItem('token');
-    const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
-    const movie = favoriteMovieList.find(movie => movie._id === id); // Resolve movie variable
-    const url = `https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${id}`;
+  useEffect(() => {
+    // Fetch movie details when favoriteMovies or user changes
+    fetchMovieDetails();
+  }, [favoriteMovies, user]);
 
-    fetch(url, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => {
-        if (response.ok) {
-          // Handle successful removal by updating the UI
-          console.log('Favorite movie removed successfully');
-          // Remove the movie from the UI
-          setFavoriteMovieList(prevMovies => prevMovies.filter(movie => movie._id !== id));
-        } else {
-          throw new Error('Failed to remove the movie');
+  const fetchMovieDetails = async () => {
+    // Iterate through favoriteMovies and fetch details for each movie
+    const detailsPromises = favoriteMovies.map(async (movie) => {
+      try {
+        const response = await fetch(`https://letflix-0d183cd4a94e.herokuapp.com/movies/${movie._id}`);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch movie details for movie with ID ${movie._id}`);
         }
-      })
-      .catch(error => {
-        console.error('Could not remove the movie:', error);
-      });
-  }
+        const movieDetails = await response.json();
+        return movieDetails;
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    });
+
+    // Wait for all detailsPromises to resolve
+    const details = await Promise.all(detailsPromises);
+    setMovieDetails(details);
+  };
 
   return (
-    <Card>
-      <Card.Body>
-        <Row>
-          <Col xs={12}>
-            <h4>Favorite Movies</h4>
+    <Col className="mb-5">
+      <h3 className="title">List of favorite movies</h3>
+      <Row>
+        {favoriteMovies.map((movieId) => (
+          <Col key={movieId} md={6}>
+            {movieDetails[index] && (
+              <Link to={`/movies/${movie._id}`}>
+                <MovieCard
+                  key={movie._id}
+                  isFavorite={user.FavoriteMovies.includes(movie._id)}
+                  movie={movieDetails[index]}
+                />
+              </Link>
+            )}
           </Col>
-        </Row>
-        <Row>
-          {favoriteMovieList.map(({ ImagePath, Title, _id }) => {
-            return (
-              <Col xs={12} md={6} lg={3} key={_id} className="fav-movie">
-                <MovieCard movie={{ ImagePath, Title, _id }} /> {/* Render MovieCard component */}
-                <Button variant="secondary" onClick={() => removeFav(_id)}>Remove</Button>
-              </Col>
-            )
-          })
-          }
-        </Row>
-      </Card.Body>
-    </Card>
-  )
-}
+        ))}
+      </Row>
+    </Col>
+  );
+};
+
+FavoriteMovies.propTypes = {
+  favoriteMovies: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired
+};
 
 export default FavoriteMovies;

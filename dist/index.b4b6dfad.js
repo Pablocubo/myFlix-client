@@ -142,7 +142,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"5qIsR":[function(require,module,exports) {
+})({"d5irm":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
@@ -578,9 +578,9 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
     });
 }
 
-},{}],"1xC6H":[function(require,module,exports) {
-var Refresh = require("6d18d6bd340e7473");
-var ErrorOverlay = require("74ad5ea14201648c");
+},{}],"7tNP8":[function(require,module,exports) {
+var Refresh = require("e82baab5c72e3ea");
+var ErrorOverlay = require("a908a8ed2fa7aafa");
 Refresh.injectIntoGlobalHook(window);
 window.$RefreshReg$ = function() {};
 window.$RefreshSig$ = function() {
@@ -599,11 +599,11 @@ window.addEventListener("parcelhmraccept", ()=>{
     ErrorOverlay.dismissRuntimeErrors();
 });
 
-},{"6d18d6bd340e7473":"3FsDI","74ad5ea14201648c":"7i2ML"}],"3FsDI":[function(require,module,exports) {
+},{"e82baab5c72e3ea":"7ilz1","a908a8ed2fa7aafa":"eb2Wl"}],"7ilz1":[function(require,module,exports) {
 "use strict";
-module.exports = require("bc819d12737f82d");
+module.exports = require("f252a04ee07177dd");
 
-},{"bc819d12737f82d":"dtx5b"}],"dtx5b":[function(require,module,exports) {
+},{"f252a04ee07177dd":"otO2x"}],"otO2x":[function(require,module,exports) {
 /** @license React v0.9.0
  * react-refresh-runtime.development.js
  *
@@ -1063,8 +1063,8 @@ module.exports = require("bc819d12737f82d");
     exports.setSignature = setSignature;
 })();
 
-},{}],"7i2ML":[function(require,module,exports) {
-var process = require("e985fd95d100752a");
+},{}],"eb2Wl":[function(require,module,exports) {
+var process = require("c1ce240beb6c704b");
 !function(e, t) {
     module.exports = t();
 }(window, function() {
@@ -2794,7 +2794,7 @@ var process = require("e985fd95d100752a");
     ]);
 });
 
-},{"e985fd95d100752a":"d5jf4"}],"d5jf4":[function(require,module,exports) {
+},{"c1ce240beb6c704b":"hhcdI"}],"hhcdI":[function(require,module,exports) {
 // shim for using process in browser
 var process = module.exports = {};
 // cached from whatever global is present so that test runners that stub it
@@ -2984,7 +2984,7 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./components/main-view/main-view":"4gflv","react-bootstrap":"3AD9A","bootstrap/dist/css/bootstrap.min.css":"i5LP7","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./components/main-view/main-view":"4gflv","react-bootstrap":"3AD9A","bootstrap/dist/css/bootstrap.min.css":"i5LP7","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27215,6 +27215,10 @@ const MainView = ()=>{
     }, [
         token
     ]);
+    const favoriteMovies = (0, _react.useMemo)(()=>movies.filter((movie)=>user?.FavoriteMovies?.includes(movie._id)), [
+        movies,
+        user?.FavoriteMovies
+    ]);
     const fetchMovies = ()=>{
         fetch("https://letflix-0d183cd4a94e.herokuapp.com/movies", {
             headers: {
@@ -27259,7 +27263,7 @@ const MainView = ()=>{
                 alert("Favorite movie added successfully!");
                 setFavorites((prevFavorites)=>[
                         ...prevFavorites,
-                        movie
+                        movie._id
                     ]);
             } else {
                 alert("Error adding favorite movie");
@@ -27281,7 +27285,7 @@ const MainView = ()=>{
         }).then(async (response)=>{
             if (response.ok) {
                 console.log("Favorite movie removed successfully");
-                setFavorites((prevFavorites)=>prevFavorites.filter((favMovie)=>favMovie._id !== movie._id));
+                setFavorites((prevFavorites)=>prevFavorites.filter((favMovieId)=>favMovieId !== movie._id)); // Use setFavorites from props
             } else throw new Error("Failed to remove the favorite movie");
         }).catch((error)=>{
             console.error("Error removing favorite movie:", error);
@@ -27292,7 +27296,7 @@ const MainView = ()=>{
         setToken(data.token);
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-        localStorage.setItem("favoriteMovies", JSON.stringify(data.user.FavoriteMovies));
+        setFavorites(data.user.FavoriteMovies || []); // Make sure FavoriteMovies is an array of movie objects or IDs
     };
     const onLoggedOut = ()=>{
         setUser(null);
@@ -27306,7 +27310,7 @@ const MainView = ()=>{
                 user: user
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 133,
+                lineNumber: 136,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
@@ -27322,34 +27326,34 @@ const MainView = ()=>{
                                                 onLoggedIn: onLoggedIn
                                             }, void 0, false, {
                                                 fileName: "src/components/main-view/main-view.jsx",
-                                                lineNumber: 141,
+                                                lineNumber: 144,
                                                 columnNumber: 21
                                             }, void 0)
                                         }, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 140,
+                                            lineNumber: 143,
                                             columnNumber: 19
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 139,
+                                        lineNumber: 142,
                                         columnNumber: 17
                                     }, void 0),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                                                 fileName: "src/components/main-view/main-view.jsx",
-                                                lineNumber: 146,
+                                                lineNumber: 149,
                                                 columnNumber: 21
                                             }, void 0)
                                         }, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 145,
+                                            lineNumber: 148,
                                             columnNumber: 19
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 144,
+                                        lineNumber: 147,
                                         columnNumber: 17
                                     }, void 0)
                                 ]
@@ -27357,7 +27361,7 @@ const MainView = ()=>{
                                 children: "The list is empty!"
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 151,
+                                lineNumber: 154,
                                 columnNumber: 15
                             }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -27372,27 +27376,27 @@ const MainView = ()=>{
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                                                 movie: movie,
                                                 addFav: ()=>addFav(movie),
-                                                removeFav: ()=>removeFav(movie._id),
+                                                removeFav: ()=>removeFav(movie),
                                                 isFavorite: favorites.includes(movie._id)
                                             }, void 0, false, {
                                                 fileName: "src/components/main-view/main-view.jsx",
-                                                lineNumber: 157,
+                                                lineNumber: 160,
                                                 columnNumber: 23
                                             }, void 0)
                                         }, movie._id, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 156,
+                                            lineNumber: 159,
                                             columnNumber: 21
                                         }, void 0))
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 154,
+                                    lineNumber: 157,
                                     columnNumber: 17
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 136,
+                            lineNumber: 139,
                             columnNumber: 11
                         }, undefined),
                         movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27401,12 +27405,12 @@ const MainView = ()=>{
                                     movie: movie
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 170,
+                                    lineNumber: 173,
                                     columnNumber: 75
                                 }, void 0)
                             }, movie._id, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 170,
+                                lineNumber: 173,
                                 columnNumber: 13
                             }, undefined)),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27419,27 +27423,27 @@ const MainView = ()=>{
                                 removeFav: removeFav
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 172,
+                                lineNumber: 175,
                                 columnNumber: 43
                             }, void 0)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 172,
+                            lineNumber: 175,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                             path: "/favorites",
                             element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _favoriteMoviesDefault.default), {
-                                setFavoriteMovieList: setFavorites,
-                                user: user
+                                user: user,
+                                favoriteMovies: favoriteMovies
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 173,
+                                lineNumber: 176,
                                 columnNumber: 45
                             }, void 0)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 173,
+                            lineNumber: 176,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27449,7 +27453,7 @@ const MainView = ()=>{
                                     to: "/"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 179,
+                                    lineNumber: 182,
                                     columnNumber: 19
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                     md: 10,
@@ -27457,18 +27461,18 @@ const MainView = ()=>{
                                         onLoggedIn: setUser
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 182,
+                                        lineNumber: 185,
                                         columnNumber: 21
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 181,
+                                    lineNumber: 184,
                                     columnNumber: 19
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 174,
+                            lineNumber: 177,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27478,7 +27482,7 @@ const MainView = ()=>{
                                     to: "/"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 191,
+                                    lineNumber: 194,
                                     columnNumber: 17
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                     md: 10,
@@ -27486,39 +27490,39 @@ const MainView = ()=>{
                                         onSignedUp: (user)=>setUser(user)
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 194,
+                                        lineNumber: 197,
                                         columnNumber: 19
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 193,
+                                    lineNumber: 196,
                                     columnNumber: 17
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 188,
+                            lineNumber: 191,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 135,
+                    lineNumber: 138,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 134,
+                lineNumber: 137,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 132,
+        lineNumber: 135,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "xIDbNSXS0wuAUMVGQeHf/W13oi8=");
+_s(MainView, "DOfPAXlheOsKDZJXxI7iYer8D2Q=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -27528,7 +27532,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","../navigation-bar/navigation-bar":"bsPVM","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","../profile-view/profile-view":"2vVqf","react-router-dom":"fdOAw","../profile-view/favorite-movies":"dTTQH","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"3AD9A":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","../navigation-bar/navigation-bar":"bsPVM","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","../profile-view/profile-view":"2vVqf","react-router-dom":"fdOAw","../profile-view/favorite-movies":"dTTQH","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ"}],"3AD9A":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Accordion", ()=>(0, _accordionDefault.default));
@@ -27866,7 +27870,7 @@ var _toggleButtonGroupDefault = parcelHelpers.interopDefault(_toggleButtonGroup)
 var _tooltip = require("./Tooltip");
 var _tooltipDefault = parcelHelpers.interopDefault(_tooltip);
 
-},{"./Accordion":false,"./AccordionContext":false,"./AccordionCollapse":false,"./AccordionButton":false,"./AccordionBody":false,"./AccordionHeader":false,"./AccordionItem":false,"./Alert":false,"./AlertHeading":false,"./AlertLink":false,"./Anchor":false,"./Badge":false,"./Breadcrumb":false,"./BreadcrumbItem":false,"./Button":"aPzUt","./ButtonGroup":false,"./ButtonToolbar":false,"./Card":"lAynp","./CardBody":false,"./CardFooter":false,"./CardGroup":"2j3Ij","./CardHeader":false,"./CardImg":false,"./CardImgOverlay":false,"./CardLink":false,"./CardSubtitle":false,"./CardText":false,"./CardTitle":false,"./Carousel":false,"./CarouselCaption":false,"./CarouselItem":false,"./CloseButton":false,"./Col":"2L2I6","./Collapse":false,"./Container":"hEdsw","./Dropdown":false,"./DropdownButton":false,"./DropdownDivider":false,"./DropdownHeader":false,"./DropdownItem":false,"./DropdownItemText":false,"./DropdownMenu":false,"./DropdownToggle":false,"./Fade":false,"./Figure":false,"./FigureCaption":false,"./FigureImage":false,"./Form":"iBZ80","./FormControl":false,"./FormCheck":false,"./FormFloating":false,"./FloatingLabel":false,"./FormGroup":false,"./FormLabel":false,"./FormText":false,"./FormSelect":false,"./Image":false,"./InputGroup":false,"./ListGroup":false,"./ListGroupItem":false,"./Modal":false,"./ModalBody":false,"./ModalDialog":false,"./ModalFooter":false,"./ModalHeader":false,"./ModalTitle":false,"./Nav":"cXyL2","./Navbar":"1mHjo","./NavbarBrand":false,"./NavbarCollapse":false,"./NavbarOffcanvas":false,"./NavbarText":false,"./NavbarToggle":false,"./NavDropdown":false,"./NavItem":false,"./NavLink":false,"./Offcanvas":false,"./OffcanvasBody":false,"./OffcanvasHeader":false,"./OffcanvasTitle":false,"./OffcanvasToggling":false,"./Overlay":false,"./OverlayTrigger":false,"./PageItem":false,"./Pagination":false,"./Placeholder":false,"./PlaceholderButton":false,"./Popover":false,"./PopoverBody":false,"./PopoverHeader":false,"./ProgressBar":false,"./Ratio":false,"./Row":"cMC39","./Spinner":false,"./SplitButton":false,"./SSRProvider":false,"./Stack":false,"./Tab":false,"./TabContainer":false,"./TabContent":false,"./Table":false,"./TabPane":false,"./Tabs":false,"./ThemeProvider":false,"./Toast":false,"./ToastBody":false,"./ToastContainer":false,"./ToastHeader":false,"./ToggleButton":false,"./ToggleButtonGroup":false,"./Tooltip":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aPzUt":[function(require,module,exports) {
+},{"./Accordion":false,"./AccordionContext":false,"./AccordionCollapse":false,"./AccordionButton":false,"./AccordionBody":false,"./AccordionHeader":false,"./AccordionItem":false,"./Alert":false,"./AlertHeading":false,"./AlertLink":false,"./Anchor":false,"./Badge":false,"./Breadcrumb":false,"./BreadcrumbItem":false,"./Button":"aPzUt","./ButtonGroup":false,"./ButtonToolbar":false,"./Card":"lAynp","./CardBody":false,"./CardFooter":false,"./CardGroup":"2j3Ij","./CardHeader":false,"./CardImg":false,"./CardImgOverlay":false,"./CardLink":false,"./CardSubtitle":false,"./CardText":false,"./CardTitle":false,"./Carousel":false,"./CarouselCaption":false,"./CarouselItem":false,"./CloseButton":false,"./Col":"2L2I6","./Collapse":false,"./Container":"hEdsw","./Dropdown":false,"./DropdownButton":false,"./DropdownDivider":false,"./DropdownHeader":false,"./DropdownItem":false,"./DropdownItemText":false,"./DropdownMenu":false,"./DropdownToggle":false,"./Fade":false,"./Figure":false,"./FigureCaption":false,"./FigureImage":false,"./Form":"iBZ80","./FormControl":false,"./FormCheck":false,"./FormFloating":false,"./FloatingLabel":false,"./FormGroup":false,"./FormLabel":false,"./FormText":false,"./FormSelect":false,"./Image":false,"./InputGroup":false,"./ListGroup":false,"./ListGroupItem":false,"./Modal":false,"./ModalBody":false,"./ModalDialog":false,"./ModalFooter":false,"./ModalHeader":false,"./ModalTitle":false,"./Nav":"cXyL2","./Navbar":"1mHjo","./NavbarBrand":false,"./NavbarCollapse":false,"./NavbarOffcanvas":false,"./NavbarText":false,"./NavbarToggle":false,"./NavDropdown":false,"./NavItem":false,"./NavLink":false,"./Offcanvas":false,"./OffcanvasBody":false,"./OffcanvasHeader":false,"./OffcanvasTitle":false,"./OffcanvasToggling":false,"./Overlay":false,"./OverlayTrigger":false,"./PageItem":false,"./Pagination":false,"./Placeholder":false,"./PlaceholderButton":false,"./Popover":false,"./PopoverBody":false,"./PopoverHeader":false,"./ProgressBar":false,"./Ratio":false,"./Row":"cMC39","./Spinner":false,"./SplitButton":false,"./SSRProvider":false,"./Stack":false,"./Tab":false,"./TabContainer":false,"./TabContent":false,"./Table":false,"./TabPane":false,"./Tabs":false,"./ThemeProvider":false,"./Toast":false,"./ToastBody":false,"./ToastContainer":false,"./ToastHeader":false,"./ToggleButton":false,"./ToggleButtonGroup":false,"./Tooltip":false,"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"aPzUt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -27895,7 +27899,7 @@ const Button = /*#__PURE__*/ _react.forwardRef(({ as, bsPrefix, variant = "prima
 Button.displayName = "Button";
 exports.default = Button;
 
-},{"classnames":"jocGM","react":"21dqq","@restart/ui/Button":"8YUbR","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jocGM":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","@restart/ui/Button":"8YUbR","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"jocGM":[function(require,module,exports) {
 /*!
 	Copyright (c) 2018 Jed Watson.
 	Licensed under the MIT License (MIT), see
@@ -28025,7 +28029,7 @@ const Button = /*#__PURE__*/ _react.forwardRef((_ref, ref)=>{
 Button.displayName = "Button";
 exports.default = Button;
 
-},{"react":"21dqq","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6AEwr":[function(require,module,exports) {
+},{"react":"21dqq","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"6AEwr":[function(require,module,exports) {
 "use strict";
 module.exports = require("c4c10cbba9862d5f");
 
@@ -28872,7 +28876,7 @@ module.exports = require("c4c10cbba9862d5f");
     exports.jsxs = jsxs;
 })();
 
-},{"593632ccebda0d3a":"21dqq"}],"gkKU3":[function(require,module,exports) {
+},{"593632ccebda0d3a":"21dqq"}],"72xaU":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -28986,7 +28990,7 @@ function createBootstrapComponent(Component, opts) {
 }
 exports.default = ThemeProvider;
 
-},{"react":"21dqq","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lAynp":[function(require,module,exports) {
+},{"react":"21dqq","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"lAynp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -29038,7 +29042,7 @@ exports.default = Object.assign(Card, {
     ImgOverlay: (0, _cardImgOverlayDefault.default)
 });
 
-},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","./CardBody":"iN1Jc","./CardFooter":"jUi26","./CardHeader":"dXnnx","./CardImg":"1reTi","./CardImgOverlay":"Bi8dC","./CardLink":"9uFCo","./CardSubtitle":"i2BiN","./CardText":"aUUmg","./CardTitle":"79rSZ","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iN1Jc":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","./CardBody":"iN1Jc","./CardFooter":"jUi26","./CardHeader":"dXnnx","./CardImg":"1reTi","./CardImgOverlay":"Bi8dC","./CardLink":"9uFCo","./CardSubtitle":"i2BiN","./CardText":"aUUmg","./CardTitle":"79rSZ","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"iN1Jc":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -29058,7 +29062,7 @@ const CardBody = /*#__PURE__*/ _react.forwardRef(({ className, bsPrefix, as: Com
 CardBody.displayName = "CardBody";
 exports.default = CardBody;
 
-},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jUi26":[function(require,module,exports) {
+},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"jUi26":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -29078,7 +29082,7 @@ const CardFooter = /*#__PURE__*/ _react.forwardRef(({ className, bsPrefix, as: C
 CardFooter.displayName = "CardFooter";
 exports.default = CardFooter;
 
-},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXnnx":[function(require,module,exports) {
+},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"dXnnx":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -29109,7 +29113,7 @@ as: Component = "div", ...props }, ref)=>{
 CardHeader.displayName = "CardHeader";
 exports.default = CardHeader;
 
-},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","./CardHeaderContext":"36cNB","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"36cNB":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","./CardHeaderContext":"36cNB","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"36cNB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -29118,7 +29122,7 @@ const context = /*#__PURE__*/ _react.createContext(null);
 context.displayName = "CardHeaderContext";
 exports.default = context;
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1reTi":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"1reTi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -29139,7 +29143,7 @@ const CardImg = /*#__PURE__*/ _react.forwardRef(// Need to define the default "a
 CardImg.displayName = "CardImg";
 exports.default = CardImg;
 
-},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"Bi8dC":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"Bi8dC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -29159,7 +29163,7 @@ const CardImgOverlay = /*#__PURE__*/ _react.forwardRef(({ className, bsPrefix, a
 CardImgOverlay.displayName = "CardImgOverlay";
 exports.default = CardImgOverlay;
 
-},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9uFCo":[function(require,module,exports) {
+},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"9uFCo":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -29179,7 +29183,7 @@ const CardLink = /*#__PURE__*/ _react.forwardRef(({ className, bsPrefix, as: Com
 CardLink.displayName = "CardLink";
 exports.default = CardLink;
 
-},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"i2BiN":[function(require,module,exports) {
+},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"i2BiN":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -29202,7 +29206,7 @@ const CardSubtitle = /*#__PURE__*/ _react.forwardRef(({ className, bsPrefix, as:
 CardSubtitle.displayName = "CardSubtitle";
 exports.default = CardSubtitle;
 
-},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","./divWithClassName":"eDg7t","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eDg7t":[function(require,module,exports) {
+},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","./divWithClassName":"eDg7t","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"eDg7t":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -29215,7 +29219,7 @@ exports.default = (className)=>/*#__PURE__*/ _react.forwardRef((p, ref)=>/*#__PU
             className: (0, _classnamesDefault.default)(p.className, className)
         }));
 
-},{"react":"21dqq","classnames":"jocGM","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aUUmg":[function(require,module,exports) {
+},{"react":"21dqq","classnames":"jocGM","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"aUUmg":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -29235,7 +29239,7 @@ const CardText = /*#__PURE__*/ _react.forwardRef(({ className, bsPrefix, as: Com
 CardText.displayName = "CardText";
 exports.default = CardText;
 
-},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"79rSZ":[function(require,module,exports) {
+},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"79rSZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -29258,7 +29262,7 @@ const CardTitle = /*#__PURE__*/ _react.forwardRef(({ className, bsPrefix, as: Co
 CardTitle.displayName = "CardTitle";
 exports.default = CardTitle;
 
-},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","./divWithClassName":"eDg7t","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2j3Ij":[function(require,module,exports) {
+},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","./divWithClassName":"eDg7t","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"2j3Ij":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -29278,7 +29282,7 @@ const CardGroup = /*#__PURE__*/ _react.forwardRef(({ className, bsPrefix, as: Co
 CardGroup.displayName = "CardGroup";
 exports.default = CardGroup;
 
-},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1wmVl":[function(require,module,exports) {
+},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"1wmVl":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _propTypes = require("prop-types");
@@ -29309,7 +29313,7 @@ CloseButton.displayName = "CloseButton";
 CloseButton.propTypes = propTypes;
 exports.default = CloseButton;
 
-},{"prop-types":"7wKI2","react":"21dqq","classnames":"jocGM","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7wKI2":[function(require,module,exports) {
+},{"prop-types":"7wKI2","react":"21dqq","classnames":"jocGM","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"7wKI2":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -30109,7 +30113,7 @@ const Col = /*#__PURE__*/ _react.forwardRef(// Need to define the default "as" d
 Col.displayName = "Col";
 exports.default = Col;
 
-},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"acuzI":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"acuzI":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -30212,7 +30216,7 @@ const Collapse = /*#__PURE__*/ (0, _reactDefault.default).forwardRef(({ onEnter,
 // @ts-ignore
 exports.default = Collapse;
 
-},{"classnames":"jocGM","dom-helpers/css":"klmhr","react":"21dqq","react-transition-group/Transition":"cKsrS","./transitionEndListener":"68oh7","./createChainedFunction":"1KNLM","./triggerBrowserReflow":"eWjs5","./TransitionWrapper":"jKUqZ","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"klmhr":[function(require,module,exports) {
+},{"classnames":"jocGM","dom-helpers/css":"klmhr","react":"21dqq","react-transition-group/Transition":"cKsrS","./transitionEndListener":"68oh7","./createChainedFunction":"1KNLM","./triggerBrowserReflow":"eWjs5","./TransitionWrapper":"jKUqZ","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"klmhr":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _getComputedStyle = require("./getComputedStyle");
@@ -30236,7 +30240,7 @@ function style(node, property) {
 }
 exports.default = style;
 
-},{"./getComputedStyle":"adqGa","./hyphenateStyle":"hbsNp","./isTransform":"gnxjD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"adqGa":[function(require,module,exports) {
+},{"./getComputedStyle":"adqGa","./hyphenateStyle":"hbsNp","./isTransform":"gnxjD","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"adqGa":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>getComputedStyle);
@@ -30246,7 +30250,7 @@ function getComputedStyle(node, psuedoElement) {
     return (0, _ownerWindowDefault.default)(node).getComputedStyle(node, psuedoElement);
 }
 
-},{"./ownerWindow":"3nPSD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3nPSD":[function(require,module,exports) {
+},{"./ownerWindow":"3nPSD","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"3nPSD":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>ownerWindow);
@@ -30257,7 +30261,7 @@ function ownerWindow(node) {
     return doc && doc.defaultView || window;
 }
 
-},{"./ownerDocument":"2WpOk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2WpOk":[function(require,module,exports) {
+},{"./ownerDocument":"2WpOk","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"2WpOk":[function(require,module,exports) {
 /**
  * Returns the owner document of a given element.
  * 
@@ -30269,7 +30273,7 @@ function ownerDocument(node) {
     return node && node.ownerDocument || document;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hbsNp":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"hbsNp":[function(require,module,exports) {
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -30284,7 +30288,7 @@ function hyphenateStyleName(string) {
     return (0, _hyphenateDefault.default)(string).replace(msPattern, "-ms-");
 }
 
-},{"./hyphenate":"3UJRr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3UJRr":[function(require,module,exports) {
+},{"./hyphenate":"3UJRr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"3UJRr":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>hyphenate);
@@ -30293,7 +30297,7 @@ function hyphenate(string) {
     return string.replace(rUpper, "-$1").toLowerCase();
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gnxjD":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"gnxjD":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>isTransform);
@@ -30302,7 +30306,7 @@ function isTransform(value) {
     return !!(value && supportedTransforms.test(value));
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cKsrS":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"cKsrS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "UNMOUNTED", ()=>UNMOUNTED);
@@ -30818,7 +30822,7 @@ Transition.ENTERED = ENTERED;
 Transition.EXITING = EXITING;
 exports.default = Transition;
 
-},{"@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"adHgr","@babel/runtime/helpers/esm/inheritsLoose":"9u2Z8","prop-types":"7wKI2","react":"21dqq","react-dom":"j6uA9","./config":"cepoZ","./utils/PropTypes":"9Zqaa","./TransitionGroupContext":"47LXo","./utils/reflow":"V4VjQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"adHgr":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"adHgr","@babel/runtime/helpers/esm/inheritsLoose":"9u2Z8","prop-types":"7wKI2","react":"21dqq","react-dom":"j6uA9","./config":"cepoZ","./utils/PropTypes":"9Zqaa","./TransitionGroupContext":"47LXo","./utils/reflow":"V4VjQ","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"adHgr":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>_objectWithoutPropertiesLoose);
@@ -30835,7 +30839,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
     return target;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9u2Z8":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"9u2Z8":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>_inheritsLoose);
@@ -30847,7 +30851,7 @@ function _inheritsLoose(subClass, superClass) {
     (0, _setPrototypeOfJsDefault.default)(subClass, superClass);
 }
 
-},{"./setPrototypeOf.js":"3XDFA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3XDFA":[function(require,module,exports) {
+},{"./setPrototypeOf.js":"3XDFA","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"3XDFA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>_setPrototypeOf);
@@ -30859,14 +30863,14 @@ function _setPrototypeOf(o, p) {
     return _setPrototypeOf(o, p);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cepoZ":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"cepoZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 exports.default = {
     disabled: false
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9Zqaa":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"9Zqaa":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "timeoutsShape", ()=>timeoutsShape);
@@ -30898,14 +30902,14 @@ var classNamesShape = (0, _propTypesDefault.default).oneOfType([
     })
 ]);
 
-},{"prop-types":"7wKI2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"47LXo":[function(require,module,exports) {
+},{"prop-types":"7wKI2","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"47LXo":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 exports.default = (0, _reactDefault.default).createContext(null);
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"V4VjQ":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"V4VjQ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "forceReflow", ()=>forceReflow);
@@ -30913,7 +30917,7 @@ var forceReflow = function forceReflow(node) {
     return node.scrollTop;
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"68oh7":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"68oh7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>transitionEndListener);
@@ -30937,7 +30941,7 @@ function transitionEndListener(element, handler) {
     }, duration + delay);
 }
 
-},{"dom-helpers/css":"klmhr","dom-helpers/transitionEnd":"7hVJq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7hVJq":[function(require,module,exports) {
+},{"dom-helpers/css":"klmhr","dom-helpers/transitionEnd":"7hVJq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"7hVJq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>transitionEnd);
@@ -30978,7 +30982,7 @@ function transitionEnd(element, handler, duration, padding) {
     };
 }
 
-},{"./css":"klmhr","./listen":"1i4e7","./triggerEvent":"lQ70W","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1i4e7":[function(require,module,exports) {
+},{"./css":"klmhr","./listen":"1i4e7","./triggerEvent":"lQ70W","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"1i4e7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _addEventListener = require("./addEventListener");
@@ -30993,7 +30997,7 @@ function listen(node, eventName, handler, options) {
 }
 exports.default = listen;
 
-},{"./addEventListener":"c5x2p","./removeEventListener":"la8JB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c5x2p":[function(require,module,exports) {
+},{"./addEventListener":"c5x2p","./removeEventListener":"la8JB","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"c5x2p":[function(require,module,exports) {
 /* eslint-disable no-return-assign */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "optionsSupported", ()=>optionsSupported);
@@ -31042,12 +31046,12 @@ try {
 }
 exports.default = addEventListener;
 
-},{"./canUseDOM":"9AwUB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9AwUB":[function(require,module,exports) {
+},{"./canUseDOM":"9AwUB","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"9AwUB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 exports.default = !!(typeof window !== "undefined" && window.document && window.document.createElement);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"la8JB":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"la8JB":[function(require,module,exports) {
 /**
  * A `removeEventListener` ponyfill
  * 
@@ -31064,7 +31068,7 @@ function removeEventListener(node, eventName, handler, options) {
 }
 exports.default = removeEventListener;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lQ70W":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"lQ70W":[function(require,module,exports) {
 /**
  * Triggers an event on a given element.
  * 
@@ -31085,7 +31089,7 @@ function triggerEvent(node, eventName, bubbles, cancelable) {
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1KNLM":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"1KNLM":[function(require,module,exports) {
 /**
  * Safe chained function
  *
@@ -31110,7 +31114,7 @@ function createChainedFunction(...funcs) {
 }
 exports.default = createChainedFunction;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eWjs5":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"eWjs5":[function(require,module,exports) {
 // reading a dimension prop will cause the browser to recalculate,
 // which will let our animations work
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -31121,7 +31125,7 @@ function triggerBrowserReflow(node) {
     node.offsetHeight;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jKUqZ":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"jKUqZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -31187,7 +31191,7 @@ const TransitionWrapper = /*#__PURE__*/ (0, _reactDefault.default).forwardRef(({
 });
 exports.default = TransitionWrapper;
 
-},{"react":"21dqq","react-transition-group/Transition":"cKsrS","@restart/hooks/useMergedRefs":"6hhuo","./safeFindDOMNode":"XsXw9","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6hhuo":[function(require,module,exports) {
+},{"react":"21dqq","react-transition-group/Transition":"cKsrS","@restart/hooks/useMergedRefs":"6hhuo","./safeFindDOMNode":"XsXw9","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"6hhuo":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "mergeRefs", ()=>mergeRefs);
@@ -31226,7 +31230,7 @@ function mergeRefs(refA, refB) {
 }
 exports.default = useMergedRefs;
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"XsXw9":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"XsXw9":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>safeFindDOMNode);
@@ -31237,7 +31241,7 @@ function safeFindDOMNode(componentOrElement) {
     return componentOrElement != null ? componentOrElement : null;
 }
 
-},{"react-dom":"j6uA9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hEdsw":[function(require,module,exports) {
+},{"react-dom":"j6uA9","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"hEdsw":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -31259,7 +31263,7 @@ as: Component = "div", className, ...props }, ref)=>{
 Container.displayName = "Container";
 exports.default = Container;
 
-},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aH18S":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"aH18S":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -31307,7 +31311,7 @@ const Fade = /*#__PURE__*/ _react.forwardRef(({ className, children, transitionC
 Fade.displayName = "Fade";
 exports.default = Fade;
 
-},{"classnames":"jocGM","react":"21dqq","react-transition-group/Transition":"cKsrS","./transitionEndListener":"68oh7","./triggerBrowserReflow":"eWjs5","./TransitionWrapper":"jKUqZ","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iBZ80":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","react-transition-group/Transition":"cKsrS","./transitionEndListener":"68oh7","./triggerBrowserReflow":"eWjs5","./TransitionWrapper":"jKUqZ","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"iBZ80":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -31372,7 +31376,7 @@ exports.default = Object.assign(Form, {
     FloatingLabel: (0, _floatingLabelDefault.default)
 });
 
-},{"classnames":"jocGM","prop-types":"7wKI2","react":"21dqq","./FormCheck":"idkr0","./FormControl":"iynMc","./FormFloating":"aj346","./FormGroup":"1qBHH","./FormLabel":"66epi","./FormRange":"8zsCO","./FormSelect":"hHWyB","./FormText":"ffeC7","./Switch":"9O81i","./FloatingLabel":"coYzo","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"idkr0":[function(require,module,exports) {
+},{"classnames":"jocGM","prop-types":"7wKI2","react":"21dqq","./FormCheck":"idkr0","./FormControl":"iynMc","./FormFloating":"aj346","./FormGroup":"1qBHH","./FormLabel":"66epi","./FormRange":"8zsCO","./FormSelect":"hHWyB","./FormText":"ffeC7","./Switch":"9O81i","./FloatingLabel":"coYzo","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"idkr0":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -31439,7 +31443,7 @@ exports.default = Object.assign(FormCheck, {
     Label: (0, _formCheckLabelDefault.default)
 });
 
-},{"classnames":"jocGM","react":"21dqq","./Feedback":"aWeg2","./FormCheckInput":"dPzD9","./FormCheckLabel":"fGhS2","./FormContext":"gjvSt","./ThemeProvider":"dVixI","./ElementChildren":"fdyAp","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aWeg2":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./Feedback":"aWeg2","./FormCheckInput":"dPzD9","./FormCheckLabel":"fGhS2","./FormContext":"gjvSt","./ThemeProvider":"dVixI","./ElementChildren":"fdyAp","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"aWeg2":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -31467,7 +31471,7 @@ Feedback.displayName = "Feedback";
 Feedback.propTypes = propTypes;
 exports.default = Feedback;
 
-},{"classnames":"jocGM","react":"21dqq","prop-types":"7wKI2","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dPzD9":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","prop-types":"7wKI2","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"dPzD9":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -31493,7 +31497,7 @@ as: Component = "input", ...props }, ref)=>{
 FormCheckInput.displayName = "FormCheckInput";
 exports.default = FormCheckInput;
 
-},{"classnames":"jocGM","react":"21dqq","./FormContext":"gjvSt","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gjvSt":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./FormContext":"gjvSt","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"gjvSt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -31502,7 +31506,7 @@ var _react = require("react");
 const FormContext = /*#__PURE__*/ _react.createContext({});
 exports.default = FormContext;
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fGhS2":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"fGhS2":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -31526,7 +31530,7 @@ const FormCheckLabel = /*#__PURE__*/ _react.forwardRef(({ bsPrefix, className, h
 FormCheckLabel.displayName = "FormCheckLabel";
 exports.default = FormCheckLabel;
 
-},{"classnames":"jocGM","react":"21dqq","./FormContext":"gjvSt","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fdyAp":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./FormContext":"gjvSt","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"fdyAp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "map", ()=>map);
@@ -31562,7 +31566,7 @@ var _react = require("react");
     return _react.Children.toArray(children).some((child)=>/*#__PURE__*/ _react.isValidElement(child) && child.type === type);
 }
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iynMc":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"iynMc":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -31597,7 +31601,7 @@ exports.default = Object.assign(FormControl, {
     Feedback: (0, _feedbackDefault.default)
 });
 
-},{"classnames":"jocGM","react":"21dqq","warning":"eUVzU","./Feedback":"aWeg2","./FormContext":"gjvSt","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eUVzU":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","warning":"eUVzU","./Feedback":"aWeg2","./FormContext":"gjvSt","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"eUVzU":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -31660,7 +31664,7 @@ const FormFloating = /*#__PURE__*/ _react.forwardRef(({ className, bsPrefix, as:
 FormFloating.displayName = "FormFloating";
 exports.default = FormFloating;
 
-},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1qBHH":[function(require,module,exports) {
+},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"1qBHH":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -31685,7 +31689,7 @@ as: Component = "div", ...props }, ref)=>{
 FormGroup.displayName = "FormGroup";
 exports.default = FormGroup;
 
-},{"react":"21dqq","./FormContext":"gjvSt","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"66epi":[function(require,module,exports) {
+},{"react":"21dqq","./FormContext":"gjvSt","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"66epi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -31727,7 +31731,7 @@ as: Component = "label", bsPrefix, column = false, visuallyHidden = false, class
 FormLabel.displayName = "FormLabel";
 exports.default = FormLabel;
 
-},{"classnames":"jocGM","react":"21dqq","warning":"eUVzU","./Col":"2L2I6","./FormContext":"gjvSt","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8zsCO":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","warning":"eUVzU","./Col":"2L2I6","./FormContext":"gjvSt","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"8zsCO":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -31752,7 +31756,7 @@ const FormRange = /*#__PURE__*/ _react.forwardRef(({ bsPrefix, className, id, ..
 FormRange.displayName = "FormRange";
 exports.default = FormRange;
 
-},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","./FormContext":"gjvSt","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hHWyB":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","./FormContext":"gjvSt","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"hHWyB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -31777,7 +31781,7 @@ const FormSelect = /*#__PURE__*/ _react.forwardRef(({ bsPrefix, size, htmlSize, 
 FormSelect.displayName = "FormSelect";
 exports.default = FormSelect;
 
-},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","./FormContext":"gjvSt","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ffeC7":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","./FormContext":"gjvSt","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"ffeC7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -31798,7 +31802,7 @@ const FormText = /*#__PURE__*/ _react.forwardRef(// Need to define the default "
 FormText.displayName = "FormText";
 exports.default = FormText;
 
-},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9O81i":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"9O81i":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -31816,7 +31820,7 @@ exports.default = Object.assign(Switch, {
     Label: (0, _formCheckDefault.default).Label
 });
 
-},{"react":"21dqq","./FormCheck":"idkr0","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"coYzo":[function(require,module,exports) {
+},{"react":"21dqq","./FormCheck":"idkr0","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"coYzo":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -31846,7 +31850,7 @@ const FloatingLabel = /*#__PURE__*/ _react.forwardRef(({ bsPrefix, className, ch
 FloatingLabel.displayName = "FloatingLabel";
 exports.default = FloatingLabel;
 
-},{"classnames":"jocGM","react":"21dqq","./FormGroup":"1qBHH","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cXyL2":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./FormGroup":"1qBHH","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"cXyL2":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -31904,7 +31908,7 @@ exports.default = Object.assign(Nav, {
     Link: (0, _navLinkDefault.default)
 });
 
-},{"classnames":"jocGM","prop-types-extra/lib/all":"37Ank","react":"21dqq","uncontrollable":"b3yWY","@restart/ui/Nav":"fZdNd","./ThemeProvider":"dVixI","./NavbarContext":"dpn1g","./CardHeaderContext":"36cNB","./NavItem":"ew05W","./NavLink":"7geL8","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"37Ank":[function(require,module,exports) {
+},{"classnames":"jocGM","prop-types-extra/lib/all":"37Ank","react":"21dqq","uncontrollable":"b3yWY","@restart/ui/Nav":"fZdNd","./ThemeProvider":"dVixI","./NavbarContext":"dpn1g","./CardHeaderContext":"36cNB","./NavItem":"ew05W","./NavLink":"7geL8","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"37Ank":[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -31981,7 +31985,7 @@ var _hookDefault = parcelHelpers.interopDefault(_hook);
 var _uncontrollable = require("./uncontrollable");
 var _uncontrollableDefault = parcelHelpers.interopDefault(_uncontrollable);
 
-},{"./hook":"cv9oS","./uncontrollable":"aqbCD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cv9oS":[function(require,module,exports) {
+},{"./hook":"cv9oS","./uncontrollable":"aqbCD","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"cv9oS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "useUncontrolledProp", ()=>useUncontrolledProp);
@@ -32042,7 +32046,7 @@ function useUncontrolled(props, config) {
     }, props);
 }
 
-},{"@babel/runtime/helpers/esm/extends":"fTBFS","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"adHgr","react":"21dqq","./utils":"7UQ73","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fTBFS":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"fTBFS","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"adHgr","react":"21dqq","./utils":"7UQ73","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"fTBFS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>_extends);
@@ -32057,7 +32061,7 @@ function _extends() {
     return _extends.apply(this, arguments);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7UQ73":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"7UQ73":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "uncontrolledPropTypes", ()=>uncontrolledPropTypes);
@@ -32102,7 +32106,7 @@ function canAcceptRef(component) {
     return !!component && (typeof component !== "function" || component.prototype && component.prototype.isReactComponent);
 }
 
-},{"invariant":"d1QgR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d1QgR":[function(require,module,exports) {
+},{"invariant":"d1QgR","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"d1QgR":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -32290,7 +32294,7 @@ function uncontrollable(Component, controlledValues, methods) {
     return WrappedComponent;
 }
 
-},{"@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"adHgr","@babel/runtime/helpers/esm/extends":"fTBFS","@babel/runtime/helpers/esm/inheritsLoose":"9u2Z8","react":"21dqq","react-lifecycles-compat":"3f3fU","invariant":"d1QgR","./utils":"7UQ73","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3f3fU":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"adHgr","@babel/runtime/helpers/esm/extends":"fTBFS","@babel/runtime/helpers/esm/inheritsLoose":"9u2Z8","react":"21dqq","react-lifecycles-compat":"3f3fU","invariant":"d1QgR","./utils":"7UQ73","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"3f3fU":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -32383,7 +32387,7 @@ function polyfill(Component) {
     return Component;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fZdNd":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"fZdNd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _querySelectorAll = require("dom-helpers/querySelectorAll");
@@ -32514,7 +32518,7 @@ exports.default = Object.assign(Nav, {
     Item: (0, _navItemDefault.default)
 });
 
-},{"dom-helpers/querySelectorAll":"g5Sx6","react":"21dqq","@restart/hooks/useForceUpdate":"3Y4bz","@restart/hooks/useMergedRefs":"6hhuo","./NavContext":"j1SMA","./SelectableContext":"8zLqy","./TabContext":"cI3G3","./DataKey":"9vwZh","./NavItem":"2cGYS","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g5Sx6":[function(require,module,exports) {
+},{"dom-helpers/querySelectorAll":"g5Sx6","react":"21dqq","@restart/hooks/useForceUpdate":"3Y4bz","@restart/hooks/useMergedRefs":"6hhuo","./NavContext":"j1SMA","./SelectableContext":"8zLqy","./TabContext":"cI3G3","./DataKey":"9vwZh","./NavItem":"2cGYS","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"g5Sx6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>qsa);
@@ -32523,7 +32527,7 @@ function qsa(element, selector) {
     return toArray(element.querySelectorAll(selector));
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3Y4bz":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"3Y4bz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>useForceUpdate);
@@ -32535,7 +32539,7 @@ function useForceUpdate() {
     return dispatch;
 }
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j1SMA":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"j1SMA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -32543,7 +32547,7 @@ const NavContext = /*#__PURE__*/ _react.createContext(null);
 NavContext.displayName = "NavContext";
 exports.default = NavContext;
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8zLqy":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"8zLqy":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "makeEventKey", ()=>makeEventKey);
@@ -32555,14 +32559,14 @@ const makeEventKey = (eventKey, href = null)=>{
 };
 exports.default = SelectableContext;
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cI3G3":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"cI3G3":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
 const TabContext = /*#__PURE__*/ _react.createContext(null);
 exports.default = TabContext;
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9vwZh":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"9vwZh":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ATTRIBUTE_PREFIX", ()=>ATTRIBUTE_PREFIX);
@@ -32578,7 +32582,7 @@ function dataProp(property) {
     return `${PROPERTY_PREFIX}${property}`;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2cGYS":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"2cGYS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "useNavItem", ()=>useNavItem);
@@ -32674,7 +32678,7 @@ const NavItem = /*#__PURE__*/ _react.forwardRef((_ref, ref)=>{
 NavItem.displayName = "NavItem";
 exports.default = NavItem;
 
-},{"react":"21dqq","@restart/hooks/useEventCallback":"7ONdq","./NavContext":"j1SMA","./SelectableContext":"8zLqy","./Button":"8YUbR","./DataKey":"9vwZh","./TabContext":"cI3G3","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7ONdq":[function(require,module,exports) {
+},{"react":"21dqq","@restart/hooks/useEventCallback":"7ONdq","./NavContext":"j1SMA","./SelectableContext":"8zLqy","./Button":"8YUbR","./DataKey":"9vwZh","./TabContext":"cI3G3","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"7ONdq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>useEventCallback);
@@ -32690,7 +32694,7 @@ function useEventCallback(fn) {
     ]);
 }
 
-},{"react":"21dqq","./useCommittedRef":"g5BYG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g5BYG":[function(require,module,exports) {
+},{"react":"21dqq","./useCommittedRef":"g5BYG","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"g5BYG":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -32713,7 +32717,7 @@ var _react = require("react");
 }
 exports.default = useCommittedRef;
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dpn1g":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"dpn1g":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -32723,7 +32727,7 @@ const context = /*#__PURE__*/ _react.createContext(null);
 context.displayName = "NavbarContext";
 exports.default = context;
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ew05W":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"ew05W":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -32743,7 +32747,7 @@ const NavItem = /*#__PURE__*/ _react.forwardRef(({ className, bsPrefix, as: Comp
 NavItem.displayName = "NavItem";
 exports.default = NavItem;
 
-},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7geL8":[function(require,module,exports) {
+},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"7geL8":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -32775,7 +32779,7 @@ const NavLink = /*#__PURE__*/ _react.forwardRef(({ bsPrefix, className, as: Comp
 NavLink.displayName = "NavLink";
 exports.default = NavLink;
 
-},{"classnames":"jocGM","react":"21dqq","@restart/ui/Anchor":"cQOWi","@restart/ui/NavItem":"2cGYS","@restart/ui/SelectableContext":"8zLqy","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cQOWi":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","@restart/ui/Anchor":"cQOWi","@restart/ui/NavItem":"2cGYS","@restart/ui/SelectableContext":"8zLqy","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"cQOWi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "isTrivialHref", ()=>isTrivialHref);
@@ -32827,7 +32831,7 @@ function isTrivialHref(href) {
 Anchor.displayName = "Anchor";
 exports.default = Anchor;
 
-},{"react":"21dqq","@restart/hooks":"5ErkJ","./Button":"8YUbR","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5ErkJ":[function(require,module,exports) {
+},{"react":"21dqq","@restart/hooks":"5ErkJ","./Button":"8YUbR","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"5ErkJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "useCallbackRef", ()=>(0, _useCallbackRefDefault.default));
@@ -32870,7 +32874,7 @@ var _useImageDefault = parcelHelpers.interopDefault(_useImage);
 var _useResizeObserver = require("./useResizeObserver");
 var _useResizeObserverDefault = parcelHelpers.interopDefault(_useResizeObserver);
 
-},{"./useCallbackRef":"82p6M","./useCommittedRef":"g5BYG","./useEventCallback":"7ONdq","./useEventListener":"dBDI3","./useGlobalListener":"iey73","./useInterval":"hnmo4","./useRafInterval":"4qbLw","./useMergeState":"7E8IK","./useMergeStateFromProps":"6f6Me","./useMounted":"iK6A1","./usePrevious":"gDCGm","./useImage":"iuAlv","./useResizeObserver":"edwGv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"82p6M":[function(require,module,exports) {
+},{"./useCallbackRef":"82p6M","./useCommittedRef":"g5BYG","./useEventCallback":"7ONdq","./useEventListener":"dBDI3","./useGlobalListener":"iey73","./useInterval":"hnmo4","./useRafInterval":"4qbLw","./useMergeState":"7E8IK","./useMergeStateFromProps":"6f6Me","./useMounted":"iK6A1","./usePrevious":"gDCGm","./useImage":"iuAlv","./useResizeObserver":"edwGv","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"82p6M":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>useCallbackRef);
@@ -32879,7 +32883,7 @@ function useCallbackRef() {
     return (0, _react.useState)(null);
 }
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dBDI3":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"dBDI3":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>useEventListener);
@@ -32897,7 +32901,7 @@ function useEventListener(eventTarget, event, listener, capture = false) {
     ]);
 }
 
-},{"react":"21dqq","./useEventCallback":"7ONdq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iey73":[function(require,module,exports) {
+},{"react":"21dqq","./useEventCallback":"7ONdq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"iey73":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>useGlobalListener);
@@ -32909,7 +32913,7 @@ function useGlobalListener(event, handler, capture = false) {
     return (0, _useEventListenerDefault.default)(documentTarget, event, handler, capture);
 }
 
-},{"./useEventListener":"dBDI3","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hnmo4":[function(require,module,exports) {
+},{"./useEventListener":"dBDI3","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"hnmo4":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -32995,7 +32999,7 @@ var _useCommittedRefDefault = parcelHelpers.interopDefault(_useCommittedRef);
 }
 exports.default = useInterval;
 
-},{"react":"21dqq","./useCommittedRef":"g5BYG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4qbLw":[function(require,module,exports) {
+},{"react":"21dqq","./useCommittedRef":"g5BYG","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"4qbLw":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -33026,7 +33030,7 @@ function useRafInterval(fn, ms, paused = false) {
 }
 exports.default = useRafInterval;
 
-},{"react":"21dqq","./useCommittedRef":"g5BYG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7E8IK":[function(require,module,exports) {
+},{"react":"21dqq","./useCommittedRef":"g5BYG","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"7E8IK":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>useMergeState);
@@ -33049,7 +33053,7 @@ function useMergeState(initialState) {
     ];
 }
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6f6Me":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"6f6Me":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>useMergeStateFromProps);
@@ -33065,7 +33069,7 @@ function useMergeStateFromProps(props, gDSFP, initialState) {
     ];
 }
 
-},{"./useMergeState":"7E8IK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iK6A1":[function(require,module,exports) {
+},{"./useMergeState":"7E8IK","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"iK6A1":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>useMounted);
@@ -33082,7 +33086,7 @@ function useMounted() {
     return isMounted.current;
 }
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gDCGm":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"gDCGm":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>usePrevious);
@@ -33095,7 +33099,7 @@ function usePrevious(value) {
     return ref.current;
 }
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iuAlv":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"iuAlv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>useImage);
@@ -33147,7 +33151,7 @@ function useImage(imageOrUrl, crossOrigin) {
     return state;
 }
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"edwGv":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"edwGv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>useResizeObserver);
@@ -33183,7 +33187,7 @@ function useResizeObserver(element) {
     return rect;
 }
 
-},{"react":"21dqq","./useIsomorphicEffect":"e8blq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e8blq":[function(require,module,exports) {
+},{"react":"21dqq","./useIsomorphicEffect":"e8blq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"e8blq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -33201,7 +33205,7 @@ const isDOM = typeof document !== "undefined";
  * @category effects
  */ exports.default = isDOM || isReactNative ? (0, _react.useLayoutEffect) : (0, _react.useEffect);
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1mHjo":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"1mHjo":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -33278,7 +33282,7 @@ exports.default = Object.assign(Navbar, {
     Toggle: (0, _navbarToggleDefault.default)
 });
 
-},{"classnames":"jocGM","react":"21dqq","@restart/ui/SelectableContext":"8zLqy","uncontrollable":"b3yWY","./NavbarBrand":"iOo4v","./NavbarCollapse":"eNSCC","./NavbarToggle":"7vOXv","./NavbarOffcanvas":"fOxoE","./ThemeProvider":"dVixI","./NavbarContext":"dpn1g","./NavbarText":"76xFa","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iOo4v":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","@restart/ui/SelectableContext":"8zLqy","uncontrollable":"b3yWY","./NavbarBrand":"iOo4v","./NavbarCollapse":"eNSCC","./NavbarToggle":"7vOXv","./NavbarOffcanvas":"fOxoE","./ThemeProvider":"dVixI","./NavbarContext":"dpn1g","./NavbarText":"76xFa","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"iOo4v":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -33299,7 +33303,7 @@ const NavbarBrand = /*#__PURE__*/ _react.forwardRef(({ bsPrefix, className, as, 
 NavbarBrand.displayName = "NavbarBrand";
 exports.default = NavbarBrand;
 
-},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eNSCC":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"eNSCC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -33326,7 +33330,7 @@ const NavbarCollapse = /*#__PURE__*/ _react.forwardRef(({ children, bsPrefix, ..
 NavbarCollapse.displayName = "NavbarCollapse";
 exports.default = NavbarCollapse;
 
-},{"react":"21dqq","./Collapse":"acuzI","./ThemeProvider":"dVixI","./NavbarContext":"dpn1g","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7vOXv":[function(require,module,exports) {
+},{"react":"21dqq","./Collapse":"acuzI","./ThemeProvider":"dVixI","./NavbarContext":"dpn1g","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"7vOXv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -33362,7 +33366,7 @@ as: Component = "button", onClick, ...props }, ref)=>{
 NavbarToggle.displayName = "NavbarToggle";
 exports.default = NavbarToggle;
 
-},{"classnames":"jocGM","react":"21dqq","@restart/hooks/useEventCallback":"7ONdq","./ThemeProvider":"dVixI","./NavbarContext":"dpn1g","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fOxoE":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","@restart/hooks/useEventCallback":"7ONdq","./ThemeProvider":"dVixI","./NavbarContext":"dpn1g","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"fOxoE":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -33384,7 +33388,7 @@ const NavbarOffcanvas = /*#__PURE__*/ _react.forwardRef((props, ref)=>{
 NavbarOffcanvas.displayName = "NavbarOffcanvas";
 exports.default = NavbarOffcanvas;
 
-},{"react":"21dqq","./Offcanvas":"eC3RS","./NavbarContext":"dpn1g","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eC3RS":[function(require,module,exports) {
+},{"react":"21dqq","./Offcanvas":"eC3RS","./NavbarContext":"dpn1g","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"eC3RS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -33524,7 +33528,7 @@ exports.default = Object.assign(Offcanvas, {
     Title: (0, _offcanvasTitleDefault.default)
 });
 
-},{"classnames":"jocGM","@restart/hooks/useBreakpoint":"2c4de","@restart/hooks/useEventCallback":"7ONdq","react":"21dqq","@restart/ui/Modal":"crj1M","./Fade":"aH18S","./OffcanvasBody":"fX7Bo","./OffcanvasToggling":"eGvzt","./ModalContext":"2U4Zk","./NavbarContext":"dpn1g","./OffcanvasHeader":"a6xAh","./OffcanvasTitle":"77qdX","./ThemeProvider":"dVixI","./BootstrapModalManager":"lr1Yp","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2c4de":[function(require,module,exports) {
+},{"classnames":"jocGM","@restart/hooks/useBreakpoint":"2c4de","@restart/hooks/useEventCallback":"7ONdq","react":"21dqq","@restart/ui/Modal":"crj1M","./Fade":"aH18S","./OffcanvasBody":"fX7Bo","./OffcanvasToggling":"eGvzt","./ModalContext":"2U4Zk","./NavbarContext":"dpn1g","./OffcanvasHeader":"a6xAh","./OffcanvasTitle":"77qdX","./ThemeProvider":"dVixI","./BootstrapModalManager":"lr1Yp","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"2c4de":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 /**
@@ -33635,7 +33639,7 @@ const useBreakpoint = createBreakpointHook({
 });
 exports.default = useBreakpoint;
 
-},{"./useMediaQuery":"etGLg","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"etGLg":[function(require,module,exports) {
+},{"./useMediaQuery":"etGLg","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"etGLg":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>useMediaQuery);
@@ -33680,7 +33684,7 @@ function useMediaQuery(query, targetWindow = typeof window === "undefined" ? und
     return matches;
 }
 
-},{"./useIsomorphicEffect":"e8blq","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"crj1M":[function(require,module,exports) {
+},{"./useIsomorphicEffect":"e8blq","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"crj1M":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 /* eslint-disable @typescript-eslint/no-use-before-define, react/prop-types */ var _activeElement = require("dom-helpers/activeElement");
@@ -33928,7 +33932,7 @@ exports.default = Object.assign(Modal, {
     Manager: (0, _modalManagerDefault.default)
 });
 
-},{"dom-helpers/activeElement":"5ShA6","dom-helpers/contains":"KpRFS","dom-helpers/canUseDOM":"9AwUB","dom-helpers/listen":"1i4e7","react":"21dqq","react-dom":"j6uA9","@restart/hooks/useMounted":"iK6A1","@restart/hooks/useWillUnmount":"2OOXI","@restart/hooks/usePrevious":"gDCGm","@restart/hooks/useEventCallback":"7ONdq","./ModalManager":"5alMm","./useWaitForDOMRef":"83lRQ","./useWindow":"4AsJ2","./ImperativeTransition":"j0Jao","./utils":"2Fmci","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5ShA6":[function(require,module,exports) {
+},{"dom-helpers/activeElement":"5ShA6","dom-helpers/contains":"KpRFS","dom-helpers/canUseDOM":"9AwUB","dom-helpers/listen":"1i4e7","react":"21dqq","react-dom":"j6uA9","@restart/hooks/useMounted":"iK6A1","@restart/hooks/useWillUnmount":"2OOXI","@restart/hooks/usePrevious":"gDCGm","@restart/hooks/useEventCallback":"7ONdq","./ModalManager":"5alMm","./useWaitForDOMRef":"83lRQ","./useWindow":"4AsJ2","./ImperativeTransition":"j0Jao","./utils":"2Fmci","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"5ShA6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>activeElement);
@@ -33948,7 +33952,7 @@ function activeElement(doc) {
     }
 }
 
-},{"./ownerDocument":"2WpOk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"KpRFS":[function(require,module,exports) {
+},{"./ownerDocument":"2WpOk","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"KpRFS":[function(require,module,exports) {
 /* eslint-disable no-bitwise, no-cond-assign */ /**
  * Checks if an element contains another given element.
  * 
@@ -33964,7 +33968,7 @@ function contains(context, node) {
     if (context.compareDocumentPosition) return context === node || !!(context.compareDocumentPosition(node) & 16);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2OOXI":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"2OOXI":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>useWillUnmount);
@@ -33976,7 +33980,7 @@ function useWillUnmount(fn) {
     (0, _react.useEffect)(()=>()=>onUnmount.current(), []);
 }
 
-},{"./useUpdatedRef":"cfaLu","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cfaLu":[function(require,module,exports) {
+},{"./useUpdatedRef":"cfaLu","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"cfaLu":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>useUpdatedRef);
@@ -33987,7 +33991,7 @@ function useUpdatedRef(value) {
     return valueRef;
 }
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5alMm":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"5alMm":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "OPEN_DATA_ATTRIBUTE", ()=>OPEN_DATA_ATTRIBUTE);
@@ -34076,7 +34080,7 @@ const OPEN_DATA_ATTRIBUTE = (0, _dataKey.dataAttr)("modal-open");
 }
 exports.default = ModalManager;
 
-},{"dom-helpers/css":"klmhr","./DataKey":"9vwZh","./getScrollbarWidth":"9IxEN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9IxEN":[function(require,module,exports) {
+},{"dom-helpers/css":"klmhr","./DataKey":"9vwZh","./getScrollbarWidth":"9IxEN","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"9IxEN":[function(require,module,exports) {
 /**
  * Get the width of the vertical window scrollbar if it's visible
  */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -34087,7 +34091,7 @@ function getBodyScrollbarWidth(ownerDocument = document) {
     return Math.abs(window.innerWidth - ownerDocument.documentElement.clientWidth);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"83lRQ":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"83lRQ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "resolveContainerRef", ()=>resolveContainerRef);
@@ -34130,7 +34134,7 @@ function useWaitForDOMRef(ref, onResolved) {
     return resolvedRef;
 }
 
-},{"dom-helpers/ownerDocument":"2WpOk","dom-helpers/canUseDOM":"9AwUB","react":"21dqq","./useWindow":"4AsJ2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4AsJ2":[function(require,module,exports) {
+},{"dom-helpers/ownerDocument":"2WpOk","dom-helpers/canUseDOM":"9AwUB","react":"21dqq","./useWindow":"4AsJ2","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"4AsJ2":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "WindowProvider", ()=>WindowProvider);
@@ -34144,7 +34148,7 @@ function useWindow() {
     return (0, _react.useContext)(Context);
 }
 
-},{"react":"21dqq","dom-helpers/canUseDOM":"9AwUB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j0Jao":[function(require,module,exports) {
+},{"react":"21dqq","dom-helpers/canUseDOM":"9AwUB","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"j0Jao":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "useTransition", ()=>useTransition);
@@ -34224,7 +34228,7 @@ function renderTransition(Component, runTransition, props) {
     return /*#__PURE__*/ (0, _jsxRuntime.jsx)((0, _noopTransitionDefault.default), Object.assign({}, props));
 }
 
-},{"@restart/hooks/useMergedRefs":"6hhuo","@restart/hooks/useEventCallback":"7ONdq","@restart/hooks/useIsomorphicEffect":"e8blq","react":"21dqq","./NoopTransition":"cwnaj","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cwnaj":[function(require,module,exports) {
+},{"@restart/hooks/useMergedRefs":"6hhuo","@restart/hooks/useEventCallback":"7ONdq","@restart/hooks/useIsomorphicEffect":"e8blq","react":"21dqq","./NoopTransition":"cwnaj","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"cwnaj":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _useEventCallback = require("@restart/hooks/useEventCallback");
@@ -34254,7 +34258,7 @@ function NoopTransition({ children, in: inProp, onExited, mountOnEnter, unmountO
 }
 exports.default = NoopTransition;
 
-},{"@restart/hooks/useEventCallback":"7ONdq","@restart/hooks/useMergedRefs":"6hhuo","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2Fmci":[function(require,module,exports) {
+},{"@restart/hooks/useEventCallback":"7ONdq","@restart/hooks/useMergedRefs":"6hhuo","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"2Fmci":[function(require,module,exports) {
 /* eslint-disable import/prefer-default-export */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "isEscKey", ()=>isEscKey);
@@ -34262,7 +34266,7 @@ function isEscKey(e) {
     return e.code === "Escape" || e.keyCode === 27;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fX7Bo":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"fX7Bo":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -34282,7 +34286,7 @@ const OffcanvasBody = /*#__PURE__*/ _react.forwardRef(({ className, bsPrefix, as
 OffcanvasBody.displayName = "OffcanvasBody";
 exports.default = OffcanvasBody;
 
-},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eGvzt":[function(require,module,exports) {
+},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"eGvzt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -34320,7 +34324,7 @@ const OffcanvasToggling = /*#__PURE__*/ _react.forwardRef(({ bsPrefix, className
 OffcanvasToggling.displayName = "OffcanvasToggling";
 exports.default = OffcanvasToggling;
 
-},{"classnames":"jocGM","react":"21dqq","react-transition-group/Transition":"cKsrS","./transitionEndListener":"68oh7","./TransitionWrapper":"jKUqZ","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2U4Zk":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","react-transition-group/Transition":"cKsrS","./transitionEndListener":"68oh7","./TransitionWrapper":"jKUqZ","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"2U4Zk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -34331,7 +34335,7 @@ const ModalContext = /*#__PURE__*/ _react.createContext({
 });
 exports.default = ModalContext;
 
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a6xAh":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"a6xAh":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -34355,7 +34359,7 @@ const OffcanvasHeader = /*#__PURE__*/ _react.forwardRef(({ bsPrefix, className, 
 OffcanvasHeader.displayName = "OffcanvasHeader";
 exports.default = OffcanvasHeader;
 
-},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","./AbstractModalHeader":"hPF8S","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hPF8S":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","./AbstractModalHeader":"hPF8S","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"hPF8S":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -34388,7 +34392,7 @@ const AbstractModalHeader = /*#__PURE__*/ _react.forwardRef(({ closeLabel = "Clo
 });
 exports.default = AbstractModalHeader;
 
-},{"react":"21dqq","@restart/hooks/useEventCallback":"7ONdq","./CloseButton":"1wmVl","./ModalContext":"2U4Zk","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"77qdX":[function(require,module,exports) {
+},{"react":"21dqq","@restart/hooks/useEventCallback":"7ONdq","./CloseButton":"1wmVl","./ModalContext":"2U4Zk","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"77qdX":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -34411,7 +34415,7 @@ const OffcanvasTitle = /*#__PURE__*/ _react.forwardRef(({ className, bsPrefix, a
 OffcanvasTitle.displayName = "OffcanvasTitle";
 exports.default = OffcanvasTitle;
 
-},{"react":"21dqq","classnames":"jocGM","./divWithClassName":"eDg7t","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lr1Yp":[function(require,module,exports) {
+},{"react":"21dqq","classnames":"jocGM","./divWithClassName":"eDg7t","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"lr1Yp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getSharedManager", ()=>getSharedManager);
@@ -34478,7 +34482,7 @@ function getSharedManager(options) {
 }
 exports.default = BootstrapModalManager;
 
-},{"dom-helpers/addClass":"7dIIz","dom-helpers/css":"klmhr","dom-helpers/querySelectorAll":"g5Sx6","dom-helpers/removeClass":"66hgg","@restart/ui/ModalManager":"5alMm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7dIIz":[function(require,module,exports) {
+},{"dom-helpers/addClass":"7dIIz","dom-helpers/css":"klmhr","dom-helpers/querySelectorAll":"g5Sx6","dom-helpers/removeClass":"66hgg","@restart/ui/ModalManager":"5alMm","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"7dIIz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>addClass);
@@ -34492,7 +34496,7 @@ function addClass(element, className) {
     }
 }
 
-},{"./hasClass":"6sJz4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6sJz4":[function(require,module,exports) {
+},{"./hasClass":"6sJz4","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"6sJz4":[function(require,module,exports) {
 /**
  * Checks if a given element has a CSS class.
  * 
@@ -34506,7 +34510,7 @@ function hasClass(element, className) {
     return (" " + (element.className.baseVal || element.className) + " ").indexOf(" " + className + " ") !== -1;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"66hgg":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"66hgg":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>removeClass);
@@ -34519,7 +34523,7 @@ function removeClass(element, className) {
     else element.setAttribute("class", replaceClassName(element.className && element.className.baseVal || "", className));
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"76xFa":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"76xFa":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -34539,7 +34543,7 @@ const NavbarText = /*#__PURE__*/ _react.forwardRef(({ className, bsPrefix, as: C
 NavbarText.displayName = "NavbarText";
 exports.default = NavbarText;
 
-},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cMC39":[function(require,module,exports) {
+},{"react":"21dqq","classnames":"jocGM","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"cMC39":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -34573,7 +34577,7 @@ as: Component = "div", ...props }, ref)=>{
 Row.displayName = "Row";
 exports.default = Row;
 
-},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bsPVM":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"bsPVM":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$abf5 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -34736,7 +34740,7 @@ $RefreshReg$(_c, "NavigationBar");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"fdOAw":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ"}],"fdOAw":[function(require,module,exports) {
 /**
  * React Router DOM v6.3.0
  *
@@ -35077,7 +35081,7 @@ NavLink.displayName = "NavLink";
     }, []));
 }
 
-},{"react":"21dqq","history":"iE5Zp","react-router":"btA8E","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iE5Zp":[function(require,module,exports) {
+},{"react":"21dqq","history":"iE5Zp","react-router":"btA8E","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"iE5Zp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Action", ()=>Action);
@@ -35682,7 +35686,7 @@ function createKey() {
     return parsedPath;
 }
 
-},{"@babel/runtime/helpers/esm/extends":"fTBFS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"btA8E":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"fTBFS","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"btA8E":[function(require,module,exports) {
 /**
  * React Router v6.3.0
  *
@@ -36423,9 +36427,9 @@ function _renderMatches(matches, parentMatches) {
     return _renderMatches(matches);
 }
 
-},{"history":"iE5Zp","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"km3Ru":[function(require,module,exports) {
+},{"history":"iE5Zp","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"LvBOQ":[function(require,module,exports) {
 "use strict";
-var Refresh = require("7422ead32dcc1e6b");
+var Refresh = require("f49c07d3f7913792");
 function debounce(func, delay) {
     {
         let timeout = undefined;
@@ -36561,471 +36565,7 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"7422ead32dcc1e6b":"jEdJI"}],"jEdJI":[function(require,module,exports) {
-"use strict";
-module.exports = require("9e039173d01172ab");
-
-},{"9e039173d01172ab":"uTjV2"}],"uTjV2":[function(require,module,exports) {
-/** @license React v0.9.0
- * react-refresh-runtime.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */ "use strict";
-(function() {
-    "use strict";
-    // ATTENTION
-    // When adding new symbols to this file,
-    // Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
-    // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
-    // nor polyfill, then a plain number is used for performance.
-    var REACT_ELEMENT_TYPE = 0xeac7;
-    var REACT_PORTAL_TYPE = 0xeaca;
-    var REACT_FRAGMENT_TYPE = 0xeacb;
-    var REACT_STRICT_MODE_TYPE = 0xeacc;
-    var REACT_PROFILER_TYPE = 0xead2;
-    var REACT_PROVIDER_TYPE = 0xeacd;
-    var REACT_CONTEXT_TYPE = 0xeace;
-    var REACT_FORWARD_REF_TYPE = 0xead0;
-    var REACT_SUSPENSE_TYPE = 0xead1;
-    var REACT_SUSPENSE_LIST_TYPE = 0xead8;
-    var REACT_MEMO_TYPE = 0xead3;
-    var REACT_LAZY_TYPE = 0xead4;
-    var REACT_BLOCK_TYPE = 0xead9;
-    var REACT_SERVER_BLOCK_TYPE = 0xeada;
-    var REACT_FUNDAMENTAL_TYPE = 0xead5;
-    var REACT_SCOPE_TYPE = 0xead7;
-    var REACT_OPAQUE_ID_TYPE = 0xeae0;
-    var REACT_DEBUG_TRACING_MODE_TYPE = 0xeae1;
-    var REACT_OFFSCREEN_TYPE = 0xeae2;
-    var REACT_LEGACY_HIDDEN_TYPE = 0xeae3;
-    if (typeof Symbol === "function" && Symbol.for) {
-        var symbolFor = Symbol.for;
-        REACT_ELEMENT_TYPE = symbolFor("react.element");
-        REACT_PORTAL_TYPE = symbolFor("react.portal");
-        REACT_FRAGMENT_TYPE = symbolFor("react.fragment");
-        REACT_STRICT_MODE_TYPE = symbolFor("react.strict_mode");
-        REACT_PROFILER_TYPE = symbolFor("react.profiler");
-        REACT_PROVIDER_TYPE = symbolFor("react.provider");
-        REACT_CONTEXT_TYPE = symbolFor("react.context");
-        REACT_FORWARD_REF_TYPE = symbolFor("react.forward_ref");
-        REACT_SUSPENSE_TYPE = symbolFor("react.suspense");
-        REACT_SUSPENSE_LIST_TYPE = symbolFor("react.suspense_list");
-        REACT_MEMO_TYPE = symbolFor("react.memo");
-        REACT_LAZY_TYPE = symbolFor("react.lazy");
-        REACT_BLOCK_TYPE = symbolFor("react.block");
-        REACT_SERVER_BLOCK_TYPE = symbolFor("react.server.block");
-        REACT_FUNDAMENTAL_TYPE = symbolFor("react.fundamental");
-        REACT_SCOPE_TYPE = symbolFor("react.scope");
-        REACT_OPAQUE_ID_TYPE = symbolFor("react.opaque.id");
-        REACT_DEBUG_TRACING_MODE_TYPE = symbolFor("react.debug_trace_mode");
-        REACT_OFFSCREEN_TYPE = symbolFor("react.offscreen");
-        REACT_LEGACY_HIDDEN_TYPE = symbolFor("react.legacy_hidden");
-    }
-    var PossiblyWeakMap = typeof WeakMap === "function" ? WeakMap : Map; // We never remove these associations.
-    // It's OK to reference families, but use WeakMap/Set for types.
-    var allFamiliesByID = new Map();
-    var allFamiliesByType = new PossiblyWeakMap();
-    var allSignaturesByType = new PossiblyWeakMap(); // This WeakMap is read by React, so we only put families
-    // that have actually been edited here. This keeps checks fast.
-    // $FlowIssue
-    var updatedFamiliesByType = new PossiblyWeakMap(); // This is cleared on every performReactRefresh() call.
-    // It is an array of [Family, NextType] tuples.
-    var pendingUpdates = []; // This is injected by the renderer via DevTools global hook.
-    var helpersByRendererID = new Map();
-    var helpersByRoot = new Map(); // We keep track of mounted roots so we can schedule updates.
-    var mountedRoots = new Set(); // If a root captures an error, we remember it so we can retry on edit.
-    var failedRoots = new Set(); // In environments that support WeakMap, we also remember the last element for every root.
-    // It needs to be weak because we do this even for roots that failed to mount.
-    // If there is no WeakMap, we won't attempt to do retrying.
-    // $FlowIssue
-    var rootElements = typeof WeakMap === "function" ? new WeakMap() : null;
-    var isPerformingRefresh = false;
-    function computeFullKey(signature) {
-        if (signature.fullKey !== null) return signature.fullKey;
-        var fullKey = signature.ownKey;
-        var hooks;
-        try {
-            hooks = signature.getCustomHooks();
-        } catch (err) {
-            // This can happen in an edge case, e.g. if expression like Foo.useSomething
-            // depends on Foo which is lazily initialized during rendering.
-            // In that case just assume we'll have to remount.
-            signature.forceReset = true;
-            signature.fullKey = fullKey;
-            return fullKey;
-        }
-        for(var i = 0; i < hooks.length; i++){
-            var hook = hooks[i];
-            if (typeof hook !== "function") {
-                // Something's wrong. Assume we need to remount.
-                signature.forceReset = true;
-                signature.fullKey = fullKey;
-                return fullKey;
-            }
-            var nestedHookSignature = allSignaturesByType.get(hook);
-            if (nestedHookSignature === undefined) continue;
-            var nestedHookKey = computeFullKey(nestedHookSignature);
-            if (nestedHookSignature.forceReset) signature.forceReset = true;
-            fullKey += "\n---\n" + nestedHookKey;
-        }
-        signature.fullKey = fullKey;
-        return fullKey;
-    }
-    function haveEqualSignatures(prevType, nextType) {
-        var prevSignature = allSignaturesByType.get(prevType);
-        var nextSignature = allSignaturesByType.get(nextType);
-        if (prevSignature === undefined && nextSignature === undefined) return true;
-        if (prevSignature === undefined || nextSignature === undefined) return false;
-        if (computeFullKey(prevSignature) !== computeFullKey(nextSignature)) return false;
-        if (nextSignature.forceReset) return false;
-        return true;
-    }
-    function isReactClass(type) {
-        return type.prototype && type.prototype.isReactComponent;
-    }
-    function canPreserveStateBetween(prevType, nextType) {
-        if (isReactClass(prevType) || isReactClass(nextType)) return false;
-        if (haveEqualSignatures(prevType, nextType)) return true;
-        return false;
-    }
-    function resolveFamily(type) {
-        // Only check updated types to keep lookups fast.
-        return updatedFamiliesByType.get(type);
-    } // If we didn't care about IE11, we could use new Map/Set(iterable).
-    function cloneMap(map) {
-        var clone = new Map();
-        map.forEach(function(value, key) {
-            clone.set(key, value);
-        });
-        return clone;
-    }
-    function cloneSet(set) {
-        var clone = new Set();
-        set.forEach(function(value) {
-            clone.add(value);
-        });
-        return clone;
-    }
-    function performReactRefresh() {
-        if (pendingUpdates.length === 0) return null;
-        if (isPerformingRefresh) return null;
-        isPerformingRefresh = true;
-        try {
-            var staleFamilies = new Set();
-            var updatedFamilies = new Set();
-            var updates = pendingUpdates;
-            pendingUpdates = [];
-            updates.forEach(function(_ref) {
-                var family = _ref[0], nextType = _ref[1];
-                // Now that we got a real edit, we can create associations
-                // that will be read by the React reconciler.
-                var prevType = family.current;
-                updatedFamiliesByType.set(prevType, family);
-                updatedFamiliesByType.set(nextType, family);
-                family.current = nextType; // Determine whether this should be a re-render or a re-mount.
-                if (canPreserveStateBetween(prevType, nextType)) updatedFamilies.add(family);
-                else staleFamilies.add(family);
-            }); // TODO: rename these fields to something more meaningful.
-            var update = {
-                updatedFamilies: updatedFamilies,
-                // Families that will re-render preserving state
-                staleFamilies: staleFamilies // Families that will be remounted
-            };
-            helpersByRendererID.forEach(function(helpers) {
-                // Even if there are no roots, set the handler on first update.
-                // This ensures that if *new* roots are mounted, they'll use the resolve handler.
-                helpers.setRefreshHandler(resolveFamily);
-            });
-            var didError = false;
-            var firstError = null; // We snapshot maps and sets that are mutated during commits.
-            // If we don't do this, there is a risk they will be mutated while
-            // we iterate over them. For example, trying to recover a failed root
-            // may cause another root to be added to the failed list -- an infinite loop.
-            var failedRootsSnapshot = cloneSet(failedRoots);
-            var mountedRootsSnapshot = cloneSet(mountedRoots);
-            var helpersByRootSnapshot = cloneMap(helpersByRoot);
-            failedRootsSnapshot.forEach(function(root) {
-                var helpers = helpersByRootSnapshot.get(root);
-                if (helpers === undefined) throw new Error("Could not find helpers for a root. This is a bug in React Refresh.");
-                failedRoots.has(root);
-                if (rootElements === null) return;
-                if (!rootElements.has(root)) return;
-                var element = rootElements.get(root);
-                try {
-                    helpers.scheduleRoot(root, element);
-                } catch (err) {
-                    if (!didError) {
-                        didError = true;
-                        firstError = err;
-                    } // Keep trying other roots.
-                }
-            });
-            mountedRootsSnapshot.forEach(function(root) {
-                var helpers = helpersByRootSnapshot.get(root);
-                if (helpers === undefined) throw new Error("Could not find helpers for a root. This is a bug in React Refresh.");
-                mountedRoots.has(root);
-                try {
-                    helpers.scheduleRefresh(root, update);
-                } catch (err) {
-                    if (!didError) {
-                        didError = true;
-                        firstError = err;
-                    } // Keep trying other roots.
-                }
-            });
-            if (didError) throw firstError;
-            return update;
-        } finally{
-            isPerformingRefresh = false;
-        }
-    }
-    function register(type, id) {
-        if (type === null) return;
-        if (typeof type !== "function" && typeof type !== "object") return;
-         // This can happen in an edge case, e.g. if we register
-        // return value of a HOC but it returns a cached component.
-        // Ignore anything but the first registration for each type.
-        if (allFamiliesByType.has(type)) return;
-         // Create family or remember to update it.
-        // None of this bookkeeping affects reconciliation
-        // until the first performReactRefresh() call above.
-        var family = allFamiliesByID.get(id);
-        if (family === undefined) {
-            family = {
-                current: type
-            };
-            allFamiliesByID.set(id, family);
-        } else pendingUpdates.push([
-            family,
-            type
-        ]);
-        allFamiliesByType.set(type, family); // Visit inner types because we might not have registered them.
-        if (typeof type === "object" && type !== null) switch(type.$$typeof){
-            case REACT_FORWARD_REF_TYPE:
-                register(type.render, id + "$render");
-                break;
-            case REACT_MEMO_TYPE:
-                register(type.type, id + "$type");
-                break;
-        }
-    }
-    function setSignature(type, key) {
-        var forceReset = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-        var getCustomHooks = arguments.length > 3 ? arguments[3] : undefined;
-        allSignaturesByType.set(type, {
-            forceReset: forceReset,
-            ownKey: key,
-            fullKey: null,
-            getCustomHooks: getCustomHooks || function() {
-                return [];
-            }
-        });
-    } // This is lazily called during first render for a type.
-    // It captures Hook list at that time so inline requires don't break comparisons.
-    function collectCustomHooksForSignature(type) {
-        var signature = allSignaturesByType.get(type);
-        if (signature !== undefined) computeFullKey(signature);
-    }
-    function getFamilyByID(id) {
-        return allFamiliesByID.get(id);
-    }
-    function getFamilyByType(type) {
-        return allFamiliesByType.get(type);
-    }
-    function findAffectedHostInstances(families) {
-        var affectedInstances = new Set();
-        mountedRoots.forEach(function(root) {
-            var helpers = helpersByRoot.get(root);
-            if (helpers === undefined) throw new Error("Could not find helpers for a root. This is a bug in React Refresh.");
-            var instancesForRoot = helpers.findHostInstancesForRefresh(root, families);
-            instancesForRoot.forEach(function(inst) {
-                affectedInstances.add(inst);
-            });
-        });
-        return affectedInstances;
-    }
-    function injectIntoGlobalHook(globalObject) {
-        // For React Native, the global hook will be set up by require('react-devtools-core').
-        // That code will run before us. So we need to monkeypatch functions on existing hook.
-        // For React Web, the global hook will be set up by the extension.
-        // This will also run before us.
-        var hook = globalObject.__REACT_DEVTOOLS_GLOBAL_HOOK__;
-        if (hook === undefined) {
-            // However, if there is no DevTools extension, we'll need to set up the global hook ourselves.
-            // Note that in this case it's important that renderer code runs *after* this method call.
-            // Otherwise, the renderer will think that there is no global hook, and won't do the injection.
-            var nextID = 0;
-            globalObject.__REACT_DEVTOOLS_GLOBAL_HOOK__ = hook = {
-                renderers: new Map(),
-                supportsFiber: true,
-                inject: function(injected) {
-                    return nextID++;
-                },
-                onScheduleFiberRoot: function(id, root, children) {},
-                onCommitFiberRoot: function(id, root, maybePriorityLevel, didError) {},
-                onCommitFiberUnmount: function() {}
-            };
-        } // Here, we just want to get a reference to scheduleRefresh.
-        var oldInject = hook.inject;
-        hook.inject = function(injected) {
-            var id = oldInject.apply(this, arguments);
-            if (typeof injected.scheduleRefresh === "function" && typeof injected.setRefreshHandler === "function") // This version supports React Refresh.
-            helpersByRendererID.set(id, injected);
-            return id;
-        }; // Do the same for any already injected roots.
-        // This is useful if ReactDOM has already been initialized.
-        // https://github.com/facebook/react/issues/17626
-        hook.renderers.forEach(function(injected, id) {
-            if (typeof injected.scheduleRefresh === "function" && typeof injected.setRefreshHandler === "function") // This version supports React Refresh.
-            helpersByRendererID.set(id, injected);
-        }); // We also want to track currently mounted roots.
-        var oldOnCommitFiberRoot = hook.onCommitFiberRoot;
-        var oldOnScheduleFiberRoot = hook.onScheduleFiberRoot || function() {};
-        hook.onScheduleFiberRoot = function(id, root, children) {
-            if (!isPerformingRefresh) {
-                // If it was intentionally scheduled, don't attempt to restore.
-                // This includes intentionally scheduled unmounts.
-                failedRoots.delete(root);
-                if (rootElements !== null) rootElements.set(root, children);
-            }
-            return oldOnScheduleFiberRoot.apply(this, arguments);
-        };
-        hook.onCommitFiberRoot = function(id, root, maybePriorityLevel, didError) {
-            var helpers = helpersByRendererID.get(id);
-            if (helpers === undefined) return;
-            helpersByRoot.set(root, helpers);
-            var current = root.current;
-            var alternate = current.alternate; // We need to determine whether this root has just (un)mounted.
-            // This logic is copy-pasted from similar logic in the DevTools backend.
-            // If this breaks with some refactoring, you'll want to update DevTools too.
-            if (alternate !== null) {
-                var wasMounted = alternate.memoizedState != null && alternate.memoizedState.element != null;
-                var isMounted = current.memoizedState != null && current.memoizedState.element != null;
-                if (!wasMounted && isMounted) {
-                    // Mount a new root.
-                    mountedRoots.add(root);
-                    failedRoots.delete(root);
-                } else if (wasMounted && isMounted) ;
-                else if (wasMounted && !isMounted) {
-                    // Unmount an existing root.
-                    mountedRoots.delete(root);
-                    if (didError) // We'll remount it on future edits.
-                    failedRoots.add(root);
-                    else helpersByRoot.delete(root);
-                } else if (!wasMounted && !isMounted) {
-                    if (didError) // We'll remount it on future edits.
-                    failedRoots.add(root);
-                }
-            } else // Mount a new root.
-            mountedRoots.add(root);
-            return oldOnCommitFiberRoot.apply(this, arguments);
-        };
-    }
-    function hasUnrecoverableErrors() {
-        // TODO: delete this after removing dependency in RN.
-        return false;
-    } // Exposed for testing.
-    function _getMountedRootCount() {
-        return mountedRoots.size;
-    } // This is a wrapper over more primitive functions for setting signature.
-    // Signatures let us decide whether the Hook order has changed on refresh.
-    //
-    // This function is intended to be used as a transform target, e.g.:
-    // var _s = createSignatureFunctionForTransform()
-    //
-    // function Hello() {
-    //   const [foo, setFoo] = useState(0);
-    //   const value = useCustomHook();
-    //   _s(); /* Second call triggers collecting the custom Hook list.
-    //          * This doesn't happen during the module evaluation because we
-    //          * don't want to change the module order with inline requires.
-    //          * Next calls are noops. */
-    //   return <h1>Hi</h1>;
-    // }
-    //
-    // /* First call specifies the signature: */
-    // _s(
-    //   Hello,
-    //   'useState{[foo, setFoo]}(0)',
-    //   () => [useCustomHook], /* Lazy to avoid triggering inline requires */
-    // );
-    function createSignatureFunctionForTransform() {
-        // We'll fill in the signature in two steps.
-        // First, we'll know the signature itself. This happens outside the component.
-        // Then, we'll know the references to custom Hooks. This happens inside the component.
-        // After that, the returned function will be a fast path no-op.
-        var status = "needsSignature";
-        var savedType;
-        var hasCustomHooks;
-        return function(type, key, forceReset, getCustomHooks) {
-            switch(status){
-                case "needsSignature":
-                    if (type !== undefined) {
-                        // If we received an argument, this is the initial registration call.
-                        savedType = type;
-                        hasCustomHooks = typeof getCustomHooks === "function";
-                        setSignature(type, key, forceReset, getCustomHooks); // The next call we expect is from inside a function, to fill in the custom Hooks.
-                        status = "needsCustomHooks";
-                    }
-                    break;
-                case "needsCustomHooks":
-                    if (hasCustomHooks) collectCustomHooksForSignature(savedType);
-                    status = "resolved";
-                    break;
-            }
-            return type;
-        };
-    }
-    function isLikelyComponentType(type) {
-        switch(typeof type){
-            case "function":
-                // First, deal with classes.
-                if (type.prototype != null) {
-                    if (type.prototype.isReactComponent) // React class.
-                    return true;
-                    var ownNames = Object.getOwnPropertyNames(type.prototype);
-                    if (ownNames.length > 1 || ownNames[0] !== "constructor") // This looks like a class.
-                    return false;
-                     // eslint-disable-next-line no-proto
-                    if (type.prototype.__proto__ !== Object.prototype) // It has a superclass.
-                    return false;
-                     // Pass through.
-                // This looks like a regular function with empty prototype.
-                } // For plain functions and arrows, use name as a heuristic.
-                var name = type.name || type.displayName;
-                return typeof name === "string" && /^[A-Z]/.test(name);
-            case "object":
-                if (type != null) switch(type.$$typeof){
-                    case REACT_FORWARD_REF_TYPE:
-                    case REACT_MEMO_TYPE:
-                        // Definitely React components.
-                        return true;
-                    default:
-                        return false;
-                }
-                return false;
-            default:
-                return false;
-        }
-    }
-    exports._getMountedRootCount = _getMountedRootCount;
-    exports.collectCustomHooksForSignature = collectCustomHooksForSignature;
-    exports.createSignatureFunctionForTransform = createSignatureFunctionForTransform;
-    exports.findAffectedHostInstances = findAffectedHostInstances;
-    exports.getFamilyByID = getFamilyByID;
-    exports.getFamilyByType = getFamilyByType;
-    exports.hasUnrecoverableErrors = hasUnrecoverableErrors;
-    exports.injectIntoGlobalHook = injectIntoGlobalHook;
-    exports.isLikelyComponentType = isLikelyComponentType;
-    exports.performReactRefresh = performReactRefresh;
-    exports.register = register;
-    exports.setSignature = setSignature;
-})();
-
-},{}],"9YtA0":[function(require,module,exports) {
+},{"f49c07d3f7913792":"7ilz1"}],"9YtA0":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$9fee = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -37197,7 +36737,7 @@ $RefreshReg$(_c, "LoginView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"4OGiN":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ"}],"4OGiN":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$73d1 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -37433,7 +36973,7 @@ $RefreshReg$(_c, "SignupView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"fdOAw","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"bwuIu":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"fdOAw","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ"}],"bwuIu":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$67b2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -37561,7 +37101,10 @@ _c = MovieCard;
 MovieCard.propTypes = {
     movie: (0, _propTypesDefault.default).shape({
         Title: (0, _propTypesDefault.default).string
-    }).isRequired
+    }).isRequired,
+    addFav: (0, _propTypesDefault.default).func.isRequired,
+    removeFav: (0, _propTypesDefault.default).func.isRequired,
+    isFavorite: (0, _propTypesDefault.default).bool.isRequired
 };
 exports.default = MovieCard;
 var _c;
@@ -37572,7 +37115,7 @@ $RefreshReg$(_c, "MovieCard");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","prop-types":"7wKI2","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","react-bootstrap-icons":"c9Gza","./movie-card.scss":"d6HH4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"c9Gza":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","prop-types":"7wKI2","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","react-bootstrap-icons":"c9Gza","./movie-card.scss":"d6HH4","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ"}],"c9Gza":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Icon0CircleFill", ()=>(0, _0CircleFillDefault.default));
@@ -43726,7 +43269,7 @@ var _zoomInDefault = parcelHelpers.interopDefault(_zoomIn);
 var _zoomOut = require("./icons/zoom-out");
 var _zoomOutDefault = parcelHelpers.interopDefault(_zoomOut);
 
-},{"./icons/0-circle-fill":false,"./icons/0-circle":false,"./icons/0-square-fill":false,"./icons/0-square":false,"./icons/1-circle-fill":false,"./icons/1-circle":false,"./icons/1-square-fill":false,"./icons/1-square":false,"./icons/123":false,"./icons/2-circle-fill":false,"./icons/2-circle":false,"./icons/2-square-fill":false,"./icons/2-square":false,"./icons/3-circle-fill":false,"./icons/3-circle":false,"./icons/3-square-fill":false,"./icons/3-square":false,"./icons/4-circle-fill":false,"./icons/4-circle":false,"./icons/4-square-fill":false,"./icons/4-square":false,"./icons/5-circle-fill":false,"./icons/5-circle":false,"./icons/5-square-fill":false,"./icons/5-square":false,"./icons/6-circle-fill":false,"./icons/6-circle":false,"./icons/6-square-fill":false,"./icons/6-square":false,"./icons/7-circle-fill":false,"./icons/7-circle":false,"./icons/7-square-fill":false,"./icons/7-square":false,"./icons/8-circle-fill":false,"./icons/8-circle":false,"./icons/8-square-fill":false,"./icons/8-square":false,"./icons/9-circle-fill":false,"./icons/9-circle":false,"./icons/9-square-fill":false,"./icons/9-square":false,"./icons/activity":false,"./icons/airplane-engines-fill":false,"./icons/airplane-engines":false,"./icons/airplane-fill":false,"./icons/airplane":false,"./icons/alarm-fill":false,"./icons/alarm":false,"./icons/alexa":false,"./icons/align-bottom":false,"./icons/align-center":false,"./icons/align-end":false,"./icons/align-middle":false,"./icons/align-start":false,"./icons/align-top":false,"./icons/alipay":false,"./icons/alphabet-uppercase":false,"./icons/alphabet":false,"./icons/alt":false,"./icons/amazon":false,"./icons/amd":false,"./icons/android":false,"./icons/android2":false,"./icons/app-indicator":false,"./icons/app":false,"./icons/apple":false,"./icons/archive-fill":false,"./icons/archive":false,"./icons/arrow-90deg-down":false,"./icons/arrow-90deg-left":false,"./icons/arrow-90deg-right":false,"./icons/arrow-90deg-up":false,"./icons/arrow-bar-down":false,"./icons/arrow-bar-left":false,"./icons/arrow-bar-right":false,"./icons/arrow-bar-up":false,"./icons/arrow-clockwise":false,"./icons/arrow-counterclockwise":false,"./icons/arrow-down-circle-fill":false,"./icons/arrow-down-circle":false,"./icons/arrow-down-left-circle-fill":false,"./icons/arrow-down-left-circle":false,"./icons/arrow-down-left-square-fill":false,"./icons/arrow-down-left-square":false,"./icons/arrow-down-left":false,"./icons/arrow-down-right-circle-fill":false,"./icons/arrow-down-right-circle":false,"./icons/arrow-down-right-square-fill":false,"./icons/arrow-down-right-square":false,"./icons/arrow-down-right":false,"./icons/arrow-down-short":false,"./icons/arrow-down-square-fill":false,"./icons/arrow-down-square":false,"./icons/arrow-down-up":false,"./icons/arrow-down":false,"./icons/arrow-left-circle-fill":false,"./icons/arrow-left-circle":false,"./icons/arrow-left-right":false,"./icons/arrow-left-short":false,"./icons/arrow-left-square-fill":false,"./icons/arrow-left-square":false,"./icons/arrow-left":false,"./icons/arrow-repeat":false,"./icons/arrow-return-left":false,"./icons/arrow-return-right":false,"./icons/arrow-right-circle-fill":false,"./icons/arrow-right-circle":false,"./icons/arrow-right-short":false,"./icons/arrow-right-square-fill":false,"./icons/arrow-right-square":false,"./icons/arrow-right":false,"./icons/arrow-through-heart-fill":false,"./icons/arrow-through-heart":false,"./icons/arrow-up-circle-fill":false,"./icons/arrow-up-circle":false,"./icons/arrow-up-left-circle-fill":false,"./icons/arrow-up-left-circle":false,"./icons/arrow-up-left-square-fill":false,"./icons/arrow-up-left-square":false,"./icons/arrow-up-left":false,"./icons/arrow-up-right-circle-fill":false,"./icons/arrow-up-right-circle":false,"./icons/arrow-up-right-square-fill":false,"./icons/arrow-up-right-square":false,"./icons/arrow-up-right":false,"./icons/arrow-up-short":false,"./icons/arrow-up-square-fill":false,"./icons/arrow-up-square":false,"./icons/arrow-up":false,"./icons/arrows-angle-contract":false,"./icons/arrows-angle-expand":false,"./icons/arrows-collapse-vertical":false,"./icons/arrows-collapse":false,"./icons/arrows-expand-vertical":false,"./icons/arrows-expand":false,"./icons/arrows-fullscreen":false,"./icons/arrows-move":false,"./icons/arrows-vertical":false,"./icons/arrows":false,"./icons/aspect-ratio-fill":false,"./icons/aspect-ratio":false,"./icons/asterisk":false,"./icons/at":false,"./icons/award-fill":false,"./icons/award":false,"./icons/back":false,"./icons/backpack-fill":false,"./icons/backpack":false,"./icons/backpack2-fill":false,"./icons/backpack2":false,"./icons/backpack3-fill":false,"./icons/backpack3":false,"./icons/backpack4-fill":false,"./icons/backpack4":false,"./icons/backspace-fill":false,"./icons/backspace-reverse-fill":false,"./icons/backspace-reverse":false,"./icons/backspace":false,"./icons/badge-3d-fill":false,"./icons/badge-3d":false,"./icons/badge-4k-fill":false,"./icons/badge-4k":false,"./icons/badge-8k-fill":false,"./icons/badge-8k":false,"./icons/badge-ad-fill":false,"./icons/badge-ad":false,"./icons/badge-ar-fill":false,"./icons/badge-ar":false,"./icons/badge-cc-fill":false,"./icons/badge-cc":false,"./icons/badge-hd-fill":false,"./icons/badge-hd":false,"./icons/badge-sd-fill":false,"./icons/badge-sd":false,"./icons/badge-tm-fill":false,"./icons/badge-tm":false,"./icons/badge-vo-fill":false,"./icons/badge-vo":false,"./icons/badge-vr-fill":false,"./icons/badge-vr":false,"./icons/badge-wc-fill":false,"./icons/badge-wc":false,"./icons/bag-check-fill":false,"./icons/bag-check":false,"./icons/bag-dash-fill":false,"./icons/bag-dash":false,"./icons/bag-fill":false,"./icons/bag-heart-fill":false,"./icons/bag-heart":false,"./icons/bag-plus-fill":false,"./icons/bag-plus":false,"./icons/bag-x-fill":false,"./icons/bag-x":false,"./icons/bag":false,"./icons/balloon-fill":false,"./icons/balloon-heart-fill":false,"./icons/balloon-heart":false,"./icons/balloon":false,"./icons/ban-fill":false,"./icons/ban":false,"./icons/bandaid-fill":false,"./icons/bandaid":false,"./icons/bank":false,"./icons/bank2":false,"./icons/bar-chart-fill":false,"./icons/bar-chart-line-fill":false,"./icons/bar-chart-line":false,"./icons/bar-chart-steps":false,"./icons/bar-chart":false,"./icons/basket-fill":false,"./icons/basket":false,"./icons/basket2-fill":false,"./icons/basket2":false,"./icons/basket3-fill":false,"./icons/basket3":false,"./icons/battery-charging":false,"./icons/battery-full":false,"./icons/battery-half":false,"./icons/battery":false,"./icons/behance":false,"./icons/bell-fill":false,"./icons/bell-slash-fill":false,"./icons/bell-slash":false,"./icons/bell":false,"./icons/bezier":false,"./icons/bezier2":false,"./icons/bicycle":false,"./icons/bing":false,"./icons/binoculars-fill":false,"./icons/binoculars":false,"./icons/blockquote-left":false,"./icons/blockquote-right":false,"./icons/bluetooth":false,"./icons/body-text":false,"./icons/book-fill":false,"./icons/book-half":false,"./icons/book":false,"./icons/bookmark-check-fill":false,"./icons/bookmark-check":false,"./icons/bookmark-dash-fill":false,"./icons/bookmark-dash":false,"./icons/bookmark-fill":false,"./icons/bookmark-heart-fill":"8P4TF","./icons/bookmark-heart":"7rGlC","./icons/bookmark-plus-fill":false,"./icons/bookmark-plus":false,"./icons/bookmark-star-fill":false,"./icons/bookmark-star":false,"./icons/bookmark-x-fill":false,"./icons/bookmark-x":false,"./icons/bookmark":false,"./icons/bookmarks-fill":false,"./icons/bookmarks":false,"./icons/bookshelf":false,"./icons/boombox-fill":false,"./icons/boombox":false,"./icons/bootstrap-fill":false,"./icons/bootstrap-reboot":false,"./icons/bootstrap":false,"./icons/border-all":false,"./icons/border-bottom":false,"./icons/border-center":false,"./icons/border-inner":false,"./icons/border-left":false,"./icons/border-middle":false,"./icons/border-outer":false,"./icons/border-right":false,"./icons/border-style":false,"./icons/border-top":false,"./icons/border-width":false,"./icons/border":false,"./icons/bounding-box-circles":false,"./icons/bounding-box":false,"./icons/box-arrow-down-left":false,"./icons/box-arrow-down-right":false,"./icons/box-arrow-down":false,"./icons/box-arrow-in-down-left":false,"./icons/box-arrow-in-down-right":false,"./icons/box-arrow-in-down":false,"./icons/box-arrow-in-left":false,"./icons/box-arrow-in-right":false,"./icons/box-arrow-in-up-left":false,"./icons/box-arrow-in-up-right":false,"./icons/box-arrow-in-up":false,"./icons/box-arrow-left":false,"./icons/box-arrow-right":false,"./icons/box-arrow-up-left":false,"./icons/box-arrow-up-right":false,"./icons/box-arrow-up":false,"./icons/box-fill":false,"./icons/box-seam-fill":false,"./icons/box-seam":false,"./icons/box":false,"./icons/box2-fill":false,"./icons/box2-heart-fill":false,"./icons/box2-heart":false,"./icons/box2":false,"./icons/boxes":false,"./icons/braces-asterisk":false,"./icons/braces":false,"./icons/bricks":false,"./icons/briefcase-fill":false,"./icons/briefcase":false,"./icons/brightness-alt-high-fill":false,"./icons/brightness-alt-high":false,"./icons/brightness-alt-low-fill":false,"./icons/brightness-alt-low":false,"./icons/brightness-high-fill":false,"./icons/brightness-high":false,"./icons/brightness-low-fill":false,"./icons/brightness-low":false,"./icons/brilliance":false,"./icons/broadcast-pin":false,"./icons/broadcast":false,"./icons/browser-chrome":false,"./icons/browser-edge":false,"./icons/browser-firefox":false,"./icons/browser-safari":false,"./icons/brush-fill":false,"./icons/brush":false,"./icons/bucket-fill":false,"./icons/bucket":false,"./icons/bug-fill":false,"./icons/bug":false,"./icons/building-add":false,"./icons/building-check":false,"./icons/building-dash":false,"./icons/building-down":false,"./icons/building-exclamation":false,"./icons/building-fill-add":false,"./icons/building-fill-check":false,"./icons/building-fill-dash":false,"./icons/building-fill-down":false,"./icons/building-fill-exclamation":false,"./icons/building-fill-gear":false,"./icons/building-fill-lock":false,"./icons/building-fill-slash":false,"./icons/building-fill-up":false,"./icons/building-fill-x":false,"./icons/building-fill":false,"./icons/building-gear":false,"./icons/building-lock":false,"./icons/building-slash":false,"./icons/building-up":false,"./icons/building-x":false,"./icons/building":false,"./icons/buildings-fill":false,"./icons/buildings":false,"./icons/bullseye":false,"./icons/bus-front-fill":false,"./icons/bus-front":false,"./icons/c-circle-fill":false,"./icons/c-circle":false,"./icons/c-square-fill":false,"./icons/c-square":false,"./icons/cake-fill":false,"./icons/cake":false,"./icons/cake2-fill":false,"./icons/cake2":false,"./icons/calculator-fill":false,"./icons/calculator":false,"./icons/calendar-check-fill":false,"./icons/calendar-check":false,"./icons/calendar-date-fill":false,"./icons/calendar-date":false,"./icons/calendar-day-fill":false,"./icons/calendar-day":false,"./icons/calendar-event-fill":false,"./icons/calendar-event":false,"./icons/calendar-fill":false,"./icons/calendar-heart-fill":false,"./icons/calendar-heart":false,"./icons/calendar-minus-fill":false,"./icons/calendar-minus":false,"./icons/calendar-month-fill":false,"./icons/calendar-month":false,"./icons/calendar-plus-fill":false,"./icons/calendar-plus":false,"./icons/calendar-range-fill":false,"./icons/calendar-range":false,"./icons/calendar-week-fill":false,"./icons/calendar-week":false,"./icons/calendar-x-fill":false,"./icons/calendar-x":false,"./icons/calendar":false,"./icons/calendar2-check-fill":false,"./icons/calendar2-check":false,"./icons/calendar2-date-fill":false,"./icons/calendar2-date":false,"./icons/calendar2-day-fill":false,"./icons/calendar2-day":false,"./icons/calendar2-event-fill":false,"./icons/calendar2-event":false,"./icons/calendar2-fill":false,"./icons/calendar2-heart-fill":false,"./icons/calendar2-heart":false,"./icons/calendar2-minus-fill":false,"./icons/calendar2-minus":false,"./icons/calendar2-month-fill":false,"./icons/calendar2-month":false,"./icons/calendar2-plus-fill":false,"./icons/calendar2-plus":false,"./icons/calendar2-range-fill":false,"./icons/calendar2-range":false,"./icons/calendar2-week-fill":false,"./icons/calendar2-week":false,"./icons/calendar2-x-fill":false,"./icons/calendar2-x":false,"./icons/calendar2":false,"./icons/calendar3-event-fill":false,"./icons/calendar3-event":false,"./icons/calendar3-fill":false,"./icons/calendar3-range-fill":false,"./icons/calendar3-range":false,"./icons/calendar3-week-fill":false,"./icons/calendar3-week":false,"./icons/calendar3":false,"./icons/calendar4-event":false,"./icons/calendar4-range":false,"./icons/calendar4-week":false,"./icons/calendar4":false,"./icons/camera-fill":false,"./icons/camera-reels-fill":false,"./icons/camera-reels":false,"./icons/camera-video-fill":false,"./icons/camera-video-off-fill":false,"./icons/camera-video-off":false,"./icons/camera-video":false,"./icons/camera":false,"./icons/camera2":false,"./icons/capslock-fill":false,"./icons/capslock":false,"./icons/capsule-pill":false,"./icons/capsule":false,"./icons/car-front-fill":false,"./icons/car-front":false,"./icons/card-checklist":false,"./icons/card-heading":false,"./icons/card-image":false,"./icons/card-list":false,"./icons/card-text":false,"./icons/caret-down-fill":false,"./icons/caret-down-square-fill":false,"./icons/caret-down-square":false,"./icons/caret-down":false,"./icons/caret-left-fill":false,"./icons/caret-left-square-fill":false,"./icons/caret-left-square":false,"./icons/caret-left":false,"./icons/caret-right-fill":false,"./icons/caret-right-square-fill":false,"./icons/caret-right-square":false,"./icons/caret-right":false,"./icons/caret-up-fill":false,"./icons/caret-up-square-fill":false,"./icons/caret-up-square":false,"./icons/caret-up":false,"./icons/cart-check-fill":false,"./icons/cart-check":false,"./icons/cart-dash-fill":false,"./icons/cart-dash":false,"./icons/cart-fill":false,"./icons/cart-plus-fill":false,"./icons/cart-plus":false,"./icons/cart-x-fill":false,"./icons/cart-x":false,"./icons/cart":false,"./icons/cart2":false,"./icons/cart3":false,"./icons/cart4":false,"./icons/cash-coin":false,"./icons/cash-stack":false,"./icons/cash":false,"./icons/cassette-fill":false,"./icons/cassette":false,"./icons/cast":false,"./icons/cc-circle-fill":false,"./icons/cc-circle":false,"./icons/cc-square-fill":false,"./icons/cc-square":false,"./icons/chat-dots-fill":false,"./icons/chat-dots":false,"./icons/chat-fill":false,"./icons/chat-heart-fill":false,"./icons/chat-heart":false,"./icons/chat-left-dots-fill":false,"./icons/chat-left-dots":false,"./icons/chat-left-fill":false,"./icons/chat-left-heart-fill":false,"./icons/chat-left-heart":false,"./icons/chat-left-quote-fill":false,"./icons/chat-left-quote":false,"./icons/chat-left-text-fill":false,"./icons/chat-left-text":false,"./icons/chat-left":false,"./icons/chat-quote-fill":false,"./icons/chat-quote":false,"./icons/chat-right-dots-fill":false,"./icons/chat-right-dots":false,"./icons/chat-right-fill":false,"./icons/chat-right-heart-fill":false,"./icons/chat-right-heart":false,"./icons/chat-right-quote-fill":false,"./icons/chat-right-quote":false,"./icons/chat-right-text-fill":false,"./icons/chat-right-text":false,"./icons/chat-right":false,"./icons/chat-square-dots-fill":false,"./icons/chat-square-dots":false,"./icons/chat-square-fill":false,"./icons/chat-square-heart-fill":false,"./icons/chat-square-heart":false,"./icons/chat-square-quote-fill":false,"./icons/chat-square-quote":false,"./icons/chat-square-text-fill":false,"./icons/chat-square-text":false,"./icons/chat-square":false,"./icons/chat-text-fill":false,"./icons/chat-text":false,"./icons/chat":false,"./icons/check-all":false,"./icons/check-circle-fill":false,"./icons/check-circle":false,"./icons/check-lg":false,"./icons/check-square-fill":false,"./icons/check-square":false,"./icons/check":false,"./icons/check2-all":false,"./icons/check2-circle":false,"./icons/check2-square":false,"./icons/check2":false,"./icons/chevron-bar-contract":false,"./icons/chevron-bar-down":false,"./icons/chevron-bar-expand":false,"./icons/chevron-bar-left":false,"./icons/chevron-bar-right":false,"./icons/chevron-bar-up":false,"./icons/chevron-compact-down":false,"./icons/chevron-compact-left":false,"./icons/chevron-compact-right":false,"./icons/chevron-compact-up":false,"./icons/chevron-contract":false,"./icons/chevron-double-down":false,"./icons/chevron-double-left":false,"./icons/chevron-double-right":false,"./icons/chevron-double-up":false,"./icons/chevron-down":false,"./icons/chevron-expand":false,"./icons/chevron-left":false,"./icons/chevron-right":false,"./icons/chevron-up":false,"./icons/circle-fill":false,"./icons/circle-half":false,"./icons/circle-square":false,"./icons/circle":false,"./icons/clipboard-check-fill":false,"./icons/clipboard-check":false,"./icons/clipboard-data-fill":false,"./icons/clipboard-data":false,"./icons/clipboard-fill":false,"./icons/clipboard-heart-fill":false,"./icons/clipboard-heart":false,"./icons/clipboard-minus-fill":false,"./icons/clipboard-minus":false,"./icons/clipboard-plus-fill":false,"./icons/clipboard-plus":false,"./icons/clipboard-pulse":false,"./icons/clipboard-x-fill":false,"./icons/clipboard-x":false,"./icons/clipboard":false,"./icons/clipboard2-check-fill":false,"./icons/clipboard2-check":false,"./icons/clipboard2-data-fill":false,"./icons/clipboard2-data":false,"./icons/clipboard2-fill":false,"./icons/clipboard2-heart-fill":false,"./icons/clipboard2-heart":false,"./icons/clipboard2-minus-fill":false,"./icons/clipboard2-minus":false,"./icons/clipboard2-plus-fill":false,"./icons/clipboard2-plus":false,"./icons/clipboard2-pulse-fill":false,"./icons/clipboard2-pulse":false,"./icons/clipboard2-x-fill":false,"./icons/clipboard2-x":false,"./icons/clipboard2":false,"./icons/clock-fill":false,"./icons/clock-history":false,"./icons/clock":false,"./icons/cloud-arrow-down-fill":false,"./icons/cloud-arrow-down":false,"./icons/cloud-arrow-up-fill":false,"./icons/cloud-arrow-up":false,"./icons/cloud-check-fill":false,"./icons/cloud-check":false,"./icons/cloud-download-fill":false,"./icons/cloud-download":false,"./icons/cloud-drizzle-fill":false,"./icons/cloud-drizzle":false,"./icons/cloud-fill":false,"./icons/cloud-fog-fill":false,"./icons/cloud-fog":false,"./icons/cloud-fog2-fill":false,"./icons/cloud-fog2":false,"./icons/cloud-hail-fill":false,"./icons/cloud-hail":false,"./icons/cloud-haze-fill":false,"./icons/cloud-haze":false,"./icons/cloud-haze2-fill":false,"./icons/cloud-haze2":false,"./icons/cloud-lightning-fill":false,"./icons/cloud-lightning-rain-fill":false,"./icons/cloud-lightning-rain":false,"./icons/cloud-lightning":false,"./icons/cloud-minus-fill":false,"./icons/cloud-minus":false,"./icons/cloud-moon-fill":false,"./icons/cloud-moon":false,"./icons/cloud-plus-fill":false,"./icons/cloud-plus":false,"./icons/cloud-rain-fill":false,"./icons/cloud-rain-heavy-fill":false,"./icons/cloud-rain-heavy":false,"./icons/cloud-rain":false,"./icons/cloud-slash-fill":false,"./icons/cloud-slash":false,"./icons/cloud-sleet-fill":false,"./icons/cloud-sleet":false,"./icons/cloud-snow-fill":false,"./icons/cloud-snow":false,"./icons/cloud-sun-fill":false,"./icons/cloud-sun":false,"./icons/cloud-upload-fill":false,"./icons/cloud-upload":false,"./icons/cloud":false,"./icons/clouds-fill":false,"./icons/clouds":false,"./icons/cloudy-fill":false,"./icons/cloudy":false,"./icons/code-slash":false,"./icons/code-square":false,"./icons/code":false,"./icons/coin":false,"./icons/collection-fill":false,"./icons/collection-play-fill":false,"./icons/collection-play":false,"./icons/collection":false,"./icons/columns-gap":false,"./icons/columns":false,"./icons/command":false,"./icons/compass-fill":false,"./icons/compass":false,"./icons/cone-striped":false,"./icons/cone":false,"./icons/controller":false,"./icons/cookie":false,"./icons/copy":false,"./icons/cpu-fill":false,"./icons/cpu":false,"./icons/credit-card-2-back-fill":false,"./icons/credit-card-2-back":false,"./icons/credit-card-2-front-fill":false,"./icons/credit-card-2-front":false,"./icons/credit-card-fill":false,"./icons/credit-card":false,"./icons/crop":false,"./icons/crosshair":false,"./icons/crosshair2":false,"./icons/cup-fill":false,"./icons/cup-hot-fill":false,"./icons/cup-hot":false,"./icons/cup-straw":false,"./icons/cup":false,"./icons/currency-bitcoin":false,"./icons/currency-dollar":false,"./icons/currency-euro":false,"./icons/currency-exchange":false,"./icons/currency-pound":false,"./icons/currency-rupee":false,"./icons/currency-yen":false,"./icons/cursor-fill":false,"./icons/cursor-text":false,"./icons/cursor":false,"./icons/dash-circle-dotted":false,"./icons/dash-circle-fill":false,"./icons/dash-circle":false,"./icons/dash-lg":false,"./icons/dash-square-dotted":false,"./icons/dash-square-fill":false,"./icons/dash-square":false,"./icons/dash":false,"./icons/database-add":false,"./icons/database-check":false,"./icons/database-dash":false,"./icons/database-down":false,"./icons/database-exclamation":false,"./icons/database-fill-add":false,"./icons/database-fill-check":false,"./icons/database-fill-dash":false,"./icons/database-fill-down":false,"./icons/database-fill-exclamation":false,"./icons/database-fill-gear":false,"./icons/database-fill-lock":false,"./icons/database-fill-slash":false,"./icons/database-fill-up":false,"./icons/database-fill-x":false,"./icons/database-fill":false,"./icons/database-gear":false,"./icons/database-lock":false,"./icons/database-slash":false,"./icons/database-up":false,"./icons/database-x":false,"./icons/database":false,"./icons/device-hdd-fill":false,"./icons/device-hdd":false,"./icons/device-ssd-fill":false,"./icons/device-ssd":false,"./icons/diagram-2-fill":false,"./icons/diagram-2":false,"./icons/diagram-3-fill":false,"./icons/diagram-3":false,"./icons/diamond-fill":false,"./icons/diamond-half":false,"./icons/diamond":false,"./icons/dice-1-fill":false,"./icons/dice-1":false,"./icons/dice-2-fill":false,"./icons/dice-2":false,"./icons/dice-3-fill":false,"./icons/dice-3":false,"./icons/dice-4-fill":false,"./icons/dice-4":false,"./icons/dice-5-fill":false,"./icons/dice-5":false,"./icons/dice-6-fill":false,"./icons/dice-6":false,"./icons/disc-fill":false,"./icons/disc":false,"./icons/discord":false,"./icons/display-fill":false,"./icons/display":false,"./icons/displayport-fill":false,"./icons/displayport":false,"./icons/distribute-horizontal":false,"./icons/distribute-vertical":false,"./icons/door-closed-fill":false,"./icons/door-closed":false,"./icons/door-open-fill":false,"./icons/door-open":false,"./icons/dot":false,"./icons/download":false,"./icons/dpad-fill":false,"./icons/dpad":false,"./icons/dribbble":false,"./icons/dropbox":false,"./icons/droplet-fill":false,"./icons/droplet-half":false,"./icons/droplet":false,"./icons/duffle-fill":false,"./icons/duffle":false,"./icons/ear-fill":false,"./icons/ear":false,"./icons/earbuds":false,"./icons/easel-fill":false,"./icons/easel":false,"./icons/easel2-fill":false,"./icons/easel2":false,"./icons/easel3-fill":false,"./icons/easel3":false,"./icons/egg-fill":false,"./icons/egg-fried":false,"./icons/egg":false,"./icons/eject-fill":false,"./icons/eject":false,"./icons/emoji-angry-fill":false,"./icons/emoji-angry":false,"./icons/emoji-astonished-fill":false,"./icons/emoji-astonished":false,"./icons/emoji-dizzy-fill":false,"./icons/emoji-dizzy":false,"./icons/emoji-expressionless-fill":false,"./icons/emoji-expressionless":false,"./icons/emoji-frown-fill":false,"./icons/emoji-frown":false,"./icons/emoji-grimace-fill":false,"./icons/emoji-grimace":false,"./icons/emoji-grin-fill":false,"./icons/emoji-grin":false,"./icons/emoji-heart-eyes-fill":false,"./icons/emoji-heart-eyes":false,"./icons/emoji-kiss-fill":false,"./icons/emoji-kiss":false,"./icons/emoji-laughing-fill":false,"./icons/emoji-laughing":false,"./icons/emoji-neutral-fill":false,"./icons/emoji-neutral":false,"./icons/emoji-smile-fill":false,"./icons/emoji-smile-upside-down-fill":false,"./icons/emoji-smile-upside-down":false,"./icons/emoji-smile":false,"./icons/emoji-sunglasses-fill":false,"./icons/emoji-sunglasses":false,"./icons/emoji-surprise-fill":false,"./icons/emoji-surprise":false,"./icons/emoji-tear-fill":false,"./icons/emoji-tear":false,"./icons/emoji-wink-fill":false,"./icons/emoji-wink":false,"./icons/envelope-arrow-down-fill":false,"./icons/envelope-arrow-down":false,"./icons/envelope-arrow-up-fill":false,"./icons/envelope-arrow-up":false,"./icons/envelope-at-fill":false,"./icons/envelope-at":false,"./icons/envelope-check-fill":false,"./icons/envelope-check":false,"./icons/envelope-dash-fill":false,"./icons/envelope-dash":false,"./icons/envelope-exclamation-fill":false,"./icons/envelope-exclamation":false,"./icons/envelope-fill":false,"./icons/envelope-heart-fill":false,"./icons/envelope-heart":false,"./icons/envelope-open-fill":false,"./icons/envelope-open-heart-fill":false,"./icons/envelope-open-heart":false,"./icons/envelope-open":false,"./icons/envelope-paper-fill":false,"./icons/envelope-paper-heart-fill":false,"./icons/envelope-paper-heart":false,"./icons/envelope-paper":false,"./icons/envelope-plus-fill":false,"./icons/envelope-plus":false,"./icons/envelope-slash-fill":false,"./icons/envelope-slash":false,"./icons/envelope-x-fill":false,"./icons/envelope-x":false,"./icons/envelope":false,"./icons/eraser-fill":false,"./icons/eraser":false,"./icons/escape":false,"./icons/ethernet":false,"./icons/ev-front-fill":false,"./icons/ev-front":false,"./icons/ev-station-fill":false,"./icons/ev-station":false,"./icons/exclamation-circle-fill":false,"./icons/exclamation-circle":false,"./icons/exclamation-diamond-fill":false,"./icons/exclamation-diamond":false,"./icons/exclamation-lg":false,"./icons/exclamation-octagon-fill":false,"./icons/exclamation-octagon":false,"./icons/exclamation-square-fill":false,"./icons/exclamation-square":false,"./icons/exclamation-triangle-fill":false,"./icons/exclamation-triangle":false,"./icons/exclamation":false,"./icons/exclude":false,"./icons/explicit-fill":false,"./icons/explicit":false,"./icons/exposure":false,"./icons/eye-fill":false,"./icons/eye-slash-fill":false,"./icons/eye-slash":false,"./icons/eye":false,"./icons/eyedropper":false,"./icons/eyeglasses":false,"./icons/facebook":false,"./icons/fan":false,"./icons/fast-forward-btn-fill":false,"./icons/fast-forward-btn":false,"./icons/fast-forward-circle-fill":false,"./icons/fast-forward-circle":false,"./icons/fast-forward-fill":false,"./icons/fast-forward":false,"./icons/feather":false,"./icons/feather2":false,"./icons/file-arrow-down-fill":false,"./icons/file-arrow-down":false,"./icons/file-arrow-up-fill":false,"./icons/file-arrow-up":false,"./icons/file-bar-graph-fill":false,"./icons/file-bar-graph":false,"./icons/file-binary-fill":false,"./icons/file-binary":false,"./icons/file-break-fill":false,"./icons/file-break":false,"./icons/file-check-fill":false,"./icons/file-check":false,"./icons/file-code-fill":false,"./icons/file-code":false,"./icons/file-diff-fill":false,"./icons/file-diff":false,"./icons/file-earmark-arrow-down-fill":false,"./icons/file-earmark-arrow-down":false,"./icons/file-earmark-arrow-up-fill":false,"./icons/file-earmark-arrow-up":false,"./icons/file-earmark-bar-graph-fill":false,"./icons/file-earmark-bar-graph":false,"./icons/file-earmark-binary-fill":false,"./icons/file-earmark-binary":false,"./icons/file-earmark-break-fill":false,"./icons/file-earmark-break":false,"./icons/file-earmark-check-fill":false,"./icons/file-earmark-check":false,"./icons/file-earmark-code-fill":false,"./icons/file-earmark-code":false,"./icons/file-earmark-diff-fill":false,"./icons/file-earmark-diff":false,"./icons/file-earmark-easel-fill":false,"./icons/file-earmark-easel":false,"./icons/file-earmark-excel-fill":false,"./icons/file-earmark-excel":false,"./icons/file-earmark-fill":false,"./icons/file-earmark-font-fill":false,"./icons/file-earmark-font":false,"./icons/file-earmark-image-fill":false,"./icons/file-earmark-image":false,"./icons/file-earmark-lock-fill":false,"./icons/file-earmark-lock":false,"./icons/file-earmark-lock2-fill":false,"./icons/file-earmark-lock2":false,"./icons/file-earmark-medical-fill":false,"./icons/file-earmark-medical":false,"./icons/file-earmark-minus-fill":false,"./icons/file-earmark-minus":false,"./icons/file-earmark-music-fill":false,"./icons/file-earmark-music":false,"./icons/file-earmark-pdf-fill":false,"./icons/file-earmark-pdf":false,"./icons/file-earmark-person-fill":false,"./icons/file-earmark-person":false,"./icons/file-earmark-play-fill":false,"./icons/file-earmark-play":false,"./icons/file-earmark-plus-fill":false,"./icons/file-earmark-plus":false,"./icons/file-earmark-post-fill":false,"./icons/file-earmark-post":false,"./icons/file-earmark-ppt-fill":false,"./icons/file-earmark-ppt":false,"./icons/file-earmark-richtext-fill":false,"./icons/file-earmark-richtext":false,"./icons/file-earmark-ruled-fill":false,"./icons/file-earmark-ruled":false,"./icons/file-earmark-slides-fill":false,"./icons/file-earmark-slides":false,"./icons/file-earmark-spreadsheet-fill":false,"./icons/file-earmark-spreadsheet":false,"./icons/file-earmark-text-fill":false,"./icons/file-earmark-text":false,"./icons/file-earmark-word-fill":false,"./icons/file-earmark-word":false,"./icons/file-earmark-x-fill":false,"./icons/file-earmark-x":false,"./icons/file-earmark-zip-fill":false,"./icons/file-earmark-zip":false,"./icons/file-earmark":false,"./icons/file-easel-fill":false,"./icons/file-easel":false,"./icons/file-excel-fill":false,"./icons/file-excel":false,"./icons/file-fill":false,"./icons/file-font-fill":false,"./icons/file-font":false,"./icons/file-image-fill":false,"./icons/file-image":false,"./icons/file-lock-fill":false,"./icons/file-lock":false,"./icons/file-lock2-fill":false,"./icons/file-lock2":false,"./icons/file-medical-fill":false,"./icons/file-medical":false,"./icons/file-minus-fill":false,"./icons/file-minus":false,"./icons/file-music-fill":false,"./icons/file-music":false,"./icons/file-pdf-fill":false,"./icons/file-pdf":false,"./icons/file-person-fill":false,"./icons/file-person":false,"./icons/file-play-fill":false,"./icons/file-play":false,"./icons/file-plus-fill":false,"./icons/file-plus":false,"./icons/file-post-fill":false,"./icons/file-post":false,"./icons/file-ppt-fill":false,"./icons/file-ppt":false,"./icons/file-richtext-fill":false,"./icons/file-richtext":false,"./icons/file-ruled-fill":false,"./icons/file-ruled":false,"./icons/file-slides-fill":false,"./icons/file-slides":false,"./icons/file-spreadsheet-fill":false,"./icons/file-spreadsheet":false,"./icons/file-text-fill":false,"./icons/file-text":false,"./icons/file-word-fill":false,"./icons/file-word":false,"./icons/file-x-fill":false,"./icons/file-x":false,"./icons/file-zip-fill":false,"./icons/file-zip":false,"./icons/file":false,"./icons/files-alt":false,"./icons/files":false,"./icons/filetype-aac":false,"./icons/filetype-ai":false,"./icons/filetype-bmp":false,"./icons/filetype-cs":false,"./icons/filetype-css":false,"./icons/filetype-csv":false,"./icons/filetype-doc":false,"./icons/filetype-docx":false,"./icons/filetype-exe":false,"./icons/filetype-gif":false,"./icons/filetype-heic":false,"./icons/filetype-html":false,"./icons/filetype-java":false,"./icons/filetype-jpg":false,"./icons/filetype-js":false,"./icons/filetype-json":false,"./icons/filetype-jsx":false,"./icons/filetype-key":false,"./icons/filetype-m4p":false,"./icons/filetype-md":false,"./icons/filetype-mdx":false,"./icons/filetype-mov":false,"./icons/filetype-mp3":false,"./icons/filetype-mp4":false,"./icons/filetype-otf":false,"./icons/filetype-pdf":false,"./icons/filetype-php":false,"./icons/filetype-png":false,"./icons/filetype-ppt":false,"./icons/filetype-pptx":false,"./icons/filetype-psd":false,"./icons/filetype-py":false,"./icons/filetype-raw":false,"./icons/filetype-rb":false,"./icons/filetype-sass":false,"./icons/filetype-scss":false,"./icons/filetype-sh":false,"./icons/filetype-sql":false,"./icons/filetype-svg":false,"./icons/filetype-tiff":false,"./icons/filetype-tsx":false,"./icons/filetype-ttf":false,"./icons/filetype-txt":false,"./icons/filetype-wav":false,"./icons/filetype-woff":false,"./icons/filetype-xls":false,"./icons/filetype-xlsx":false,"./icons/filetype-xml":false,"./icons/filetype-yml":false,"./icons/film":false,"./icons/filter-circle-fill":false,"./icons/filter-circle":false,"./icons/filter-left":false,"./icons/filter-right":false,"./icons/filter-square-fill":false,"./icons/filter-square":false,"./icons/filter":false,"./icons/fingerprint":false,"./icons/fire":false,"./icons/flag-fill":false,"./icons/flag":false,"./icons/floppy-fill":false,"./icons/floppy":false,"./icons/floppy2-fill":false,"./icons/floppy2":false,"./icons/flower1":false,"./icons/flower2":false,"./icons/flower3":false,"./icons/folder-check":false,"./icons/folder-fill":false,"./icons/folder-minus":false,"./icons/folder-plus":false,"./icons/folder-symlink-fill":false,"./icons/folder-symlink":false,"./icons/folder-x":false,"./icons/folder":false,"./icons/folder2-open":false,"./icons/folder2":false,"./icons/fonts":false,"./icons/forward-fill":false,"./icons/forward":false,"./icons/front":false,"./icons/fuel-pump-diesel-fill":false,"./icons/fuel-pump-diesel":false,"./icons/fuel-pump-fill":false,"./icons/fuel-pump":false,"./icons/fullscreen-exit":false,"./icons/fullscreen":false,"./icons/funnel-fill":false,"./icons/funnel":false,"./icons/gear-fill":false,"./icons/gear-wide-connected":false,"./icons/gear-wide":false,"./icons/gear":false,"./icons/gem":false,"./icons/gender-ambiguous":false,"./icons/gender-female":false,"./icons/gender-male":false,"./icons/gender-neuter":false,"./icons/gender-trans":false,"./icons/geo-alt-fill":false,"./icons/geo-alt":false,"./icons/geo-fill":false,"./icons/geo":false,"./icons/gift-fill":false,"./icons/gift":false,"./icons/git":false,"./icons/github":false,"./icons/gitlab":false,"./icons/globe-americas":false,"./icons/globe-asia-australia":false,"./icons/globe-central-south-asia":false,"./icons/globe-europe-africa":false,"./icons/globe":false,"./icons/globe2":false,"./icons/google-play":false,"./icons/google":false,"./icons/gpu-card":false,"./icons/graph-down-arrow":false,"./icons/graph-down":false,"./icons/graph-up-arrow":false,"./icons/graph-up":false,"./icons/grid-1x2-fill":false,"./icons/grid-1x2":false,"./icons/grid-3x2-gap-fill":false,"./icons/grid-3x2-gap":false,"./icons/grid-3x2":false,"./icons/grid-3x3-gap-fill":false,"./icons/grid-3x3-gap":false,"./icons/grid-3x3":false,"./icons/grid-fill":false,"./icons/grid":false,"./icons/grip-horizontal":false,"./icons/grip-vertical":false,"./icons/h-circle-fill":false,"./icons/h-circle":false,"./icons/h-square-fill":false,"./icons/h-square":false,"./icons/hammer":false,"./icons/hand-index-fill":false,"./icons/hand-index-thumb-fill":false,"./icons/hand-index-thumb":false,"./icons/hand-index":false,"./icons/hand-thumbs-down-fill":false,"./icons/hand-thumbs-down":false,"./icons/hand-thumbs-up-fill":false,"./icons/hand-thumbs-up":false,"./icons/handbag-fill":false,"./icons/handbag":false,"./icons/hash":false,"./icons/hdd-fill":false,"./icons/hdd-network-fill":false,"./icons/hdd-network":false,"./icons/hdd-rack-fill":false,"./icons/hdd-rack":false,"./icons/hdd-stack-fill":false,"./icons/hdd-stack":false,"./icons/hdd":false,"./icons/hdmi-fill":false,"./icons/hdmi":false,"./icons/headphones":false,"./icons/headset-vr":false,"./icons/headset":false,"./icons/heart-arrow":false,"./icons/heart-fill":false,"./icons/heart-half":false,"./icons/heart-pulse-fill":false,"./icons/heart-pulse":false,"./icons/heart":false,"./icons/heartbreak-fill":false,"./icons/heartbreak":false,"./icons/hearts":false,"./icons/heptagon-fill":false,"./icons/heptagon-half":false,"./icons/heptagon":false,"./icons/hexagon-fill":false,"./icons/hexagon-half":false,"./icons/hexagon":false,"./icons/highlighter":false,"./icons/highlights":false,"./icons/hospital-fill":false,"./icons/hospital":false,"./icons/hourglass-bottom":false,"./icons/hourglass-split":false,"./icons/hourglass-top":false,"./icons/hourglass":false,"./icons/house-add-fill":false,"./icons/house-add":false,"./icons/house-check-fill":false,"./icons/house-check":false,"./icons/house-dash-fill":false,"./icons/house-dash":false,"./icons/house-door-fill":false,"./icons/house-door":false,"./icons/house-down-fill":false,"./icons/house-down":false,"./icons/house-exclamation-fill":false,"./icons/house-exclamation":false,"./icons/house-fill":false,"./icons/house-gear-fill":false,"./icons/house-gear":false,"./icons/house-heart-fill":false,"./icons/house-heart":false,"./icons/house-lock-fill":false,"./icons/house-lock":false,"./icons/house-slash-fill":false,"./icons/house-slash":false,"./icons/house-up-fill":false,"./icons/house-up":false,"./icons/house-x-fill":false,"./icons/house-x":false,"./icons/house":false,"./icons/houses-fill":false,"./icons/houses":false,"./icons/hr":false,"./icons/hurricane":false,"./icons/hypnotize":false,"./icons/image-alt":false,"./icons/image-fill":false,"./icons/image":false,"./icons/images":false,"./icons/inbox-fill":false,"./icons/inbox":false,"./icons/inboxes-fill":false,"./icons/inboxes":false,"./icons/incognito":false,"./icons/indent":false,"./icons/infinity":false,"./icons/info-circle-fill":false,"./icons/info-circle":false,"./icons/info-lg":false,"./icons/info-square-fill":false,"./icons/info-square":false,"./icons/info":false,"./icons/input-cursor-text":false,"./icons/input-cursor":false,"./icons/instagram":false,"./icons/intersect":false,"./icons/journal-album":false,"./icons/journal-arrow-down":false,"./icons/journal-arrow-up":false,"./icons/journal-bookmark-fill":false,"./icons/journal-bookmark":false,"./icons/journal-check":false,"./icons/journal-code":false,"./icons/journal-medical":false,"./icons/journal-minus":false,"./icons/journal-plus":false,"./icons/journal-richtext":false,"./icons/journal-text":false,"./icons/journal-x":false,"./icons/journal":false,"./icons/journals":false,"./icons/joystick":false,"./icons/justify-left":false,"./icons/justify-right":false,"./icons/justify":false,"./icons/kanban-fill":false,"./icons/kanban":false,"./icons/key-fill":false,"./icons/key":false,"./icons/keyboard-fill":false,"./icons/keyboard":false,"./icons/ladder":false,"./icons/lamp-fill":false,"./icons/lamp":false,"./icons/laptop-fill":false,"./icons/laptop":false,"./icons/layer-backward":false,"./icons/layer-forward":false,"./icons/layers-fill":false,"./icons/layers-half":false,"./icons/layers":false,"./icons/layout-sidebar-inset-reverse":false,"./icons/layout-sidebar-inset":false,"./icons/layout-sidebar-reverse":false,"./icons/layout-sidebar":false,"./icons/layout-split":false,"./icons/layout-text-sidebar-reverse":false,"./icons/layout-text-sidebar":false,"./icons/layout-text-window-reverse":false,"./icons/layout-text-window":false,"./icons/layout-three-columns":false,"./icons/layout-wtf":false,"./icons/life-preserver":false,"./icons/lightbulb-fill":false,"./icons/lightbulb-off-fill":false,"./icons/lightbulb-off":false,"./icons/lightbulb":false,"./icons/lightning-charge-fill":false,"./icons/lightning-charge":false,"./icons/lightning-fill":false,"./icons/lightning":false,"./icons/line":false,"./icons/link-45deg":false,"./icons/link":false,"./icons/linkedin":false,"./icons/list-check":false,"./icons/list-columns-reverse":false,"./icons/list-columns":false,"./icons/list-nested":false,"./icons/list-ol":false,"./icons/list-stars":false,"./icons/list-task":false,"./icons/list-ul":false,"./icons/list":false,"./icons/lock-fill":false,"./icons/lock":false,"./icons/luggage-fill":false,"./icons/luggage":false,"./icons/lungs-fill":false,"./icons/lungs":false,"./icons/magic":false,"./icons/magnet-fill":false,"./icons/magnet":false,"./icons/mailbox-flag":false,"./icons/mailbox":false,"./icons/mailbox2-flag":false,"./icons/mailbox2":false,"./icons/map-fill":false,"./icons/map":false,"./icons/markdown-fill":false,"./icons/markdown":false,"./icons/marker-tip":false,"./icons/mask":false,"./icons/mastodon":false,"./icons/medium":false,"./icons/megaphone-fill":false,"./icons/megaphone":false,"./icons/memory":false,"./icons/menu-app-fill":false,"./icons/menu-app":false,"./icons/menu-button-fill":false,"./icons/menu-button-wide-fill":false,"./icons/menu-button-wide":false,"./icons/menu-button":false,"./icons/menu-down":false,"./icons/menu-up":false,"./icons/messenger":false,"./icons/meta":false,"./icons/mic-fill":false,"./icons/mic-mute-fill":false,"./icons/mic-mute":false,"./icons/mic":false,"./icons/microsoft-teams":false,"./icons/microsoft":false,"./icons/minecart-loaded":false,"./icons/minecart":false,"./icons/modem-fill":false,"./icons/modem":false,"./icons/moisture":false,"./icons/moon-fill":false,"./icons/moon-stars-fill":false,"./icons/moon-stars":false,"./icons/moon":false,"./icons/mortarboard-fill":false,"./icons/mortarboard":false,"./icons/motherboard-fill":false,"./icons/motherboard":false,"./icons/mouse-fill":false,"./icons/mouse":false,"./icons/mouse2-fill":false,"./icons/mouse2":false,"./icons/mouse3-fill":false,"./icons/mouse3":false,"./icons/music-note-beamed":false,"./icons/music-note-list":false,"./icons/music-note":false,"./icons/music-player-fill":false,"./icons/music-player":false,"./icons/newspaper":false,"./icons/nintendo-switch":false,"./icons/node-minus-fill":false,"./icons/node-minus":false,"./icons/node-plus-fill":false,"./icons/node-plus":false,"./icons/noise-reduction":false,"./icons/nut-fill":false,"./icons/nut":false,"./icons/nvidia":false,"./icons/nvme-fill":false,"./icons/nvme":false,"./icons/octagon-fill":false,"./icons/octagon-half":false,"./icons/octagon":false,"./icons/opencollective":false,"./icons/optical-audio-fill":false,"./icons/optical-audio":false,"./icons/option":false,"./icons/outlet":false,"./icons/p-circle-fill":false,"./icons/p-circle":false,"./icons/p-square-fill":false,"./icons/p-square":false,"./icons/paint-bucket":false,"./icons/palette-fill":false,"./icons/palette":false,"./icons/palette2":false,"./icons/paperclip":false,"./icons/paragraph":false,"./icons/pass-fill":false,"./icons/pass":false,"./icons/passport-fill":false,"./icons/passport":false,"./icons/patch-check-fill":false,"./icons/patch-check":false,"./icons/patch-exclamation-fill":false,"./icons/patch-exclamation":false,"./icons/patch-minus-fill":false,"./icons/patch-minus":false,"./icons/patch-plus-fill":false,"./icons/patch-plus":false,"./icons/patch-question-fill":false,"./icons/patch-question":false,"./icons/pause-btn-fill":false,"./icons/pause-btn":false,"./icons/pause-circle-fill":false,"./icons/pause-circle":false,"./icons/pause-fill":false,"./icons/pause":false,"./icons/paypal":false,"./icons/pc-display-horizontal":false,"./icons/pc-display":false,"./icons/pc-horizontal":false,"./icons/pc":false,"./icons/pci-card-network":false,"./icons/pci-card-sound":false,"./icons/pci-card":false,"./icons/peace-fill":false,"./icons/peace":false,"./icons/pen-fill":false,"./icons/pen":false,"./icons/pencil-fill":false,"./icons/pencil-square":false,"./icons/pencil":false,"./icons/pentagon-fill":false,"./icons/pentagon-half":false,"./icons/pentagon":false,"./icons/people-fill":false,"./icons/people":false,"./icons/percent":false,"./icons/person-add":false,"./icons/person-arms-up":false,"./icons/person-badge-fill":false,"./icons/person-badge":false,"./icons/person-bounding-box":false,"./icons/person-check-fill":false,"./icons/person-check":false,"./icons/person-circle":false,"./icons/person-dash-fill":false,"./icons/person-dash":false,"./icons/person-down":false,"./icons/person-exclamation":false,"./icons/person-fill-add":false,"./icons/person-fill-check":false,"./icons/person-fill-dash":false,"./icons/person-fill-down":false,"./icons/person-fill-exclamation":false,"./icons/person-fill-gear":false,"./icons/person-fill-lock":false,"./icons/person-fill-slash":false,"./icons/person-fill-up":false,"./icons/person-fill-x":false,"./icons/person-fill":false,"./icons/person-gear":false,"./icons/person-heart":false,"./icons/person-hearts":false,"./icons/person-lines-fill":false,"./icons/person-lock":false,"./icons/person-plus-fill":false,"./icons/person-plus":false,"./icons/person-raised-hand":false,"./icons/person-rolodex":false,"./icons/person-slash":false,"./icons/person-square":"eTgsZ","./icons/person-standing-dress":false,"./icons/person-standing":false,"./icons/person-up":false,"./icons/person-vcard-fill":false,"./icons/person-vcard":false,"./icons/person-video":false,"./icons/person-video2":false,"./icons/person-video3":false,"./icons/person-walking":false,"./icons/person-wheelchair":false,"./icons/person-workspace":false,"./icons/person-x-fill":false,"./icons/person-x":false,"./icons/person":false,"./icons/phone-fill":false,"./icons/phone-flip":false,"./icons/phone-landscape-fill":false,"./icons/phone-landscape":false,"./icons/phone-vibrate-fill":false,"./icons/phone-vibrate":false,"./icons/phone":false,"./icons/pie-chart-fill":false,"./icons/pie-chart":false,"./icons/piggy-bank-fill":false,"./icons/piggy-bank":false,"./icons/pin-angle-fill":false,"./icons/pin-angle":false,"./icons/pin-fill":false,"./icons/pin-map-fill":false,"./icons/pin-map":false,"./icons/pin":false,"./icons/pinterest":false,"./icons/pip-fill":false,"./icons/pip":false,"./icons/play-btn-fill":false,"./icons/play-btn":false,"./icons/play-circle-fill":false,"./icons/play-circle":false,"./icons/play-fill":false,"./icons/play":false,"./icons/playstation":false,"./icons/plug-fill":false,"./icons/plug":false,"./icons/plugin":false,"./icons/plus-circle-dotted":false,"./icons/plus-circle-fill":false,"./icons/plus-circle":false,"./icons/plus-lg":false,"./icons/plus-slash-minus":false,"./icons/plus-square-dotted":false,"./icons/plus-square-fill":false,"./icons/plus-square":false,"./icons/plus":false,"./icons/postage-fill":false,"./icons/postage-heart-fill":false,"./icons/postage-heart":false,"./icons/postage":false,"./icons/postcard-fill":false,"./icons/postcard-heart-fill":false,"./icons/postcard-heart":false,"./icons/postcard":false,"./icons/power":false,"./icons/prescription":false,"./icons/prescription2":false,"./icons/printer-fill":false,"./icons/printer":false,"./icons/projector-fill":false,"./icons/projector":false,"./icons/puzzle-fill":false,"./icons/puzzle":false,"./icons/qr-code-scan":false,"./icons/qr-code":false,"./icons/question-circle-fill":false,"./icons/question-circle":false,"./icons/question-diamond-fill":false,"./icons/question-diamond":false,"./icons/question-lg":false,"./icons/question-octagon-fill":false,"./icons/question-octagon":false,"./icons/question-square-fill":false,"./icons/question-square":false,"./icons/question":false,"./icons/quora":false,"./icons/quote":false,"./icons/r-circle-fill":false,"./icons/r-circle":false,"./icons/r-square-fill":false,"./icons/r-square":false,"./icons/radar":false,"./icons/radioactive":false,"./icons/rainbow":false,"./icons/receipt-cutoff":false,"./icons/receipt":false,"./icons/reception-0":false,"./icons/reception-1":false,"./icons/reception-2":false,"./icons/reception-3":false,"./icons/reception-4":false,"./icons/record-btn-fill":false,"./icons/record-btn":false,"./icons/record-circle-fill":false,"./icons/record-circle":false,"./icons/record-fill":false,"./icons/record":false,"./icons/record2-fill":false,"./icons/record2":false,"./icons/recycle":false,"./icons/reddit":false,"./icons/regex":false,"./icons/repeat-1":false,"./icons/repeat":false,"./icons/reply-all-fill":false,"./icons/reply-all":false,"./icons/reply-fill":false,"./icons/reply":false,"./icons/rewind-btn-fill":false,"./icons/rewind-btn":false,"./icons/rewind-circle-fill":false,"./icons/rewind-circle":false,"./icons/rewind-fill":false,"./icons/rewind":false,"./icons/robot":false,"./icons/rocket-fill":false,"./icons/rocket-takeoff-fill":false,"./icons/rocket-takeoff":false,"./icons/rocket":false,"./icons/router-fill":false,"./icons/router":false,"./icons/rss-fill":false,"./icons/rss":false,"./icons/rulers":false,"./icons/safe-fill":false,"./icons/safe":false,"./icons/safe2-fill":false,"./icons/safe2":false,"./icons/save-fill":false,"./icons/save":false,"./icons/save2-fill":false,"./icons/save2":false,"./icons/scissors":false,"./icons/scooter":false,"./icons/screwdriver":false,"./icons/sd-card-fill":false,"./icons/sd-card":false,"./icons/search-heart-fill":false,"./icons/search-heart":false,"./icons/search":false,"./icons/segmented-nav":false,"./icons/send-arrow-down-fill":false,"./icons/send-arrow-down":false,"./icons/send-arrow-up-fill":false,"./icons/send-arrow-up":false,"./icons/send-check-fill":false,"./icons/send-check":false,"./icons/send-dash-fill":false,"./icons/send-dash":false,"./icons/send-exclamation-fill":false,"./icons/send-exclamation":false,"./icons/send-fill":false,"./icons/send-plus-fill":false,"./icons/send-plus":false,"./icons/send-slash-fill":false,"./icons/send-slash":false,"./icons/send-x-fill":false,"./icons/send-x":false,"./icons/send":false,"./icons/server":false,"./icons/shadows":false,"./icons/share-fill":false,"./icons/share":false,"./icons/shield-check":false,"./icons/shield-exclamation":false,"./icons/shield-fill-check":false,"./icons/shield-fill-exclamation":false,"./icons/shield-fill-minus":false,"./icons/shield-fill-plus":false,"./icons/shield-fill-x":false,"./icons/shield-fill":false,"./icons/shield-lock-fill":false,"./icons/shield-lock":false,"./icons/shield-minus":false,"./icons/shield-plus":false,"./icons/shield-shaded":false,"./icons/shield-slash-fill":false,"./icons/shield-slash":false,"./icons/shield-x":false,"./icons/shield":false,"./icons/shift-fill":false,"./icons/shift":false,"./icons/shop-window":false,"./icons/shop":false,"./icons/shuffle":false,"./icons/sign-dead-end-fill":false,"./icons/sign-dead-end":false,"./icons/sign-do-not-enter-fill":false,"./icons/sign-do-not-enter":false,"./icons/sign-intersection-fill":false,"./icons/sign-intersection-side-fill":false,"./icons/sign-intersection-side":false,"./icons/sign-intersection-t-fill":false,"./icons/sign-intersection-t":false,"./icons/sign-intersection-y-fill":false,"./icons/sign-intersection-y":false,"./icons/sign-intersection":false,"./icons/sign-merge-left-fill":false,"./icons/sign-merge-left":false,"./icons/sign-merge-right-fill":false,"./icons/sign-merge-right":false,"./icons/sign-no-left-turn-fill":false,"./icons/sign-no-left-turn":false,"./icons/sign-no-parking-fill":false,"./icons/sign-no-parking":false,"./icons/sign-no-right-turn-fill":false,"./icons/sign-no-right-turn":false,"./icons/sign-railroad-fill":false,"./icons/sign-railroad":false,"./icons/sign-stop-fill":false,"./icons/sign-stop-lights-fill":false,"./icons/sign-stop-lights":false,"./icons/sign-stop":false,"./icons/sign-turn-left-fill":false,"./icons/sign-turn-left":false,"./icons/sign-turn-right-fill":false,"./icons/sign-turn-right":false,"./icons/sign-turn-slight-left-fill":false,"./icons/sign-turn-slight-left":false,"./icons/sign-turn-slight-right-fill":false,"./icons/sign-turn-slight-right":false,"./icons/sign-yield-fill":false,"./icons/sign-yield":false,"./icons/signal":false,"./icons/signpost-2-fill":false,"./icons/signpost-2":false,"./icons/signpost-fill":false,"./icons/signpost-split-fill":false,"./icons/signpost-split":false,"./icons/signpost":false,"./icons/sim-fill":false,"./icons/sim-slash-fill":false,"./icons/sim-slash":false,"./icons/sim":false,"./icons/sina-weibo":false,"./icons/skip-backward-btn-fill":false,"./icons/skip-backward-btn":false,"./icons/skip-backward-circle-fill":false,"./icons/skip-backward-circle":false,"./icons/skip-backward-fill":false,"./icons/skip-backward":false,"./icons/skip-end-btn-fill":false,"./icons/skip-end-btn":false,"./icons/skip-end-circle-fill":false,"./icons/skip-end-circle":false,"./icons/skip-end-fill":false,"./icons/skip-end":false,"./icons/skip-forward-btn-fill":false,"./icons/skip-forward-btn":false,"./icons/skip-forward-circle-fill":false,"./icons/skip-forward-circle":false,"./icons/skip-forward-fill":false,"./icons/skip-forward":false,"./icons/skip-start-btn-fill":false,"./icons/skip-start-btn":false,"./icons/skip-start-circle-fill":false,"./icons/skip-start-circle":false,"./icons/skip-start-fill":false,"./icons/skip-start":false,"./icons/skype":false,"./icons/slack":false,"./icons/slash-circle-fill":false,"./icons/slash-circle":false,"./icons/slash-lg":false,"./icons/slash-square-fill":false,"./icons/slash-square":false,"./icons/slash":false,"./icons/sliders":false,"./icons/sliders2-vertical":false,"./icons/sliders2":false,"./icons/smartwatch":false,"./icons/snapchat":false,"./icons/snow":false,"./icons/snow2":false,"./icons/snow3":false,"./icons/sort-alpha-down-alt":false,"./icons/sort-alpha-down":false,"./icons/sort-alpha-up-alt":false,"./icons/sort-alpha-up":false,"./icons/sort-down-alt":false,"./icons/sort-down":false,"./icons/sort-numeric-down-alt":false,"./icons/sort-numeric-down":false,"./icons/sort-numeric-up-alt":false,"./icons/sort-numeric-up":false,"./icons/sort-up-alt":false,"./icons/sort-up":false,"./icons/soundwave":false,"./icons/sourceforge":false,"./icons/speaker-fill":false,"./icons/speaker":false,"./icons/speedometer":false,"./icons/speedometer2":false,"./icons/spellcheck":false,"./icons/spotify":false,"./icons/square-fill":false,"./icons/square-half":false,"./icons/square":false,"./icons/stack-overflow":false,"./icons/stack":false,"./icons/star-fill":false,"./icons/star-half":false,"./icons/star":false,"./icons/stars":false,"./icons/steam":false,"./icons/stickies-fill":false,"./icons/stickies":false,"./icons/sticky-fill":false,"./icons/sticky":false,"./icons/stop-btn-fill":false,"./icons/stop-btn":false,"./icons/stop-circle-fill":false,"./icons/stop-circle":false,"./icons/stop-fill":false,"./icons/stop":false,"./icons/stoplights-fill":false,"./icons/stoplights":false,"./icons/stopwatch-fill":false,"./icons/stopwatch":false,"./icons/strava":false,"./icons/stripe":false,"./icons/subscript":false,"./icons/substack":false,"./icons/subtract":false,"./icons/suit-club-fill":false,"./icons/suit-club":false,"./icons/suit-diamond-fill":false,"./icons/suit-diamond":false,"./icons/suit-heart-fill":false,"./icons/suit-heart":false,"./icons/suit-spade-fill":false,"./icons/suit-spade":false,"./icons/suitcase-fill":false,"./icons/suitcase-lg-fill":false,"./icons/suitcase-lg":false,"./icons/suitcase":false,"./icons/suitcase2-fill":false,"./icons/suitcase2":false,"./icons/sun-fill":false,"./icons/sun":false,"./icons/sunglasses":false,"./icons/sunrise-fill":false,"./icons/sunrise":false,"./icons/sunset-fill":false,"./icons/sunset":false,"./icons/superscript":false,"./icons/symmetry-horizontal":false,"./icons/symmetry-vertical":false,"./icons/table":false,"./icons/tablet-fill":false,"./icons/tablet-landscape-fill":false,"./icons/tablet-landscape":false,"./icons/tablet":false,"./icons/tag-fill":false,"./icons/tag":false,"./icons/tags-fill":false,"./icons/tags":false,"./icons/taxi-front-fill":false,"./icons/taxi-front":false,"./icons/telegram":false,"./icons/telephone-fill":false,"./icons/telephone-forward-fill":false,"./icons/telephone-forward":false,"./icons/telephone-inbound-fill":false,"./icons/telephone-inbound":false,"./icons/telephone-minus-fill":false,"./icons/telephone-minus":false,"./icons/telephone-outbound-fill":false,"./icons/telephone-outbound":false,"./icons/telephone-plus-fill":false,"./icons/telephone-plus":false,"./icons/telephone-x-fill":false,"./icons/telephone-x":false,"./icons/telephone":false,"./icons/tencent-qq":false,"./icons/terminal-dash":false,"./icons/terminal-fill":false,"./icons/terminal-plus":false,"./icons/terminal-split":false,"./icons/terminal-x":false,"./icons/terminal":false,"./icons/text-center":false,"./icons/text-indent-left":false,"./icons/text-indent-right":false,"./icons/text-left":false,"./icons/text-paragraph":false,"./icons/text-right":false,"./icons/text-wrap":false,"./icons/textarea-resize":false,"./icons/textarea-t":false,"./icons/textarea":false,"./icons/thermometer-half":false,"./icons/thermometer-high":false,"./icons/thermometer-low":false,"./icons/thermometer-snow":false,"./icons/thermometer-sun":false,"./icons/thermometer":false,"./icons/threads-fill":false,"./icons/threads":false,"./icons/three-dots-vertical":false,"./icons/three-dots":false,"./icons/thunderbolt-fill":false,"./icons/thunderbolt":false,"./icons/ticket-detailed-fill":false,"./icons/ticket-detailed":false,"./icons/ticket-fill":false,"./icons/ticket-perforated-fill":false,"./icons/ticket-perforated":false,"./icons/ticket":false,"./icons/tiktok":false,"./icons/toggle-off":false,"./icons/toggle-on":false,"./icons/toggle2-off":false,"./icons/toggle2-on":false,"./icons/toggles":false,"./icons/toggles2":false,"./icons/tools":false,"./icons/tornado":false,"./icons/train-freight-front-fill":false,"./icons/train-freight-front":false,"./icons/train-front-fill":false,"./icons/train-front":false,"./icons/train-lightrail-front-fill":false,"./icons/train-lightrail-front":false,"./icons/translate":false,"./icons/transparency":false,"./icons/trash-fill":false,"./icons/trash":false,"./icons/trash2-fill":false,"./icons/trash2":false,"./icons/trash3-fill":false,"./icons/trash3":false,"./icons/tree-fill":false,"./icons/tree":false,"./icons/trello":false,"./icons/triangle-fill":false,"./icons/triangle-half":false,"./icons/triangle":false,"./icons/trophy-fill":false,"./icons/trophy":false,"./icons/tropical-storm":false,"./icons/truck-flatbed":false,"./icons/truck-front-fill":false,"./icons/truck-front":false,"./icons/truck":false,"./icons/tsunami":false,"./icons/tv-fill":false,"./icons/tv":false,"./icons/twitch":false,"./icons/twitter-x":false,"./icons/twitter":false,"./icons/type-bold":false,"./icons/type-h1":false,"./icons/type-h2":false,"./icons/type-h3":false,"./icons/type-h4":false,"./icons/type-h5":false,"./icons/type-h6":false,"./icons/type-italic":false,"./icons/type-strikethrough":false,"./icons/type-underline":false,"./icons/type":false,"./icons/ubuntu":false,"./icons/ui-checks-grid":false,"./icons/ui-checks":false,"./icons/ui-radios-grid":false,"./icons/ui-radios":false,"./icons/umbrella-fill":false,"./icons/umbrella":false,"./icons/unindent":false,"./icons/union":false,"./icons/unity":false,"./icons/universal-access-circle":false,"./icons/universal-access":false,"./icons/unlock-fill":false,"./icons/unlock":false,"./icons/upc-scan":false,"./icons/upc":false,"./icons/upload":false,"./icons/usb-c-fill":false,"./icons/usb-c":false,"./icons/usb-drive-fill":false,"./icons/usb-drive":false,"./icons/usb-fill":false,"./icons/usb-micro-fill":false,"./icons/usb-micro":false,"./icons/usb-mini-fill":false,"./icons/usb-mini":false,"./icons/usb-plug-fill":false,"./icons/usb-plug":false,"./icons/usb-symbol":false,"./icons/usb":false,"./icons/valentine":false,"./icons/valentine2":false,"./icons/vector-pen":false,"./icons/view-list":false,"./icons/view-stacked":false,"./icons/vignette":false,"./icons/vimeo":false,"./icons/vinyl-fill":false,"./icons/vinyl":false,"./icons/virus":false,"./icons/virus2":false,"./icons/voicemail":false,"./icons/volume-down-fill":false,"./icons/volume-down":false,"./icons/volume-mute-fill":false,"./icons/volume-mute":false,"./icons/volume-off-fill":false,"./icons/volume-off":false,"./icons/volume-up-fill":false,"./icons/volume-up":false,"./icons/vr":false,"./icons/wallet-fill":false,"./icons/wallet":false,"./icons/wallet2":false,"./icons/watch":false,"./icons/water":false,"./icons/webcam-fill":false,"./icons/webcam":false,"./icons/wechat":false,"./icons/whatsapp":false,"./icons/wifi-1":false,"./icons/wifi-2":false,"./icons/wifi-off":false,"./icons/wifi":false,"./icons/wikipedia":false,"./icons/wind":false,"./icons/window-dash":false,"./icons/window-desktop":false,"./icons/window-dock":false,"./icons/window-fullscreen":false,"./icons/window-plus":false,"./icons/window-sidebar":false,"./icons/window-split":false,"./icons/window-stack":false,"./icons/window-x":false,"./icons/window":false,"./icons/windows":false,"./icons/wordpress":false,"./icons/wrench-adjustable-circle-fill":false,"./icons/wrench-adjustable-circle":false,"./icons/wrench-adjustable":false,"./icons/wrench":false,"./icons/x-circle-fill":false,"./icons/x-circle":false,"./icons/x-diamond-fill":false,"./icons/x-diamond":false,"./icons/x-lg":false,"./icons/x-octagon-fill":false,"./icons/x-octagon":false,"./icons/x-square-fill":false,"./icons/x-square":false,"./icons/x":false,"./icons/xbox":false,"./icons/yelp":false,"./icons/yin-yang":false,"./icons/youtube":false,"./icons/zoom-in":false,"./icons/zoom-out":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8P4TF":[function(require,module,exports) {
+},{"./icons/0-circle-fill":false,"./icons/0-circle":false,"./icons/0-square-fill":false,"./icons/0-square":false,"./icons/1-circle-fill":false,"./icons/1-circle":false,"./icons/1-square-fill":false,"./icons/1-square":false,"./icons/123":false,"./icons/2-circle-fill":false,"./icons/2-circle":false,"./icons/2-square-fill":false,"./icons/2-square":false,"./icons/3-circle-fill":false,"./icons/3-circle":false,"./icons/3-square-fill":false,"./icons/3-square":false,"./icons/4-circle-fill":false,"./icons/4-circle":false,"./icons/4-square-fill":false,"./icons/4-square":false,"./icons/5-circle-fill":false,"./icons/5-circle":false,"./icons/5-square-fill":false,"./icons/5-square":false,"./icons/6-circle-fill":false,"./icons/6-circle":false,"./icons/6-square-fill":false,"./icons/6-square":false,"./icons/7-circle-fill":false,"./icons/7-circle":false,"./icons/7-square-fill":false,"./icons/7-square":false,"./icons/8-circle-fill":false,"./icons/8-circle":false,"./icons/8-square-fill":false,"./icons/8-square":false,"./icons/9-circle-fill":false,"./icons/9-circle":false,"./icons/9-square-fill":false,"./icons/9-square":false,"./icons/activity":false,"./icons/airplane-engines-fill":false,"./icons/airplane-engines":false,"./icons/airplane-fill":false,"./icons/airplane":false,"./icons/alarm-fill":false,"./icons/alarm":false,"./icons/alexa":false,"./icons/align-bottom":false,"./icons/align-center":false,"./icons/align-end":false,"./icons/align-middle":false,"./icons/align-start":false,"./icons/align-top":false,"./icons/alipay":false,"./icons/alphabet-uppercase":false,"./icons/alphabet":false,"./icons/alt":false,"./icons/amazon":false,"./icons/amd":false,"./icons/android":false,"./icons/android2":false,"./icons/app-indicator":false,"./icons/app":false,"./icons/apple":false,"./icons/archive-fill":false,"./icons/archive":false,"./icons/arrow-90deg-down":false,"./icons/arrow-90deg-left":false,"./icons/arrow-90deg-right":false,"./icons/arrow-90deg-up":false,"./icons/arrow-bar-down":false,"./icons/arrow-bar-left":false,"./icons/arrow-bar-right":false,"./icons/arrow-bar-up":false,"./icons/arrow-clockwise":false,"./icons/arrow-counterclockwise":false,"./icons/arrow-down-circle-fill":false,"./icons/arrow-down-circle":false,"./icons/arrow-down-left-circle-fill":false,"./icons/arrow-down-left-circle":false,"./icons/arrow-down-left-square-fill":false,"./icons/arrow-down-left-square":false,"./icons/arrow-down-left":false,"./icons/arrow-down-right-circle-fill":false,"./icons/arrow-down-right-circle":false,"./icons/arrow-down-right-square-fill":false,"./icons/arrow-down-right-square":false,"./icons/arrow-down-right":false,"./icons/arrow-down-short":false,"./icons/arrow-down-square-fill":false,"./icons/arrow-down-square":false,"./icons/arrow-down-up":false,"./icons/arrow-down":false,"./icons/arrow-left-circle-fill":false,"./icons/arrow-left-circle":false,"./icons/arrow-left-right":false,"./icons/arrow-left-short":false,"./icons/arrow-left-square-fill":false,"./icons/arrow-left-square":false,"./icons/arrow-left":false,"./icons/arrow-repeat":false,"./icons/arrow-return-left":false,"./icons/arrow-return-right":false,"./icons/arrow-right-circle-fill":false,"./icons/arrow-right-circle":false,"./icons/arrow-right-short":false,"./icons/arrow-right-square-fill":false,"./icons/arrow-right-square":false,"./icons/arrow-right":false,"./icons/arrow-through-heart-fill":false,"./icons/arrow-through-heart":false,"./icons/arrow-up-circle-fill":false,"./icons/arrow-up-circle":false,"./icons/arrow-up-left-circle-fill":false,"./icons/arrow-up-left-circle":false,"./icons/arrow-up-left-square-fill":false,"./icons/arrow-up-left-square":false,"./icons/arrow-up-left":false,"./icons/arrow-up-right-circle-fill":false,"./icons/arrow-up-right-circle":false,"./icons/arrow-up-right-square-fill":false,"./icons/arrow-up-right-square":false,"./icons/arrow-up-right":false,"./icons/arrow-up-short":false,"./icons/arrow-up-square-fill":false,"./icons/arrow-up-square":false,"./icons/arrow-up":false,"./icons/arrows-angle-contract":false,"./icons/arrows-angle-expand":false,"./icons/arrows-collapse-vertical":false,"./icons/arrows-collapse":false,"./icons/arrows-expand-vertical":false,"./icons/arrows-expand":false,"./icons/arrows-fullscreen":false,"./icons/arrows-move":false,"./icons/arrows-vertical":false,"./icons/arrows":false,"./icons/aspect-ratio-fill":false,"./icons/aspect-ratio":false,"./icons/asterisk":false,"./icons/at":false,"./icons/award-fill":false,"./icons/award":false,"./icons/back":false,"./icons/backpack-fill":false,"./icons/backpack":false,"./icons/backpack2-fill":false,"./icons/backpack2":false,"./icons/backpack3-fill":false,"./icons/backpack3":false,"./icons/backpack4-fill":false,"./icons/backpack4":false,"./icons/backspace-fill":false,"./icons/backspace-reverse-fill":false,"./icons/backspace-reverse":false,"./icons/backspace":false,"./icons/badge-3d-fill":false,"./icons/badge-3d":false,"./icons/badge-4k-fill":false,"./icons/badge-4k":false,"./icons/badge-8k-fill":false,"./icons/badge-8k":false,"./icons/badge-ad-fill":false,"./icons/badge-ad":false,"./icons/badge-ar-fill":false,"./icons/badge-ar":false,"./icons/badge-cc-fill":false,"./icons/badge-cc":false,"./icons/badge-hd-fill":false,"./icons/badge-hd":false,"./icons/badge-sd-fill":false,"./icons/badge-sd":false,"./icons/badge-tm-fill":false,"./icons/badge-tm":false,"./icons/badge-vo-fill":false,"./icons/badge-vo":false,"./icons/badge-vr-fill":false,"./icons/badge-vr":false,"./icons/badge-wc-fill":false,"./icons/badge-wc":false,"./icons/bag-check-fill":false,"./icons/bag-check":false,"./icons/bag-dash-fill":false,"./icons/bag-dash":false,"./icons/bag-fill":false,"./icons/bag-heart-fill":false,"./icons/bag-heart":false,"./icons/bag-plus-fill":false,"./icons/bag-plus":false,"./icons/bag-x-fill":false,"./icons/bag-x":false,"./icons/bag":false,"./icons/balloon-fill":false,"./icons/balloon-heart-fill":false,"./icons/balloon-heart":false,"./icons/balloon":false,"./icons/ban-fill":false,"./icons/ban":false,"./icons/bandaid-fill":false,"./icons/bandaid":false,"./icons/bank":false,"./icons/bank2":false,"./icons/bar-chart-fill":false,"./icons/bar-chart-line-fill":false,"./icons/bar-chart-line":false,"./icons/bar-chart-steps":false,"./icons/bar-chart":false,"./icons/basket-fill":false,"./icons/basket":false,"./icons/basket2-fill":false,"./icons/basket2":false,"./icons/basket3-fill":false,"./icons/basket3":false,"./icons/battery-charging":false,"./icons/battery-full":false,"./icons/battery-half":false,"./icons/battery":false,"./icons/behance":false,"./icons/bell-fill":false,"./icons/bell-slash-fill":false,"./icons/bell-slash":false,"./icons/bell":false,"./icons/bezier":false,"./icons/bezier2":false,"./icons/bicycle":false,"./icons/bing":false,"./icons/binoculars-fill":false,"./icons/binoculars":false,"./icons/blockquote-left":false,"./icons/blockquote-right":false,"./icons/bluetooth":false,"./icons/body-text":false,"./icons/book-fill":false,"./icons/book-half":false,"./icons/book":false,"./icons/bookmark-check-fill":false,"./icons/bookmark-check":false,"./icons/bookmark-dash-fill":false,"./icons/bookmark-dash":false,"./icons/bookmark-fill":false,"./icons/bookmark-heart-fill":"8P4TF","./icons/bookmark-heart":"7rGlC","./icons/bookmark-plus-fill":false,"./icons/bookmark-plus":false,"./icons/bookmark-star-fill":false,"./icons/bookmark-star":false,"./icons/bookmark-x-fill":false,"./icons/bookmark-x":false,"./icons/bookmark":false,"./icons/bookmarks-fill":false,"./icons/bookmarks":false,"./icons/bookshelf":false,"./icons/boombox-fill":false,"./icons/boombox":false,"./icons/bootstrap-fill":false,"./icons/bootstrap-reboot":false,"./icons/bootstrap":false,"./icons/border-all":false,"./icons/border-bottom":false,"./icons/border-center":false,"./icons/border-inner":false,"./icons/border-left":false,"./icons/border-middle":false,"./icons/border-outer":false,"./icons/border-right":false,"./icons/border-style":false,"./icons/border-top":false,"./icons/border-width":false,"./icons/border":false,"./icons/bounding-box-circles":false,"./icons/bounding-box":false,"./icons/box-arrow-down-left":false,"./icons/box-arrow-down-right":false,"./icons/box-arrow-down":false,"./icons/box-arrow-in-down-left":false,"./icons/box-arrow-in-down-right":false,"./icons/box-arrow-in-down":false,"./icons/box-arrow-in-left":false,"./icons/box-arrow-in-right":false,"./icons/box-arrow-in-up-left":false,"./icons/box-arrow-in-up-right":false,"./icons/box-arrow-in-up":false,"./icons/box-arrow-left":false,"./icons/box-arrow-right":false,"./icons/box-arrow-up-left":false,"./icons/box-arrow-up-right":false,"./icons/box-arrow-up":false,"./icons/box-fill":false,"./icons/box-seam-fill":false,"./icons/box-seam":false,"./icons/box":false,"./icons/box2-fill":false,"./icons/box2-heart-fill":false,"./icons/box2-heart":false,"./icons/box2":false,"./icons/boxes":false,"./icons/braces-asterisk":false,"./icons/braces":false,"./icons/bricks":false,"./icons/briefcase-fill":false,"./icons/briefcase":false,"./icons/brightness-alt-high-fill":false,"./icons/brightness-alt-high":false,"./icons/brightness-alt-low-fill":false,"./icons/brightness-alt-low":false,"./icons/brightness-high-fill":false,"./icons/brightness-high":false,"./icons/brightness-low-fill":false,"./icons/brightness-low":false,"./icons/brilliance":false,"./icons/broadcast-pin":false,"./icons/broadcast":false,"./icons/browser-chrome":false,"./icons/browser-edge":false,"./icons/browser-firefox":false,"./icons/browser-safari":false,"./icons/brush-fill":false,"./icons/brush":false,"./icons/bucket-fill":false,"./icons/bucket":false,"./icons/bug-fill":false,"./icons/bug":false,"./icons/building-add":false,"./icons/building-check":false,"./icons/building-dash":false,"./icons/building-down":false,"./icons/building-exclamation":false,"./icons/building-fill-add":false,"./icons/building-fill-check":false,"./icons/building-fill-dash":false,"./icons/building-fill-down":false,"./icons/building-fill-exclamation":false,"./icons/building-fill-gear":false,"./icons/building-fill-lock":false,"./icons/building-fill-slash":false,"./icons/building-fill-up":false,"./icons/building-fill-x":false,"./icons/building-fill":false,"./icons/building-gear":false,"./icons/building-lock":false,"./icons/building-slash":false,"./icons/building-up":false,"./icons/building-x":false,"./icons/building":false,"./icons/buildings-fill":false,"./icons/buildings":false,"./icons/bullseye":false,"./icons/bus-front-fill":false,"./icons/bus-front":false,"./icons/c-circle-fill":false,"./icons/c-circle":false,"./icons/c-square-fill":false,"./icons/c-square":false,"./icons/cake-fill":false,"./icons/cake":false,"./icons/cake2-fill":false,"./icons/cake2":false,"./icons/calculator-fill":false,"./icons/calculator":false,"./icons/calendar-check-fill":false,"./icons/calendar-check":false,"./icons/calendar-date-fill":false,"./icons/calendar-date":false,"./icons/calendar-day-fill":false,"./icons/calendar-day":false,"./icons/calendar-event-fill":false,"./icons/calendar-event":false,"./icons/calendar-fill":false,"./icons/calendar-heart-fill":false,"./icons/calendar-heart":false,"./icons/calendar-minus-fill":false,"./icons/calendar-minus":false,"./icons/calendar-month-fill":false,"./icons/calendar-month":false,"./icons/calendar-plus-fill":false,"./icons/calendar-plus":false,"./icons/calendar-range-fill":false,"./icons/calendar-range":false,"./icons/calendar-week-fill":false,"./icons/calendar-week":false,"./icons/calendar-x-fill":false,"./icons/calendar-x":false,"./icons/calendar":false,"./icons/calendar2-check-fill":false,"./icons/calendar2-check":false,"./icons/calendar2-date-fill":false,"./icons/calendar2-date":false,"./icons/calendar2-day-fill":false,"./icons/calendar2-day":false,"./icons/calendar2-event-fill":false,"./icons/calendar2-event":false,"./icons/calendar2-fill":false,"./icons/calendar2-heart-fill":false,"./icons/calendar2-heart":false,"./icons/calendar2-minus-fill":false,"./icons/calendar2-minus":false,"./icons/calendar2-month-fill":false,"./icons/calendar2-month":false,"./icons/calendar2-plus-fill":false,"./icons/calendar2-plus":false,"./icons/calendar2-range-fill":false,"./icons/calendar2-range":false,"./icons/calendar2-week-fill":false,"./icons/calendar2-week":false,"./icons/calendar2-x-fill":false,"./icons/calendar2-x":false,"./icons/calendar2":false,"./icons/calendar3-event-fill":false,"./icons/calendar3-event":false,"./icons/calendar3-fill":false,"./icons/calendar3-range-fill":false,"./icons/calendar3-range":false,"./icons/calendar3-week-fill":false,"./icons/calendar3-week":false,"./icons/calendar3":false,"./icons/calendar4-event":false,"./icons/calendar4-range":false,"./icons/calendar4-week":false,"./icons/calendar4":false,"./icons/camera-fill":false,"./icons/camera-reels-fill":false,"./icons/camera-reels":false,"./icons/camera-video-fill":false,"./icons/camera-video-off-fill":false,"./icons/camera-video-off":false,"./icons/camera-video":false,"./icons/camera":false,"./icons/camera2":false,"./icons/capslock-fill":false,"./icons/capslock":false,"./icons/capsule-pill":false,"./icons/capsule":false,"./icons/car-front-fill":false,"./icons/car-front":false,"./icons/card-checklist":false,"./icons/card-heading":false,"./icons/card-image":false,"./icons/card-list":false,"./icons/card-text":false,"./icons/caret-down-fill":false,"./icons/caret-down-square-fill":false,"./icons/caret-down-square":false,"./icons/caret-down":false,"./icons/caret-left-fill":false,"./icons/caret-left-square-fill":false,"./icons/caret-left-square":false,"./icons/caret-left":false,"./icons/caret-right-fill":false,"./icons/caret-right-square-fill":false,"./icons/caret-right-square":false,"./icons/caret-right":false,"./icons/caret-up-fill":false,"./icons/caret-up-square-fill":false,"./icons/caret-up-square":false,"./icons/caret-up":false,"./icons/cart-check-fill":false,"./icons/cart-check":false,"./icons/cart-dash-fill":false,"./icons/cart-dash":false,"./icons/cart-fill":false,"./icons/cart-plus-fill":false,"./icons/cart-plus":false,"./icons/cart-x-fill":false,"./icons/cart-x":false,"./icons/cart":false,"./icons/cart2":false,"./icons/cart3":false,"./icons/cart4":false,"./icons/cash-coin":false,"./icons/cash-stack":false,"./icons/cash":false,"./icons/cassette-fill":false,"./icons/cassette":false,"./icons/cast":false,"./icons/cc-circle-fill":false,"./icons/cc-circle":false,"./icons/cc-square-fill":false,"./icons/cc-square":false,"./icons/chat-dots-fill":false,"./icons/chat-dots":false,"./icons/chat-fill":false,"./icons/chat-heart-fill":false,"./icons/chat-heart":false,"./icons/chat-left-dots-fill":false,"./icons/chat-left-dots":false,"./icons/chat-left-fill":false,"./icons/chat-left-heart-fill":false,"./icons/chat-left-heart":false,"./icons/chat-left-quote-fill":false,"./icons/chat-left-quote":false,"./icons/chat-left-text-fill":false,"./icons/chat-left-text":false,"./icons/chat-left":false,"./icons/chat-quote-fill":false,"./icons/chat-quote":false,"./icons/chat-right-dots-fill":false,"./icons/chat-right-dots":false,"./icons/chat-right-fill":false,"./icons/chat-right-heart-fill":false,"./icons/chat-right-heart":false,"./icons/chat-right-quote-fill":false,"./icons/chat-right-quote":false,"./icons/chat-right-text-fill":false,"./icons/chat-right-text":false,"./icons/chat-right":false,"./icons/chat-square-dots-fill":false,"./icons/chat-square-dots":false,"./icons/chat-square-fill":false,"./icons/chat-square-heart-fill":false,"./icons/chat-square-heart":false,"./icons/chat-square-quote-fill":false,"./icons/chat-square-quote":false,"./icons/chat-square-text-fill":false,"./icons/chat-square-text":false,"./icons/chat-square":false,"./icons/chat-text-fill":false,"./icons/chat-text":false,"./icons/chat":false,"./icons/check-all":false,"./icons/check-circle-fill":false,"./icons/check-circle":false,"./icons/check-lg":false,"./icons/check-square-fill":false,"./icons/check-square":false,"./icons/check":false,"./icons/check2-all":false,"./icons/check2-circle":false,"./icons/check2-square":false,"./icons/check2":false,"./icons/chevron-bar-contract":false,"./icons/chevron-bar-down":false,"./icons/chevron-bar-expand":false,"./icons/chevron-bar-left":false,"./icons/chevron-bar-right":false,"./icons/chevron-bar-up":false,"./icons/chevron-compact-down":false,"./icons/chevron-compact-left":false,"./icons/chevron-compact-right":false,"./icons/chevron-compact-up":false,"./icons/chevron-contract":false,"./icons/chevron-double-down":false,"./icons/chevron-double-left":false,"./icons/chevron-double-right":false,"./icons/chevron-double-up":false,"./icons/chevron-down":false,"./icons/chevron-expand":false,"./icons/chevron-left":false,"./icons/chevron-right":false,"./icons/chevron-up":false,"./icons/circle-fill":false,"./icons/circle-half":false,"./icons/circle-square":false,"./icons/circle":false,"./icons/clipboard-check-fill":false,"./icons/clipboard-check":false,"./icons/clipboard-data-fill":false,"./icons/clipboard-data":false,"./icons/clipboard-fill":false,"./icons/clipboard-heart-fill":false,"./icons/clipboard-heart":false,"./icons/clipboard-minus-fill":false,"./icons/clipboard-minus":false,"./icons/clipboard-plus-fill":false,"./icons/clipboard-plus":false,"./icons/clipboard-pulse":false,"./icons/clipboard-x-fill":false,"./icons/clipboard-x":false,"./icons/clipboard":false,"./icons/clipboard2-check-fill":false,"./icons/clipboard2-check":false,"./icons/clipboard2-data-fill":false,"./icons/clipboard2-data":false,"./icons/clipboard2-fill":false,"./icons/clipboard2-heart-fill":false,"./icons/clipboard2-heart":false,"./icons/clipboard2-minus-fill":false,"./icons/clipboard2-minus":false,"./icons/clipboard2-plus-fill":false,"./icons/clipboard2-plus":false,"./icons/clipboard2-pulse-fill":false,"./icons/clipboard2-pulse":false,"./icons/clipboard2-x-fill":false,"./icons/clipboard2-x":false,"./icons/clipboard2":false,"./icons/clock-fill":false,"./icons/clock-history":false,"./icons/clock":false,"./icons/cloud-arrow-down-fill":false,"./icons/cloud-arrow-down":false,"./icons/cloud-arrow-up-fill":false,"./icons/cloud-arrow-up":false,"./icons/cloud-check-fill":false,"./icons/cloud-check":false,"./icons/cloud-download-fill":false,"./icons/cloud-download":false,"./icons/cloud-drizzle-fill":false,"./icons/cloud-drizzle":false,"./icons/cloud-fill":false,"./icons/cloud-fog-fill":false,"./icons/cloud-fog":false,"./icons/cloud-fog2-fill":false,"./icons/cloud-fog2":false,"./icons/cloud-hail-fill":false,"./icons/cloud-hail":false,"./icons/cloud-haze-fill":false,"./icons/cloud-haze":false,"./icons/cloud-haze2-fill":false,"./icons/cloud-haze2":false,"./icons/cloud-lightning-fill":false,"./icons/cloud-lightning-rain-fill":false,"./icons/cloud-lightning-rain":false,"./icons/cloud-lightning":false,"./icons/cloud-minus-fill":false,"./icons/cloud-minus":false,"./icons/cloud-moon-fill":false,"./icons/cloud-moon":false,"./icons/cloud-plus-fill":false,"./icons/cloud-plus":false,"./icons/cloud-rain-fill":false,"./icons/cloud-rain-heavy-fill":false,"./icons/cloud-rain-heavy":false,"./icons/cloud-rain":false,"./icons/cloud-slash-fill":false,"./icons/cloud-slash":false,"./icons/cloud-sleet-fill":false,"./icons/cloud-sleet":false,"./icons/cloud-snow-fill":false,"./icons/cloud-snow":false,"./icons/cloud-sun-fill":false,"./icons/cloud-sun":false,"./icons/cloud-upload-fill":false,"./icons/cloud-upload":false,"./icons/cloud":false,"./icons/clouds-fill":false,"./icons/clouds":false,"./icons/cloudy-fill":false,"./icons/cloudy":false,"./icons/code-slash":false,"./icons/code-square":false,"./icons/code":false,"./icons/coin":false,"./icons/collection-fill":false,"./icons/collection-play-fill":false,"./icons/collection-play":false,"./icons/collection":false,"./icons/columns-gap":false,"./icons/columns":false,"./icons/command":false,"./icons/compass-fill":false,"./icons/compass":false,"./icons/cone-striped":false,"./icons/cone":false,"./icons/controller":false,"./icons/cookie":false,"./icons/copy":false,"./icons/cpu-fill":false,"./icons/cpu":false,"./icons/credit-card-2-back-fill":false,"./icons/credit-card-2-back":false,"./icons/credit-card-2-front-fill":false,"./icons/credit-card-2-front":false,"./icons/credit-card-fill":false,"./icons/credit-card":false,"./icons/crop":false,"./icons/crosshair":false,"./icons/crosshair2":false,"./icons/cup-fill":false,"./icons/cup-hot-fill":false,"./icons/cup-hot":false,"./icons/cup-straw":false,"./icons/cup":false,"./icons/currency-bitcoin":false,"./icons/currency-dollar":false,"./icons/currency-euro":false,"./icons/currency-exchange":false,"./icons/currency-pound":false,"./icons/currency-rupee":false,"./icons/currency-yen":false,"./icons/cursor-fill":false,"./icons/cursor-text":false,"./icons/cursor":false,"./icons/dash-circle-dotted":false,"./icons/dash-circle-fill":false,"./icons/dash-circle":false,"./icons/dash-lg":false,"./icons/dash-square-dotted":false,"./icons/dash-square-fill":false,"./icons/dash-square":false,"./icons/dash":false,"./icons/database-add":false,"./icons/database-check":false,"./icons/database-dash":false,"./icons/database-down":false,"./icons/database-exclamation":false,"./icons/database-fill-add":false,"./icons/database-fill-check":false,"./icons/database-fill-dash":false,"./icons/database-fill-down":false,"./icons/database-fill-exclamation":false,"./icons/database-fill-gear":false,"./icons/database-fill-lock":false,"./icons/database-fill-slash":false,"./icons/database-fill-up":false,"./icons/database-fill-x":false,"./icons/database-fill":false,"./icons/database-gear":false,"./icons/database-lock":false,"./icons/database-slash":false,"./icons/database-up":false,"./icons/database-x":false,"./icons/database":false,"./icons/device-hdd-fill":false,"./icons/device-hdd":false,"./icons/device-ssd-fill":false,"./icons/device-ssd":false,"./icons/diagram-2-fill":false,"./icons/diagram-2":false,"./icons/diagram-3-fill":false,"./icons/diagram-3":false,"./icons/diamond-fill":false,"./icons/diamond-half":false,"./icons/diamond":false,"./icons/dice-1-fill":false,"./icons/dice-1":false,"./icons/dice-2-fill":false,"./icons/dice-2":false,"./icons/dice-3-fill":false,"./icons/dice-3":false,"./icons/dice-4-fill":false,"./icons/dice-4":false,"./icons/dice-5-fill":false,"./icons/dice-5":false,"./icons/dice-6-fill":false,"./icons/dice-6":false,"./icons/disc-fill":false,"./icons/disc":false,"./icons/discord":false,"./icons/display-fill":false,"./icons/display":false,"./icons/displayport-fill":false,"./icons/displayport":false,"./icons/distribute-horizontal":false,"./icons/distribute-vertical":false,"./icons/door-closed-fill":false,"./icons/door-closed":false,"./icons/door-open-fill":false,"./icons/door-open":false,"./icons/dot":false,"./icons/download":false,"./icons/dpad-fill":false,"./icons/dpad":false,"./icons/dribbble":false,"./icons/dropbox":false,"./icons/droplet-fill":false,"./icons/droplet-half":false,"./icons/droplet":false,"./icons/duffle-fill":false,"./icons/duffle":false,"./icons/ear-fill":false,"./icons/ear":false,"./icons/earbuds":false,"./icons/easel-fill":false,"./icons/easel":false,"./icons/easel2-fill":false,"./icons/easel2":false,"./icons/easel3-fill":false,"./icons/easel3":false,"./icons/egg-fill":false,"./icons/egg-fried":false,"./icons/egg":false,"./icons/eject-fill":false,"./icons/eject":false,"./icons/emoji-angry-fill":false,"./icons/emoji-angry":false,"./icons/emoji-astonished-fill":false,"./icons/emoji-astonished":false,"./icons/emoji-dizzy-fill":false,"./icons/emoji-dizzy":false,"./icons/emoji-expressionless-fill":false,"./icons/emoji-expressionless":false,"./icons/emoji-frown-fill":false,"./icons/emoji-frown":false,"./icons/emoji-grimace-fill":false,"./icons/emoji-grimace":false,"./icons/emoji-grin-fill":false,"./icons/emoji-grin":false,"./icons/emoji-heart-eyes-fill":false,"./icons/emoji-heart-eyes":false,"./icons/emoji-kiss-fill":false,"./icons/emoji-kiss":false,"./icons/emoji-laughing-fill":false,"./icons/emoji-laughing":false,"./icons/emoji-neutral-fill":false,"./icons/emoji-neutral":false,"./icons/emoji-smile-fill":false,"./icons/emoji-smile-upside-down-fill":false,"./icons/emoji-smile-upside-down":false,"./icons/emoji-smile":false,"./icons/emoji-sunglasses-fill":false,"./icons/emoji-sunglasses":false,"./icons/emoji-surprise-fill":false,"./icons/emoji-surprise":false,"./icons/emoji-tear-fill":false,"./icons/emoji-tear":false,"./icons/emoji-wink-fill":false,"./icons/emoji-wink":false,"./icons/envelope-arrow-down-fill":false,"./icons/envelope-arrow-down":false,"./icons/envelope-arrow-up-fill":false,"./icons/envelope-arrow-up":false,"./icons/envelope-at-fill":false,"./icons/envelope-at":false,"./icons/envelope-check-fill":false,"./icons/envelope-check":false,"./icons/envelope-dash-fill":false,"./icons/envelope-dash":false,"./icons/envelope-exclamation-fill":false,"./icons/envelope-exclamation":false,"./icons/envelope-fill":false,"./icons/envelope-heart-fill":false,"./icons/envelope-heart":false,"./icons/envelope-open-fill":false,"./icons/envelope-open-heart-fill":false,"./icons/envelope-open-heart":false,"./icons/envelope-open":false,"./icons/envelope-paper-fill":false,"./icons/envelope-paper-heart-fill":false,"./icons/envelope-paper-heart":false,"./icons/envelope-paper":false,"./icons/envelope-plus-fill":false,"./icons/envelope-plus":false,"./icons/envelope-slash-fill":false,"./icons/envelope-slash":false,"./icons/envelope-x-fill":false,"./icons/envelope-x":false,"./icons/envelope":false,"./icons/eraser-fill":false,"./icons/eraser":false,"./icons/escape":false,"./icons/ethernet":false,"./icons/ev-front-fill":false,"./icons/ev-front":false,"./icons/ev-station-fill":false,"./icons/ev-station":false,"./icons/exclamation-circle-fill":false,"./icons/exclamation-circle":false,"./icons/exclamation-diamond-fill":false,"./icons/exclamation-diamond":false,"./icons/exclamation-lg":false,"./icons/exclamation-octagon-fill":false,"./icons/exclamation-octagon":false,"./icons/exclamation-square-fill":false,"./icons/exclamation-square":false,"./icons/exclamation-triangle-fill":false,"./icons/exclamation-triangle":false,"./icons/exclamation":false,"./icons/exclude":false,"./icons/explicit-fill":false,"./icons/explicit":false,"./icons/exposure":false,"./icons/eye-fill":false,"./icons/eye-slash-fill":false,"./icons/eye-slash":false,"./icons/eye":false,"./icons/eyedropper":false,"./icons/eyeglasses":false,"./icons/facebook":false,"./icons/fan":false,"./icons/fast-forward-btn-fill":false,"./icons/fast-forward-btn":false,"./icons/fast-forward-circle-fill":false,"./icons/fast-forward-circle":false,"./icons/fast-forward-fill":false,"./icons/fast-forward":false,"./icons/feather":false,"./icons/feather2":false,"./icons/file-arrow-down-fill":false,"./icons/file-arrow-down":false,"./icons/file-arrow-up-fill":false,"./icons/file-arrow-up":false,"./icons/file-bar-graph-fill":false,"./icons/file-bar-graph":false,"./icons/file-binary-fill":false,"./icons/file-binary":false,"./icons/file-break-fill":false,"./icons/file-break":false,"./icons/file-check-fill":false,"./icons/file-check":false,"./icons/file-code-fill":false,"./icons/file-code":false,"./icons/file-diff-fill":false,"./icons/file-diff":false,"./icons/file-earmark-arrow-down-fill":false,"./icons/file-earmark-arrow-down":false,"./icons/file-earmark-arrow-up-fill":false,"./icons/file-earmark-arrow-up":false,"./icons/file-earmark-bar-graph-fill":false,"./icons/file-earmark-bar-graph":false,"./icons/file-earmark-binary-fill":false,"./icons/file-earmark-binary":false,"./icons/file-earmark-break-fill":false,"./icons/file-earmark-break":false,"./icons/file-earmark-check-fill":false,"./icons/file-earmark-check":false,"./icons/file-earmark-code-fill":false,"./icons/file-earmark-code":false,"./icons/file-earmark-diff-fill":false,"./icons/file-earmark-diff":false,"./icons/file-earmark-easel-fill":false,"./icons/file-earmark-easel":false,"./icons/file-earmark-excel-fill":false,"./icons/file-earmark-excel":false,"./icons/file-earmark-fill":false,"./icons/file-earmark-font-fill":false,"./icons/file-earmark-font":false,"./icons/file-earmark-image-fill":false,"./icons/file-earmark-image":false,"./icons/file-earmark-lock-fill":false,"./icons/file-earmark-lock":false,"./icons/file-earmark-lock2-fill":false,"./icons/file-earmark-lock2":false,"./icons/file-earmark-medical-fill":false,"./icons/file-earmark-medical":false,"./icons/file-earmark-minus-fill":false,"./icons/file-earmark-minus":false,"./icons/file-earmark-music-fill":false,"./icons/file-earmark-music":false,"./icons/file-earmark-pdf-fill":false,"./icons/file-earmark-pdf":false,"./icons/file-earmark-person-fill":false,"./icons/file-earmark-person":false,"./icons/file-earmark-play-fill":false,"./icons/file-earmark-play":false,"./icons/file-earmark-plus-fill":false,"./icons/file-earmark-plus":false,"./icons/file-earmark-post-fill":false,"./icons/file-earmark-post":false,"./icons/file-earmark-ppt-fill":false,"./icons/file-earmark-ppt":false,"./icons/file-earmark-richtext-fill":false,"./icons/file-earmark-richtext":false,"./icons/file-earmark-ruled-fill":false,"./icons/file-earmark-ruled":false,"./icons/file-earmark-slides-fill":false,"./icons/file-earmark-slides":false,"./icons/file-earmark-spreadsheet-fill":false,"./icons/file-earmark-spreadsheet":false,"./icons/file-earmark-text-fill":false,"./icons/file-earmark-text":false,"./icons/file-earmark-word-fill":false,"./icons/file-earmark-word":false,"./icons/file-earmark-x-fill":false,"./icons/file-earmark-x":false,"./icons/file-earmark-zip-fill":false,"./icons/file-earmark-zip":false,"./icons/file-earmark":false,"./icons/file-easel-fill":false,"./icons/file-easel":false,"./icons/file-excel-fill":false,"./icons/file-excel":false,"./icons/file-fill":false,"./icons/file-font-fill":false,"./icons/file-font":false,"./icons/file-image-fill":false,"./icons/file-image":false,"./icons/file-lock-fill":false,"./icons/file-lock":false,"./icons/file-lock2-fill":false,"./icons/file-lock2":false,"./icons/file-medical-fill":false,"./icons/file-medical":false,"./icons/file-minus-fill":false,"./icons/file-minus":false,"./icons/file-music-fill":false,"./icons/file-music":false,"./icons/file-pdf-fill":false,"./icons/file-pdf":false,"./icons/file-person-fill":false,"./icons/file-person":false,"./icons/file-play-fill":false,"./icons/file-play":false,"./icons/file-plus-fill":false,"./icons/file-plus":false,"./icons/file-post-fill":false,"./icons/file-post":false,"./icons/file-ppt-fill":false,"./icons/file-ppt":false,"./icons/file-richtext-fill":false,"./icons/file-richtext":false,"./icons/file-ruled-fill":false,"./icons/file-ruled":false,"./icons/file-slides-fill":false,"./icons/file-slides":false,"./icons/file-spreadsheet-fill":false,"./icons/file-spreadsheet":false,"./icons/file-text-fill":false,"./icons/file-text":false,"./icons/file-word-fill":false,"./icons/file-word":false,"./icons/file-x-fill":false,"./icons/file-x":false,"./icons/file-zip-fill":false,"./icons/file-zip":false,"./icons/file":false,"./icons/files-alt":false,"./icons/files":false,"./icons/filetype-aac":false,"./icons/filetype-ai":false,"./icons/filetype-bmp":false,"./icons/filetype-cs":false,"./icons/filetype-css":false,"./icons/filetype-csv":false,"./icons/filetype-doc":false,"./icons/filetype-docx":false,"./icons/filetype-exe":false,"./icons/filetype-gif":false,"./icons/filetype-heic":false,"./icons/filetype-html":false,"./icons/filetype-java":false,"./icons/filetype-jpg":false,"./icons/filetype-js":false,"./icons/filetype-json":false,"./icons/filetype-jsx":false,"./icons/filetype-key":false,"./icons/filetype-m4p":false,"./icons/filetype-md":false,"./icons/filetype-mdx":false,"./icons/filetype-mov":false,"./icons/filetype-mp3":false,"./icons/filetype-mp4":false,"./icons/filetype-otf":false,"./icons/filetype-pdf":false,"./icons/filetype-php":false,"./icons/filetype-png":false,"./icons/filetype-ppt":false,"./icons/filetype-pptx":false,"./icons/filetype-psd":false,"./icons/filetype-py":false,"./icons/filetype-raw":false,"./icons/filetype-rb":false,"./icons/filetype-sass":false,"./icons/filetype-scss":false,"./icons/filetype-sh":false,"./icons/filetype-sql":false,"./icons/filetype-svg":false,"./icons/filetype-tiff":false,"./icons/filetype-tsx":false,"./icons/filetype-ttf":false,"./icons/filetype-txt":false,"./icons/filetype-wav":false,"./icons/filetype-woff":false,"./icons/filetype-xls":false,"./icons/filetype-xlsx":false,"./icons/filetype-xml":false,"./icons/filetype-yml":false,"./icons/film":false,"./icons/filter-circle-fill":false,"./icons/filter-circle":false,"./icons/filter-left":false,"./icons/filter-right":false,"./icons/filter-square-fill":false,"./icons/filter-square":false,"./icons/filter":false,"./icons/fingerprint":false,"./icons/fire":false,"./icons/flag-fill":false,"./icons/flag":false,"./icons/floppy-fill":false,"./icons/floppy":false,"./icons/floppy2-fill":false,"./icons/floppy2":false,"./icons/flower1":false,"./icons/flower2":false,"./icons/flower3":false,"./icons/folder-check":false,"./icons/folder-fill":false,"./icons/folder-minus":false,"./icons/folder-plus":false,"./icons/folder-symlink-fill":false,"./icons/folder-symlink":false,"./icons/folder-x":false,"./icons/folder":false,"./icons/folder2-open":false,"./icons/folder2":false,"./icons/fonts":false,"./icons/forward-fill":false,"./icons/forward":false,"./icons/front":false,"./icons/fuel-pump-diesel-fill":false,"./icons/fuel-pump-diesel":false,"./icons/fuel-pump-fill":false,"./icons/fuel-pump":false,"./icons/fullscreen-exit":false,"./icons/fullscreen":false,"./icons/funnel-fill":false,"./icons/funnel":false,"./icons/gear-fill":false,"./icons/gear-wide-connected":false,"./icons/gear-wide":false,"./icons/gear":false,"./icons/gem":false,"./icons/gender-ambiguous":false,"./icons/gender-female":false,"./icons/gender-male":false,"./icons/gender-neuter":false,"./icons/gender-trans":false,"./icons/geo-alt-fill":false,"./icons/geo-alt":false,"./icons/geo-fill":false,"./icons/geo":false,"./icons/gift-fill":false,"./icons/gift":false,"./icons/git":false,"./icons/github":false,"./icons/gitlab":false,"./icons/globe-americas":false,"./icons/globe-asia-australia":false,"./icons/globe-central-south-asia":false,"./icons/globe-europe-africa":false,"./icons/globe":false,"./icons/globe2":false,"./icons/google-play":false,"./icons/google":false,"./icons/gpu-card":false,"./icons/graph-down-arrow":false,"./icons/graph-down":false,"./icons/graph-up-arrow":false,"./icons/graph-up":false,"./icons/grid-1x2-fill":false,"./icons/grid-1x2":false,"./icons/grid-3x2-gap-fill":false,"./icons/grid-3x2-gap":false,"./icons/grid-3x2":false,"./icons/grid-3x3-gap-fill":false,"./icons/grid-3x3-gap":false,"./icons/grid-3x3":false,"./icons/grid-fill":false,"./icons/grid":false,"./icons/grip-horizontal":false,"./icons/grip-vertical":false,"./icons/h-circle-fill":false,"./icons/h-circle":false,"./icons/h-square-fill":false,"./icons/h-square":false,"./icons/hammer":false,"./icons/hand-index-fill":false,"./icons/hand-index-thumb-fill":false,"./icons/hand-index-thumb":false,"./icons/hand-index":false,"./icons/hand-thumbs-down-fill":false,"./icons/hand-thumbs-down":false,"./icons/hand-thumbs-up-fill":false,"./icons/hand-thumbs-up":false,"./icons/handbag-fill":false,"./icons/handbag":false,"./icons/hash":false,"./icons/hdd-fill":false,"./icons/hdd-network-fill":false,"./icons/hdd-network":false,"./icons/hdd-rack-fill":false,"./icons/hdd-rack":false,"./icons/hdd-stack-fill":false,"./icons/hdd-stack":false,"./icons/hdd":false,"./icons/hdmi-fill":false,"./icons/hdmi":false,"./icons/headphones":false,"./icons/headset-vr":false,"./icons/headset":false,"./icons/heart-arrow":false,"./icons/heart-fill":false,"./icons/heart-half":false,"./icons/heart-pulse-fill":false,"./icons/heart-pulse":false,"./icons/heart":false,"./icons/heartbreak-fill":false,"./icons/heartbreak":false,"./icons/hearts":false,"./icons/heptagon-fill":false,"./icons/heptagon-half":false,"./icons/heptagon":false,"./icons/hexagon-fill":false,"./icons/hexagon-half":false,"./icons/hexagon":false,"./icons/highlighter":false,"./icons/highlights":false,"./icons/hospital-fill":false,"./icons/hospital":false,"./icons/hourglass-bottom":false,"./icons/hourglass-split":false,"./icons/hourglass-top":false,"./icons/hourglass":false,"./icons/house-add-fill":false,"./icons/house-add":false,"./icons/house-check-fill":false,"./icons/house-check":false,"./icons/house-dash-fill":false,"./icons/house-dash":false,"./icons/house-door-fill":false,"./icons/house-door":false,"./icons/house-down-fill":false,"./icons/house-down":false,"./icons/house-exclamation-fill":false,"./icons/house-exclamation":false,"./icons/house-fill":false,"./icons/house-gear-fill":false,"./icons/house-gear":false,"./icons/house-heart-fill":false,"./icons/house-heart":false,"./icons/house-lock-fill":false,"./icons/house-lock":false,"./icons/house-slash-fill":false,"./icons/house-slash":false,"./icons/house-up-fill":false,"./icons/house-up":false,"./icons/house-x-fill":false,"./icons/house-x":false,"./icons/house":false,"./icons/houses-fill":false,"./icons/houses":false,"./icons/hr":false,"./icons/hurricane":false,"./icons/hypnotize":false,"./icons/image-alt":false,"./icons/image-fill":false,"./icons/image":false,"./icons/images":false,"./icons/inbox-fill":false,"./icons/inbox":false,"./icons/inboxes-fill":false,"./icons/inboxes":false,"./icons/incognito":false,"./icons/indent":false,"./icons/infinity":false,"./icons/info-circle-fill":false,"./icons/info-circle":false,"./icons/info-lg":false,"./icons/info-square-fill":false,"./icons/info-square":false,"./icons/info":false,"./icons/input-cursor-text":false,"./icons/input-cursor":false,"./icons/instagram":false,"./icons/intersect":false,"./icons/journal-album":false,"./icons/journal-arrow-down":false,"./icons/journal-arrow-up":false,"./icons/journal-bookmark-fill":false,"./icons/journal-bookmark":false,"./icons/journal-check":false,"./icons/journal-code":false,"./icons/journal-medical":false,"./icons/journal-minus":false,"./icons/journal-plus":false,"./icons/journal-richtext":false,"./icons/journal-text":false,"./icons/journal-x":false,"./icons/journal":false,"./icons/journals":false,"./icons/joystick":false,"./icons/justify-left":false,"./icons/justify-right":false,"./icons/justify":false,"./icons/kanban-fill":false,"./icons/kanban":false,"./icons/key-fill":false,"./icons/key":false,"./icons/keyboard-fill":false,"./icons/keyboard":false,"./icons/ladder":false,"./icons/lamp-fill":false,"./icons/lamp":false,"./icons/laptop-fill":false,"./icons/laptop":false,"./icons/layer-backward":false,"./icons/layer-forward":false,"./icons/layers-fill":false,"./icons/layers-half":false,"./icons/layers":false,"./icons/layout-sidebar-inset-reverse":false,"./icons/layout-sidebar-inset":false,"./icons/layout-sidebar-reverse":false,"./icons/layout-sidebar":false,"./icons/layout-split":false,"./icons/layout-text-sidebar-reverse":false,"./icons/layout-text-sidebar":false,"./icons/layout-text-window-reverse":false,"./icons/layout-text-window":false,"./icons/layout-three-columns":false,"./icons/layout-wtf":false,"./icons/life-preserver":false,"./icons/lightbulb-fill":false,"./icons/lightbulb-off-fill":false,"./icons/lightbulb-off":false,"./icons/lightbulb":false,"./icons/lightning-charge-fill":false,"./icons/lightning-charge":false,"./icons/lightning-fill":false,"./icons/lightning":false,"./icons/line":false,"./icons/link-45deg":false,"./icons/link":false,"./icons/linkedin":false,"./icons/list-check":false,"./icons/list-columns-reverse":false,"./icons/list-columns":false,"./icons/list-nested":false,"./icons/list-ol":false,"./icons/list-stars":false,"./icons/list-task":false,"./icons/list-ul":false,"./icons/list":false,"./icons/lock-fill":false,"./icons/lock":false,"./icons/luggage-fill":false,"./icons/luggage":false,"./icons/lungs-fill":false,"./icons/lungs":false,"./icons/magic":false,"./icons/magnet-fill":false,"./icons/magnet":false,"./icons/mailbox-flag":false,"./icons/mailbox":false,"./icons/mailbox2-flag":false,"./icons/mailbox2":false,"./icons/map-fill":false,"./icons/map":false,"./icons/markdown-fill":false,"./icons/markdown":false,"./icons/marker-tip":false,"./icons/mask":false,"./icons/mastodon":false,"./icons/medium":false,"./icons/megaphone-fill":false,"./icons/megaphone":false,"./icons/memory":false,"./icons/menu-app-fill":false,"./icons/menu-app":false,"./icons/menu-button-fill":false,"./icons/menu-button-wide-fill":false,"./icons/menu-button-wide":false,"./icons/menu-button":false,"./icons/menu-down":false,"./icons/menu-up":false,"./icons/messenger":false,"./icons/meta":false,"./icons/mic-fill":false,"./icons/mic-mute-fill":false,"./icons/mic-mute":false,"./icons/mic":false,"./icons/microsoft-teams":false,"./icons/microsoft":false,"./icons/minecart-loaded":false,"./icons/minecart":false,"./icons/modem-fill":false,"./icons/modem":false,"./icons/moisture":false,"./icons/moon-fill":false,"./icons/moon-stars-fill":false,"./icons/moon-stars":false,"./icons/moon":false,"./icons/mortarboard-fill":false,"./icons/mortarboard":false,"./icons/motherboard-fill":false,"./icons/motherboard":false,"./icons/mouse-fill":false,"./icons/mouse":false,"./icons/mouse2-fill":false,"./icons/mouse2":false,"./icons/mouse3-fill":false,"./icons/mouse3":false,"./icons/music-note-beamed":false,"./icons/music-note-list":false,"./icons/music-note":false,"./icons/music-player-fill":false,"./icons/music-player":false,"./icons/newspaper":false,"./icons/nintendo-switch":false,"./icons/node-minus-fill":false,"./icons/node-minus":false,"./icons/node-plus-fill":false,"./icons/node-plus":false,"./icons/noise-reduction":false,"./icons/nut-fill":false,"./icons/nut":false,"./icons/nvidia":false,"./icons/nvme-fill":false,"./icons/nvme":false,"./icons/octagon-fill":false,"./icons/octagon-half":false,"./icons/octagon":false,"./icons/opencollective":false,"./icons/optical-audio-fill":false,"./icons/optical-audio":false,"./icons/option":false,"./icons/outlet":false,"./icons/p-circle-fill":false,"./icons/p-circle":false,"./icons/p-square-fill":false,"./icons/p-square":false,"./icons/paint-bucket":false,"./icons/palette-fill":false,"./icons/palette":false,"./icons/palette2":false,"./icons/paperclip":false,"./icons/paragraph":false,"./icons/pass-fill":false,"./icons/pass":false,"./icons/passport-fill":false,"./icons/passport":false,"./icons/patch-check-fill":false,"./icons/patch-check":false,"./icons/patch-exclamation-fill":false,"./icons/patch-exclamation":false,"./icons/patch-minus-fill":false,"./icons/patch-minus":false,"./icons/patch-plus-fill":false,"./icons/patch-plus":false,"./icons/patch-question-fill":false,"./icons/patch-question":false,"./icons/pause-btn-fill":false,"./icons/pause-btn":false,"./icons/pause-circle-fill":false,"./icons/pause-circle":false,"./icons/pause-fill":false,"./icons/pause":false,"./icons/paypal":false,"./icons/pc-display-horizontal":false,"./icons/pc-display":false,"./icons/pc-horizontal":false,"./icons/pc":false,"./icons/pci-card-network":false,"./icons/pci-card-sound":false,"./icons/pci-card":false,"./icons/peace-fill":false,"./icons/peace":false,"./icons/pen-fill":false,"./icons/pen":false,"./icons/pencil-fill":false,"./icons/pencil-square":false,"./icons/pencil":false,"./icons/pentagon-fill":false,"./icons/pentagon-half":false,"./icons/pentagon":false,"./icons/people-fill":false,"./icons/people":false,"./icons/percent":false,"./icons/person-add":false,"./icons/person-arms-up":false,"./icons/person-badge-fill":false,"./icons/person-badge":false,"./icons/person-bounding-box":false,"./icons/person-check-fill":false,"./icons/person-check":false,"./icons/person-circle":false,"./icons/person-dash-fill":false,"./icons/person-dash":false,"./icons/person-down":false,"./icons/person-exclamation":false,"./icons/person-fill-add":false,"./icons/person-fill-check":false,"./icons/person-fill-dash":false,"./icons/person-fill-down":false,"./icons/person-fill-exclamation":false,"./icons/person-fill-gear":false,"./icons/person-fill-lock":false,"./icons/person-fill-slash":false,"./icons/person-fill-up":false,"./icons/person-fill-x":false,"./icons/person-fill":false,"./icons/person-gear":false,"./icons/person-heart":false,"./icons/person-hearts":false,"./icons/person-lines-fill":false,"./icons/person-lock":false,"./icons/person-plus-fill":false,"./icons/person-plus":false,"./icons/person-raised-hand":false,"./icons/person-rolodex":false,"./icons/person-slash":false,"./icons/person-square":false,"./icons/person-standing-dress":false,"./icons/person-standing":false,"./icons/person-up":false,"./icons/person-vcard-fill":false,"./icons/person-vcard":false,"./icons/person-video":false,"./icons/person-video2":false,"./icons/person-video3":false,"./icons/person-walking":false,"./icons/person-wheelchair":false,"./icons/person-workspace":false,"./icons/person-x-fill":false,"./icons/person-x":false,"./icons/person":false,"./icons/phone-fill":false,"./icons/phone-flip":false,"./icons/phone-landscape-fill":false,"./icons/phone-landscape":false,"./icons/phone-vibrate-fill":false,"./icons/phone-vibrate":false,"./icons/phone":false,"./icons/pie-chart-fill":false,"./icons/pie-chart":false,"./icons/piggy-bank-fill":false,"./icons/piggy-bank":false,"./icons/pin-angle-fill":false,"./icons/pin-angle":false,"./icons/pin-fill":false,"./icons/pin-map-fill":false,"./icons/pin-map":false,"./icons/pin":false,"./icons/pinterest":false,"./icons/pip-fill":false,"./icons/pip":false,"./icons/play-btn-fill":false,"./icons/play-btn":false,"./icons/play-circle-fill":false,"./icons/play-circle":false,"./icons/play-fill":false,"./icons/play":false,"./icons/playstation":false,"./icons/plug-fill":false,"./icons/plug":false,"./icons/plugin":false,"./icons/plus-circle-dotted":false,"./icons/plus-circle-fill":false,"./icons/plus-circle":false,"./icons/plus-lg":false,"./icons/plus-slash-minus":false,"./icons/plus-square-dotted":false,"./icons/plus-square-fill":false,"./icons/plus-square":false,"./icons/plus":false,"./icons/postage-fill":false,"./icons/postage-heart-fill":false,"./icons/postage-heart":false,"./icons/postage":false,"./icons/postcard-fill":false,"./icons/postcard-heart-fill":false,"./icons/postcard-heart":false,"./icons/postcard":false,"./icons/power":false,"./icons/prescription":false,"./icons/prescription2":false,"./icons/printer-fill":false,"./icons/printer":false,"./icons/projector-fill":false,"./icons/projector":false,"./icons/puzzle-fill":false,"./icons/puzzle":false,"./icons/qr-code-scan":false,"./icons/qr-code":false,"./icons/question-circle-fill":false,"./icons/question-circle":false,"./icons/question-diamond-fill":false,"./icons/question-diamond":false,"./icons/question-lg":false,"./icons/question-octagon-fill":false,"./icons/question-octagon":false,"./icons/question-square-fill":false,"./icons/question-square":false,"./icons/question":false,"./icons/quora":false,"./icons/quote":false,"./icons/r-circle-fill":false,"./icons/r-circle":false,"./icons/r-square-fill":false,"./icons/r-square":false,"./icons/radar":false,"./icons/radioactive":false,"./icons/rainbow":false,"./icons/receipt-cutoff":false,"./icons/receipt":false,"./icons/reception-0":false,"./icons/reception-1":false,"./icons/reception-2":false,"./icons/reception-3":false,"./icons/reception-4":false,"./icons/record-btn-fill":false,"./icons/record-btn":false,"./icons/record-circle-fill":false,"./icons/record-circle":false,"./icons/record-fill":false,"./icons/record":false,"./icons/record2-fill":false,"./icons/record2":false,"./icons/recycle":false,"./icons/reddit":false,"./icons/regex":false,"./icons/repeat-1":false,"./icons/repeat":false,"./icons/reply-all-fill":false,"./icons/reply-all":false,"./icons/reply-fill":false,"./icons/reply":false,"./icons/rewind-btn-fill":false,"./icons/rewind-btn":false,"./icons/rewind-circle-fill":false,"./icons/rewind-circle":false,"./icons/rewind-fill":false,"./icons/rewind":false,"./icons/robot":false,"./icons/rocket-fill":false,"./icons/rocket-takeoff-fill":false,"./icons/rocket-takeoff":false,"./icons/rocket":false,"./icons/router-fill":false,"./icons/router":false,"./icons/rss-fill":false,"./icons/rss":false,"./icons/rulers":false,"./icons/safe-fill":false,"./icons/safe":false,"./icons/safe2-fill":false,"./icons/safe2":false,"./icons/save-fill":false,"./icons/save":false,"./icons/save2-fill":false,"./icons/save2":false,"./icons/scissors":false,"./icons/scooter":false,"./icons/screwdriver":false,"./icons/sd-card-fill":false,"./icons/sd-card":false,"./icons/search-heart-fill":false,"./icons/search-heart":false,"./icons/search":false,"./icons/segmented-nav":false,"./icons/send-arrow-down-fill":false,"./icons/send-arrow-down":false,"./icons/send-arrow-up-fill":false,"./icons/send-arrow-up":false,"./icons/send-check-fill":false,"./icons/send-check":false,"./icons/send-dash-fill":false,"./icons/send-dash":false,"./icons/send-exclamation-fill":false,"./icons/send-exclamation":false,"./icons/send-fill":false,"./icons/send-plus-fill":false,"./icons/send-plus":false,"./icons/send-slash-fill":false,"./icons/send-slash":false,"./icons/send-x-fill":false,"./icons/send-x":false,"./icons/send":false,"./icons/server":false,"./icons/shadows":false,"./icons/share-fill":false,"./icons/share":false,"./icons/shield-check":false,"./icons/shield-exclamation":false,"./icons/shield-fill-check":false,"./icons/shield-fill-exclamation":false,"./icons/shield-fill-minus":false,"./icons/shield-fill-plus":false,"./icons/shield-fill-x":false,"./icons/shield-fill":false,"./icons/shield-lock-fill":false,"./icons/shield-lock":false,"./icons/shield-minus":false,"./icons/shield-plus":false,"./icons/shield-shaded":false,"./icons/shield-slash-fill":false,"./icons/shield-slash":false,"./icons/shield-x":false,"./icons/shield":false,"./icons/shift-fill":false,"./icons/shift":false,"./icons/shop-window":false,"./icons/shop":false,"./icons/shuffle":false,"./icons/sign-dead-end-fill":false,"./icons/sign-dead-end":false,"./icons/sign-do-not-enter-fill":false,"./icons/sign-do-not-enter":false,"./icons/sign-intersection-fill":false,"./icons/sign-intersection-side-fill":false,"./icons/sign-intersection-side":false,"./icons/sign-intersection-t-fill":false,"./icons/sign-intersection-t":false,"./icons/sign-intersection-y-fill":false,"./icons/sign-intersection-y":false,"./icons/sign-intersection":false,"./icons/sign-merge-left-fill":false,"./icons/sign-merge-left":false,"./icons/sign-merge-right-fill":false,"./icons/sign-merge-right":false,"./icons/sign-no-left-turn-fill":false,"./icons/sign-no-left-turn":false,"./icons/sign-no-parking-fill":false,"./icons/sign-no-parking":false,"./icons/sign-no-right-turn-fill":false,"./icons/sign-no-right-turn":false,"./icons/sign-railroad-fill":false,"./icons/sign-railroad":false,"./icons/sign-stop-fill":false,"./icons/sign-stop-lights-fill":false,"./icons/sign-stop-lights":false,"./icons/sign-stop":false,"./icons/sign-turn-left-fill":false,"./icons/sign-turn-left":false,"./icons/sign-turn-right-fill":false,"./icons/sign-turn-right":false,"./icons/sign-turn-slight-left-fill":false,"./icons/sign-turn-slight-left":false,"./icons/sign-turn-slight-right-fill":false,"./icons/sign-turn-slight-right":false,"./icons/sign-yield-fill":false,"./icons/sign-yield":false,"./icons/signal":false,"./icons/signpost-2-fill":false,"./icons/signpost-2":false,"./icons/signpost-fill":false,"./icons/signpost-split-fill":false,"./icons/signpost-split":false,"./icons/signpost":false,"./icons/sim-fill":false,"./icons/sim-slash-fill":false,"./icons/sim-slash":false,"./icons/sim":false,"./icons/sina-weibo":false,"./icons/skip-backward-btn-fill":false,"./icons/skip-backward-btn":false,"./icons/skip-backward-circle-fill":false,"./icons/skip-backward-circle":false,"./icons/skip-backward-fill":false,"./icons/skip-backward":false,"./icons/skip-end-btn-fill":false,"./icons/skip-end-btn":false,"./icons/skip-end-circle-fill":false,"./icons/skip-end-circle":false,"./icons/skip-end-fill":false,"./icons/skip-end":false,"./icons/skip-forward-btn-fill":false,"./icons/skip-forward-btn":false,"./icons/skip-forward-circle-fill":false,"./icons/skip-forward-circle":false,"./icons/skip-forward-fill":false,"./icons/skip-forward":false,"./icons/skip-start-btn-fill":false,"./icons/skip-start-btn":false,"./icons/skip-start-circle-fill":false,"./icons/skip-start-circle":false,"./icons/skip-start-fill":false,"./icons/skip-start":false,"./icons/skype":false,"./icons/slack":false,"./icons/slash-circle-fill":false,"./icons/slash-circle":false,"./icons/slash-lg":false,"./icons/slash-square-fill":false,"./icons/slash-square":false,"./icons/slash":false,"./icons/sliders":false,"./icons/sliders2-vertical":false,"./icons/sliders2":false,"./icons/smartwatch":false,"./icons/snapchat":false,"./icons/snow":false,"./icons/snow2":false,"./icons/snow3":false,"./icons/sort-alpha-down-alt":false,"./icons/sort-alpha-down":false,"./icons/sort-alpha-up-alt":false,"./icons/sort-alpha-up":false,"./icons/sort-down-alt":false,"./icons/sort-down":false,"./icons/sort-numeric-down-alt":false,"./icons/sort-numeric-down":false,"./icons/sort-numeric-up-alt":false,"./icons/sort-numeric-up":false,"./icons/sort-up-alt":false,"./icons/sort-up":false,"./icons/soundwave":false,"./icons/sourceforge":false,"./icons/speaker-fill":false,"./icons/speaker":false,"./icons/speedometer":false,"./icons/speedometer2":false,"./icons/spellcheck":false,"./icons/spotify":false,"./icons/square-fill":false,"./icons/square-half":false,"./icons/square":false,"./icons/stack-overflow":false,"./icons/stack":false,"./icons/star-fill":false,"./icons/star-half":false,"./icons/star":false,"./icons/stars":false,"./icons/steam":false,"./icons/stickies-fill":false,"./icons/stickies":false,"./icons/sticky-fill":false,"./icons/sticky":false,"./icons/stop-btn-fill":false,"./icons/stop-btn":false,"./icons/stop-circle-fill":false,"./icons/stop-circle":false,"./icons/stop-fill":false,"./icons/stop":false,"./icons/stoplights-fill":false,"./icons/stoplights":false,"./icons/stopwatch-fill":false,"./icons/stopwatch":false,"./icons/strava":false,"./icons/stripe":false,"./icons/subscript":false,"./icons/substack":false,"./icons/subtract":false,"./icons/suit-club-fill":false,"./icons/suit-club":false,"./icons/suit-diamond-fill":false,"./icons/suit-diamond":false,"./icons/suit-heart-fill":false,"./icons/suit-heart":false,"./icons/suit-spade-fill":false,"./icons/suit-spade":false,"./icons/suitcase-fill":false,"./icons/suitcase-lg-fill":false,"./icons/suitcase-lg":false,"./icons/suitcase":false,"./icons/suitcase2-fill":false,"./icons/suitcase2":false,"./icons/sun-fill":false,"./icons/sun":false,"./icons/sunglasses":false,"./icons/sunrise-fill":false,"./icons/sunrise":false,"./icons/sunset-fill":false,"./icons/sunset":false,"./icons/superscript":false,"./icons/symmetry-horizontal":false,"./icons/symmetry-vertical":false,"./icons/table":false,"./icons/tablet-fill":false,"./icons/tablet-landscape-fill":false,"./icons/tablet-landscape":false,"./icons/tablet":false,"./icons/tag-fill":false,"./icons/tag":false,"./icons/tags-fill":false,"./icons/tags":false,"./icons/taxi-front-fill":false,"./icons/taxi-front":false,"./icons/telegram":false,"./icons/telephone-fill":false,"./icons/telephone-forward-fill":false,"./icons/telephone-forward":false,"./icons/telephone-inbound-fill":false,"./icons/telephone-inbound":false,"./icons/telephone-minus-fill":false,"./icons/telephone-minus":false,"./icons/telephone-outbound-fill":false,"./icons/telephone-outbound":false,"./icons/telephone-plus-fill":false,"./icons/telephone-plus":false,"./icons/telephone-x-fill":false,"./icons/telephone-x":false,"./icons/telephone":false,"./icons/tencent-qq":false,"./icons/terminal-dash":false,"./icons/terminal-fill":false,"./icons/terminal-plus":false,"./icons/terminal-split":false,"./icons/terminal-x":false,"./icons/terminal":false,"./icons/text-center":false,"./icons/text-indent-left":false,"./icons/text-indent-right":false,"./icons/text-left":false,"./icons/text-paragraph":false,"./icons/text-right":false,"./icons/text-wrap":false,"./icons/textarea-resize":false,"./icons/textarea-t":false,"./icons/textarea":false,"./icons/thermometer-half":false,"./icons/thermometer-high":false,"./icons/thermometer-low":false,"./icons/thermometer-snow":false,"./icons/thermometer-sun":false,"./icons/thermometer":false,"./icons/threads-fill":false,"./icons/threads":false,"./icons/three-dots-vertical":false,"./icons/three-dots":false,"./icons/thunderbolt-fill":false,"./icons/thunderbolt":false,"./icons/ticket-detailed-fill":false,"./icons/ticket-detailed":false,"./icons/ticket-fill":false,"./icons/ticket-perforated-fill":false,"./icons/ticket-perforated":false,"./icons/ticket":false,"./icons/tiktok":false,"./icons/toggle-off":false,"./icons/toggle-on":false,"./icons/toggle2-off":false,"./icons/toggle2-on":false,"./icons/toggles":false,"./icons/toggles2":false,"./icons/tools":false,"./icons/tornado":false,"./icons/train-freight-front-fill":false,"./icons/train-freight-front":false,"./icons/train-front-fill":false,"./icons/train-front":false,"./icons/train-lightrail-front-fill":false,"./icons/train-lightrail-front":false,"./icons/translate":false,"./icons/transparency":false,"./icons/trash-fill":false,"./icons/trash":false,"./icons/trash2-fill":false,"./icons/trash2":false,"./icons/trash3-fill":false,"./icons/trash3":false,"./icons/tree-fill":false,"./icons/tree":false,"./icons/trello":false,"./icons/triangle-fill":false,"./icons/triangle-half":false,"./icons/triangle":false,"./icons/trophy-fill":false,"./icons/trophy":false,"./icons/tropical-storm":false,"./icons/truck-flatbed":false,"./icons/truck-front-fill":false,"./icons/truck-front":false,"./icons/truck":false,"./icons/tsunami":false,"./icons/tv-fill":false,"./icons/tv":false,"./icons/twitch":false,"./icons/twitter-x":false,"./icons/twitter":false,"./icons/type-bold":false,"./icons/type-h1":false,"./icons/type-h2":false,"./icons/type-h3":false,"./icons/type-h4":false,"./icons/type-h5":false,"./icons/type-h6":false,"./icons/type-italic":false,"./icons/type-strikethrough":false,"./icons/type-underline":false,"./icons/type":false,"./icons/ubuntu":false,"./icons/ui-checks-grid":false,"./icons/ui-checks":false,"./icons/ui-radios-grid":false,"./icons/ui-radios":false,"./icons/umbrella-fill":false,"./icons/umbrella":false,"./icons/unindent":false,"./icons/union":false,"./icons/unity":false,"./icons/universal-access-circle":false,"./icons/universal-access":false,"./icons/unlock-fill":false,"./icons/unlock":false,"./icons/upc-scan":false,"./icons/upc":false,"./icons/upload":false,"./icons/usb-c-fill":false,"./icons/usb-c":false,"./icons/usb-drive-fill":false,"./icons/usb-drive":false,"./icons/usb-fill":false,"./icons/usb-micro-fill":false,"./icons/usb-micro":false,"./icons/usb-mini-fill":false,"./icons/usb-mini":false,"./icons/usb-plug-fill":false,"./icons/usb-plug":false,"./icons/usb-symbol":false,"./icons/usb":false,"./icons/valentine":false,"./icons/valentine2":false,"./icons/vector-pen":false,"./icons/view-list":false,"./icons/view-stacked":false,"./icons/vignette":false,"./icons/vimeo":false,"./icons/vinyl-fill":false,"./icons/vinyl":false,"./icons/virus":false,"./icons/virus2":false,"./icons/voicemail":false,"./icons/volume-down-fill":false,"./icons/volume-down":false,"./icons/volume-mute-fill":false,"./icons/volume-mute":false,"./icons/volume-off-fill":false,"./icons/volume-off":false,"./icons/volume-up-fill":false,"./icons/volume-up":false,"./icons/vr":false,"./icons/wallet-fill":false,"./icons/wallet":false,"./icons/wallet2":false,"./icons/watch":false,"./icons/water":false,"./icons/webcam-fill":false,"./icons/webcam":false,"./icons/wechat":false,"./icons/whatsapp":false,"./icons/wifi-1":false,"./icons/wifi-2":false,"./icons/wifi-off":false,"./icons/wifi":false,"./icons/wikipedia":false,"./icons/wind":false,"./icons/window-dash":false,"./icons/window-desktop":false,"./icons/window-dock":false,"./icons/window-fullscreen":false,"./icons/window-plus":false,"./icons/window-sidebar":false,"./icons/window-split":false,"./icons/window-stack":false,"./icons/window-x":false,"./icons/window":false,"./icons/windows":false,"./icons/wordpress":false,"./icons/wrench-adjustable-circle-fill":false,"./icons/wrench-adjustable-circle":false,"./icons/wrench-adjustable":false,"./icons/wrench":false,"./icons/x-circle-fill":false,"./icons/x-circle":false,"./icons/x-diamond-fill":false,"./icons/x-diamond":false,"./icons/x-lg":false,"./icons/x-octagon-fill":false,"./icons/x-octagon":false,"./icons/x-square-fill":false,"./icons/x-square":false,"./icons/x":false,"./icons/xbox":false,"./icons/yelp":false,"./icons/yin-yang":false,"./icons/youtube":false,"./icons/zoom-in":false,"./icons/zoom-out":false,"@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"8P4TF":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -43803,7 +43346,7 @@ BookmarkHeartFill.defaultProps = {
 };
 exports.default = BookmarkHeartFill;
 
-},{"react":"21dqq","prop-types":"7wKI2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7rGlC":[function(require,module,exports) {
+},{"react":"21dqq","prop-types":"7wKI2","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"7rGlC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
@@ -43883,86 +43426,7 @@ BookmarkHeart.defaultProps = {
 };
 exports.default = BookmarkHeart;
 
-},{"react":"21dqq","prop-types":"7wKI2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eTgsZ":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _propTypes = require("prop-types");
-var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
-var _excluded = [
-    "color",
-    "size",
-    "title"
-];
-function _extends() {
-    _extends = Object.assign || function(target) {
-        for(var i = 1; i < arguments.length; i++){
-            var source = arguments[i];
-            for(var key in source)if (Object.prototype.hasOwnProperty.call(source, key)) target[key] = source[key];
-        }
-        return target;
-    };
-    return _extends.apply(this, arguments);
-}
-function _objectWithoutProperties(source, excluded) {
-    if (source == null) return {};
-    var target = _objectWithoutPropertiesLoose(source, excluded);
-    var key, i;
-    if (Object.getOwnPropertySymbols) {
-        var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-        for(i = 0; i < sourceSymbolKeys.length; i++){
-            key = sourceSymbolKeys[i];
-            if (excluded.indexOf(key) >= 0) continue;
-            if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-            target[key] = source[key];
-        }
-    }
-    return target;
-}
-function _objectWithoutPropertiesLoose(source, excluded) {
-    if (source == null) return {};
-    var target = {};
-    var sourceKeys = Object.keys(source);
-    var key, i;
-    for(i = 0; i < sourceKeys.length; i++){
-        key = sourceKeys[i];
-        if (excluded.indexOf(key) >= 0) continue;
-        target[key] = source[key];
-    }
-    return target;
-}
-var PersonSquare = /*#__PURE__*/ (0, _react.forwardRef)(function(_ref, ref) {
-    var color = _ref.color, size = _ref.size, title = _ref.title, rest = _objectWithoutProperties(_ref, _excluded);
-    return /*#__PURE__*/ (0, _reactDefault.default).createElement("svg", _extends({
-        ref: ref,
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 16 16",
-        width: size,
-        height: size,
-        fill: color
-    }, rest), title ? /*#__PURE__*/ (0, _reactDefault.default).createElement("title", null, title) : null, /*#__PURE__*/ (0, _reactDefault.default).createElement("path", {
-        d: "M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"
-    }), /*#__PURE__*/ (0, _reactDefault.default).createElement("path", {
-        d: "M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
-    }));
-});
-PersonSquare.propTypes = {
-    color: (0, _propTypesDefault.default).string,
-    size: (0, _propTypesDefault.default).oneOfType([
-        (0, _propTypesDefault.default).string,
-        (0, _propTypesDefault.default).number
-    ]),
-    title: (0, _propTypesDefault.default).string
-};
-PersonSquare.defaultProps = {
-    color: "currentColor",
-    size: "1em",
-    title: null
-};
-exports.default = PersonSquare;
-
-},{"react":"21dqq","prop-types":"7wKI2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d6HH4":[function() {},{}],"ggaUx":[function(require,module,exports) {
+},{"react":"21dqq","prop-types":"7wKI2","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU"}],"d6HH4":[function() {},{}],"ggaUx":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$e9f6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -44164,7 +43628,7 @@ $RefreshReg$(_c, "MovieView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","prop-types":"7wKI2","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"2vVqf":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","prop-types":"7wKI2","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ"}],"2vVqf":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$3c12 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -44177,384 +43641,201 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
-var _reactRouterDom = require("react-router-dom");
-var _moment = require("moment");
-var _momentDefault = parcelHelpers.interopDefault(_moment);
-var _reactBootstrapIcons = require("react-bootstrap-icons");
-var _movieCard = require("../movie-card/movie-card");
-var _movieCardDefault = parcelHelpers.interopDefault(_movieCard);
 var _favoriteMovies = require("../profile-view/favorite-movies");
 var _favoriteMoviesDefault = parcelHelpers.interopDefault(_favoriteMovies);
+var _updateUser = require("./update-user");
 var _s = $RefreshSig$();
-const ProfileView = ({ user, movies, setUser, addFav, removeFav })=>{
+const ProfileView = ({ token, user, movies, onSubmit })=>{
     _s();
-    const navigate = (0, _reactRouterDom.useNavigate)();
-    const token = localStorage.getItem("token");
-    const [favoriteMovieList, setFavoriteMovieList] = (0, _react.useState)([]);
-    const [username, setUsername] = (0, _react.useState)(user?.Username || "");
-    const [email, setEmail] = (0, _react.useState)(user?.Email || "");
-    const [birthday, setBirthday] = (0, _react.useState)(user ? (0, _momentDefault.default)(user.Birthday).utc().format("YYYY-MM-DD") : "");
-    const favoriteMoviesFromApi = user ? movies.filter((m)=>user.FavoriteMovies?.includes(m._id)) : [];
-    // useEffect to synchronize state with user prop changes
+    // Initialize state with empty values or defaults
+    const [username, setUsername] = (0, _react.useState)("");
+    const [email, setEmail] = (0, _react.useState)("");
+    const [birthdate, setBirthdate] = (0, _react.useState)("");
+    const [password, setPassword] = (0, _react.useState)("");
+    // Update state when user prop is available
     (0, _react.useEffect)(()=>{
-        setUsername(user?.Username || "");
-        setEmail(user?.Email || "");
-        setBirthday(user ? (0, _momentDefault.default)(user.Birthday).utc().format("YYYY-MM-DD") : "");
-        setFavoriteMovieList(favoriteMoviesFromApi);
+        if (user) {
+            setUsername(user.UserName || "");
+            setEmail(user.Email || "");
+            setBirthdate(user.Birthdate || "");
+        }
     }, [
-        user,
-        favoriteMoviesFromApi
-    ]); // Depend on user and favoriteMoviesFromApi props to limit executions
-    /*  // Optimized favorite movies list to avoid unnecessary operations
-  const favoriteMovieList = React.useMemo(() => movies.filter(m => user?.FavoriteMovies?.includes(m._id)), [movies, user]);
- */ //Update User
-    const handleUpdate = async ()=>{
-        try {
-            const response = await fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${user._id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    Username: username,
-                    Email: email,
-                    Birthday: birthday
-                })
-            });
-            if (!response.ok) throw new Error("Network response was not ok.");
-            const updatedUser = await response.json();
-            setUser(updatedUser); // Update the user state in your component or context
-            alert("Profile updated successfully.");
-        } catch (error) {
-            console.error("Failed to update the profile:", error);
-            alert("Failed to update the profile.");
+        user
+    ]);
+    const favoriteMovies = movies.filter((m)=>user?.FavoriteMovies?.includes(m._id));
+    // Preparing formData with current state values
+    const formData = {
+        UserName: username,
+        Email: email,
+        Password: password,
+        Birthdate: birthdate
+    };
+    const handleSubmit = (event)=>{
+        event.preventDefault();
+        const storedUser1 = JSON.parse(localStorage.getItem("user"));
+        // Send updated user information to the server, endpoint /users/:username
+        fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${storedUser1.UserName}`, {
+            method: "PUT",
+            body: JSON.stringify(formData),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            if (response.ok) {
+                alert("Update successful");
+                return response.json();
+            }
+            alert("Update failed");
+        }).then((data)=>{
+            localStorage.setItem("user", JSON.stringify(data));
+            onSubmit(data);
+            // Update local state with new user data
+            setUser(data);
+        }).catch((error)=>{
+            console.error(error);
+        });
+    };
+    const handleUpdate = (e)=>{
+        switch(e.target.type){
+            case "text":
+                setUsername(e.target.value);
+                break;
+            case "email":
+                setEmail(e.target.value);
+                break;
+            case "password":
+                setPassword(e.target.value);
+                break;
+            case "date":
+                setBirthdate(e.target.value);
+                break;
+            default:
         }
     };
-    //Delete User
-    const handleDelete = async ()=>{
-        if (!window.confirm("Are you sure you want to delete your profile?")) return;
-        try {
-            const response = await fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${user._id}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}` // Note the Bearer schema // Assuming your API uses bearer token authentication
-                }
-            });
-            if (!response.ok) throw new Error("Network response was not ok.");
-            // Handle what happens after a successful deletion
-            // e.g., navigate to a login page, clear user state
-            setUser(null); // or however you manage the user state
-            navigate("/login");
-            alert("Profile deleted successfully.");
-        } catch (error) {
-            console.error("Failed to delete the profile:", error);
-            alert("Failed to delete the profile.");
-        }
+    const handleDeleteAccount = (id)=>{
+        fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        }).then((response)=>{
+            if (response.ok) {
+                alert("The account has been successfully deleted.");
+                localStorage.clear();
+                window.location.reload();
+            } else alert("Something went wrong.");
+        });
     };
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
-        className: "my-5",
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                 children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                        md: 4,
-                        className: "text-center text-md-start ms-3",
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
-                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
-                                        children: "My Profile"
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 90,
-                                        columnNumber: 15
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrapIcons.PersonSquare), {
-                                        variant: "top",
-                                        color: "lightblue",
-                                        className: "my-4 center-person-square",
-                                        size: 180
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 91,
-                                        columnNumber: 15
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                        children: [
-                                            "Username: ",
-                                            user.Username
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 92,
-                                        columnNumber: 15
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                        children: [
-                                            "Email: ",
-                                            user.Email
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 93,
-                                        columnNumber: 15
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                        children: [
-                                            "Birthday: ",
-                                            birthday
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 94,
-                                        columnNumber: 15
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 89,
-                                columnNumber: 13
-                            }, undefined)
-                        }, void 0, false, {
-                            fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 88,
-                            columnNumber: 11
-                        }, undefined)
-                    }, void 0, false, {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 87,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                        md: 7,
-                        className: "mt-5",
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
-                            onSubmit: handleUpdate,
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
                             children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                                    controlId: "formUsername",
-                                    children: [
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                                            children: "Username:"
-                                        }, void 0, false, {
-                                            fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 101,
-                                            columnNumber: 15
-                                        }, undefined),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                                            className: "mb-3",
-                                            type: "text",
-                                            value: username,
-                                            onChange: (e)=>setUsername(e.target.value),
-                                            minLength: "5",
-                                            required: true
-                                        }, void 0, false, {
-                                            fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 102,
-                                            columnNumber: 15
-                                        }, undefined)
-                                    ]
-                                }, void 0, true, {
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                                        children: [
+                                            " Hello ",
+                                            username,
+                                            "! "
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/profile-view/profile-view.jsx",
+                                        lineNumber: 109,
+                                        columnNumber: 25
+                                    }, undefined)
+                                }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 100,
+                                    lineNumber: 109,
                                     columnNumber: 13
                                 }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                                    controlId: "formEmail",
-                                    children: [
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                                            children: "Email:"
-                                        }, void 0, false, {
-                                            fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 112,
-                                            columnNumber: 15
-                                        }, undefined),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                                            className: "mb-3",
-                                            type: "email",
-                                            value: email,
-                                            onChange: (e)=>setEmail(e.target.value),
-                                            required: true
-                                        }, void 0, false, {
-                                            fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 113,
-                                            columnNumber: 15
-                                        }, undefined)
-                                    ]
-                                }, void 0, true, {
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
+                                    children: email
+                                }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 111,
+                                    lineNumber: 110,
                                     columnNumber: 13
                                 }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                                    controlId: "formBirthday",
-                                    children: [
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                                            children: "Birthday:"
-                                        }, void 0, false, {
-                                            fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 122,
-                                            columnNumber: 15
-                                        }, undefined),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                                            className: "mb-2",
-                                            type: "date",
-                                            value: birthday,
-                                            onChange: (e)=>setBirthday(e.target.value),
-                                            required: true
-                                        }, void 0, false, {
-                                            fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 123,
-                                            columnNumber: 15
-                                        }, undefined)
-                                    ]
-                                }, void 0, true, {
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 121,
+                                    lineNumber: 113,
                                     columnNumber: 13
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                    onClick: ()=>handleDeleteAccount(storedUser._id),
+                                    className: "button-delete mt-3",
                                     type: "submit",
-                                    onClick: handleUpdate,
-                                    className: "mt-3 me-2",
-                                    children: "Update Profile"
+                                    variant: "outline-secondary",
+                                    children: "Delete account"
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 132,
-                                    columnNumber: 13
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                    onClick: handleDelete,
-                                    variant: "danger",
-                                    className: "mt-3",
-                                    block: true,
-                                    children: "Delete User"
-                                }, void 0, false, {
-                                    fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 134,
+                                    lineNumber: 114,
                                     columnNumber: 13
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 99,
+                            lineNumber: 108,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 98,
+                        lineNumber: 107,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateUser.UpdateUser), {
+                            formData: formData,
+                            handleUpdate: handleUpdate,
+                            handleSubmit: handleSubmit
+                        }, void 0, false, {
+                            fileName: "src/components/profile-view/profile-view.jsx",
+                            lineNumber: 121,
+                            columnNumber: 11
+                        }, undefined)
+                    }, void 0, false, {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 120,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 127,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 86,
+                lineNumber: 106,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
+                fileName: "src/components/profile-view/profile-view.jsx",
+                lineNumber: 129,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                        className: "mt-5 text-center text-md-start",
-                        children: "Favorite Movies"
-                    }, void 0, false, {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 139,
-                        columnNumber: 7
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                        className: "justify-content-center",
-                        children: favoriteMovieList.length > 0 ? favoriteMovieList.map(({ ImagePath, Title, _id })=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                                sm: 7,
-                                md: 5,
-                                lg: 3,
-                                xl: 2,
-                                className: "mx-2 mt-2 mb-5 col-6 similar-movies-img",
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                                        to: `/movies/${id}`,
-                                        style: {
-                                            textDecoration: "none"
-                                        },
-                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Figure, {
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Figure.Image, {
-                                                    src: ImagePath,
-                                                    alt: Title
-                                                }, void 0, false, {
-                                                    fileName: "src/components/profile-view/profile-view.jsx",
-                                                    lineNumber: 145,
-                                                    columnNumber: 17
-                                                }, undefined),
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Figure.Caption, {
-                                                    children: Title
-                                                }, void 0, false, {
-                                                    fileName: "src/components/profile-view/profile-view.jsx",
-                                                    lineNumber: 146,
-                                                    columnNumber: 17
-                                                }, undefined)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 144,
-                                            columnNumber: 15
-                                        }, undefined)
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 143,
-                                        columnNumber: 13
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        variant: "secondary",
-                                        onClick: ()=>removeFav(_id),
-                                        children: "Remove"
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 149,
-                                        columnNumber: 13
-                                    }, undefined)
-                                ]
-                            }, _id, true, {
-                                fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 142,
-                                columnNumber: 11
-                            }, undefined)) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                children: "There are no favorite movies."
-                            }, void 0, false, {
-                                fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 151,
-                                columnNumber: 19
-                            }, undefined)
-                        }, void 0, false, {
-                            fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 151,
-                            columnNumber: 14
-                        }, undefined)
-                    }, void 0, false, {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 140,
-                        columnNumber: 7
-                    }, undefined)
-                ]
-            }, void 0, true, {
+                className: "justify-content-center",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _favoriteMoviesDefault.default), {
+                    user: user,
+                    favoriteMovies: favoriteMovies
+                }, void 0, false, {
+                    fileName: "src/components/profile-view/profile-view.jsx",
+                    lineNumber: 131,
+                    columnNumber: 9
+                }, undefined)
+            }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 138,
+                lineNumber: 130,
                 columnNumber: 7
             }, undefined)
         ]
-    }, void 0, true, {
-        fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 85,
-        columnNumber: 5
-    }, undefined);
+    }, void 0, true);
 };
-_s(ProfileView, "Q/TbC+eCMxsYdMvPIPY3qxqfKZ0=", false, function() {
-    return [
-        (0, _reactRouterDom.useNavigate)
-    ];
-});
+_s(ProfileView, "esXLPSEAgCtGhWyQ8v/I5pZftug=");
 _c = ProfileView;
 exports.default = ProfileView;
 var _c;
@@ -44565,3762 +43846,216 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","moment":"jwcsj","react-bootstrap-icons":"c9Gza","../movie-card/movie-card":"bwuIu","../profile-view/favorite-movies":"dTTQH","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"jwcsj":[function(require,module,exports) {
-//! moment.js
-//! version : 2.30.1
-//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
-//! license : MIT
-//! momentjs.com
-(function(global, factory) {
-    module.exports = factory();
-})(this, function() {
-    "use strict";
-    var hookCallback;
-    function hooks() {
-        return hookCallback.apply(null, arguments);
-    }
-    // This is done to register the method called with moment()
-    // without creating circular dependencies.
-    function setHookCallback(callback) {
-        hookCallback = callback;
-    }
-    function isArray(input) {
-        return input instanceof Array || Object.prototype.toString.call(input) === "[object Array]";
-    }
-    function isObject(input) {
-        // IE8 will treat undefined and null as object if it wasn't for
-        // input != null
-        return input != null && Object.prototype.toString.call(input) === "[object Object]";
-    }
-    function hasOwnProp(a, b) {
-        return Object.prototype.hasOwnProperty.call(a, b);
-    }
-    function isObjectEmpty(obj) {
-        if (Object.getOwnPropertyNames) return Object.getOwnPropertyNames(obj).length === 0;
-        else {
-            var k;
-            for(k in obj){
-                if (hasOwnProp(obj, k)) return false;
-            }
-            return true;
-        }
-    }
-    function isUndefined(input) {
-        return input === void 0;
-    }
-    function isNumber(input) {
-        return typeof input === "number" || Object.prototype.toString.call(input) === "[object Number]";
-    }
-    function isDate(input) {
-        return input instanceof Date || Object.prototype.toString.call(input) === "[object Date]";
-    }
-    function map(arr, fn) {
-        var res = [], i, arrLen = arr.length;
-        for(i = 0; i < arrLen; ++i)res.push(fn(arr[i], i));
-        return res;
-    }
-    function extend(a, b) {
-        for(var i in b)if (hasOwnProp(b, i)) a[i] = b[i];
-        if (hasOwnProp(b, "toString")) a.toString = b.toString;
-        if (hasOwnProp(b, "valueOf")) a.valueOf = b.valueOf;
-        return a;
-    }
-    function createUTC(input, format, locale, strict) {
-        return createLocalOrUTC(input, format, locale, strict, true).utc();
-    }
-    function defaultParsingFlags() {
-        // We need to deep clone this object.
-        return {
-            empty: false,
-            unusedTokens: [],
-            unusedInput: [],
-            overflow: -2,
-            charsLeftOver: 0,
-            nullInput: false,
-            invalidEra: null,
-            invalidMonth: null,
-            invalidFormat: false,
-            userInvalidated: false,
-            iso: false,
-            parsedDateParts: [],
-            era: null,
-            meridiem: null,
-            rfc2822: false,
-            weekdayMismatch: false
-        };
-    }
-    function getParsingFlags(m) {
-        if (m._pf == null) m._pf = defaultParsingFlags();
-        return m._pf;
-    }
-    var some;
-    if (Array.prototype.some) some = Array.prototype.some;
-    else some = function(fun) {
-        var t = Object(this), len = t.length >>> 0, i;
-        for(i = 0; i < len; i++){
-            if (i in t && fun.call(this, t[i], i, t)) return true;
-        }
-        return false;
-    };
-    function isValid(m) {
-        var flags = null, parsedParts = false, isNowValid = m._d && !isNaN(m._d.getTime());
-        if (isNowValid) {
-            flags = getParsingFlags(m);
-            parsedParts = some.call(flags.parsedDateParts, function(i) {
-                return i != null;
-            });
-            isNowValid = flags.overflow < 0 && !flags.empty && !flags.invalidEra && !flags.invalidMonth && !flags.invalidWeekday && !flags.weekdayMismatch && !flags.nullInput && !flags.invalidFormat && !flags.userInvalidated && (!flags.meridiem || flags.meridiem && parsedParts);
-            if (m._strict) isNowValid = isNowValid && flags.charsLeftOver === 0 && flags.unusedTokens.length === 0 && flags.bigHour === undefined;
-        }
-        if (Object.isFrozen == null || !Object.isFrozen(m)) m._isValid = isNowValid;
-        else return isNowValid;
-        return m._isValid;
-    }
-    function createInvalid(flags) {
-        var m = createUTC(NaN);
-        if (flags != null) extend(getParsingFlags(m), flags);
-        else getParsingFlags(m).userInvalidated = true;
-        return m;
-    }
-    // Plugins that add properties should also add the key here (null value),
-    // so we can properly clone ourselves.
-    var momentProperties = hooks.momentProperties = [], updateInProgress = false;
-    function copyConfig(to, from) {
-        var i, prop, val, momentPropertiesLen = momentProperties.length;
-        if (!isUndefined(from._isAMomentObject)) to._isAMomentObject = from._isAMomentObject;
-        if (!isUndefined(from._i)) to._i = from._i;
-        if (!isUndefined(from._f)) to._f = from._f;
-        if (!isUndefined(from._l)) to._l = from._l;
-        if (!isUndefined(from._strict)) to._strict = from._strict;
-        if (!isUndefined(from._tzm)) to._tzm = from._tzm;
-        if (!isUndefined(from._isUTC)) to._isUTC = from._isUTC;
-        if (!isUndefined(from._offset)) to._offset = from._offset;
-        if (!isUndefined(from._pf)) to._pf = getParsingFlags(from);
-        if (!isUndefined(from._locale)) to._locale = from._locale;
-        if (momentPropertiesLen > 0) for(i = 0; i < momentPropertiesLen; i++){
-            prop = momentProperties[i];
-            val = from[prop];
-            if (!isUndefined(val)) to[prop] = val;
-        }
-        return to;
-    }
-    // Moment prototype object
-    function Moment(config) {
-        copyConfig(this, config);
-        this._d = new Date(config._d != null ? config._d.getTime() : NaN);
-        if (!this.isValid()) this._d = new Date(NaN);
-        // Prevent infinite loop in case updateOffset creates new moment
-        // objects.
-        if (updateInProgress === false) {
-            updateInProgress = true;
-            hooks.updateOffset(this);
-            updateInProgress = false;
-        }
-    }
-    function isMoment(obj) {
-        return obj instanceof Moment || obj != null && obj._isAMomentObject != null;
-    }
-    function warn(msg) {
-        if (hooks.suppressDeprecationWarnings === false && typeof console !== "undefined" && console.warn) console.warn("Deprecation warning: " + msg);
-    }
-    function deprecate(msg, fn) {
-        var firstTime = true;
-        return extend(function() {
-            if (hooks.deprecationHandler != null) hooks.deprecationHandler(null, msg);
-            if (firstTime) {
-                var args = [], arg, i, key, argLen = arguments.length;
-                for(i = 0; i < argLen; i++){
-                    arg = "";
-                    if (typeof arguments[i] === "object") {
-                        arg += "\n[" + i + "] ";
-                        for(key in arguments[0])if (hasOwnProp(arguments[0], key)) arg += key + ": " + arguments[0][key] + ", ";
-                        arg = arg.slice(0, -2); // Remove trailing comma and space
-                    } else arg = arguments[i];
-                    args.push(arg);
-                }
-                warn(msg + "\nArguments: " + Array.prototype.slice.call(args).join("") + "\n" + new Error().stack);
-                firstTime = false;
-            }
-            return fn.apply(this, arguments);
-        }, fn);
-    }
-    var deprecations = {};
-    function deprecateSimple(name, msg) {
-        if (hooks.deprecationHandler != null) hooks.deprecationHandler(name, msg);
-        if (!deprecations[name]) {
-            warn(msg);
-            deprecations[name] = true;
-        }
-    }
-    hooks.suppressDeprecationWarnings = false;
-    hooks.deprecationHandler = null;
-    function isFunction(input) {
-        return typeof Function !== "undefined" && input instanceof Function || Object.prototype.toString.call(input) === "[object Function]";
-    }
-    function set(config) {
-        var prop, i;
-        for(i in config)if (hasOwnProp(config, i)) {
-            prop = config[i];
-            if (isFunction(prop)) this[i] = prop;
-            else this["_" + i] = prop;
-        }
-        this._config = config;
-        // Lenient ordinal parsing accepts just a number in addition to
-        // number + (possibly) stuff coming from _dayOfMonthOrdinalParse.
-        // TODO: Remove "ordinalParse" fallback in next major release.
-        this._dayOfMonthOrdinalParseLenient = new RegExp((this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) + "|" + /\d{1,2}/.source);
-    }
-    function mergeConfigs(parentConfig, childConfig) {
-        var res = extend({}, parentConfig), prop;
-        for(prop in childConfig)if (hasOwnProp(childConfig, prop)) {
-            if (isObject(parentConfig[prop]) && isObject(childConfig[prop])) {
-                res[prop] = {};
-                extend(res[prop], parentConfig[prop]);
-                extend(res[prop], childConfig[prop]);
-            } else if (childConfig[prop] != null) res[prop] = childConfig[prop];
-            else delete res[prop];
-        }
-        for(prop in parentConfig)if (hasOwnProp(parentConfig, prop) && !hasOwnProp(childConfig, prop) && isObject(parentConfig[prop])) // make sure changes to properties don't modify parent config
-        res[prop] = extend({}, res[prop]);
-        return res;
-    }
-    function Locale(config) {
-        if (config != null) this.set(config);
-    }
-    var keys;
-    if (Object.keys) keys = Object.keys;
-    else keys = function(obj) {
-        var i, res = [];
-        for(i in obj)if (hasOwnProp(obj, i)) res.push(i);
-        return res;
-    };
-    var defaultCalendar = {
-        sameDay: "[Today at] LT",
-        nextDay: "[Tomorrow at] LT",
-        nextWeek: "dddd [at] LT",
-        lastDay: "[Yesterday at] LT",
-        lastWeek: "[Last] dddd [at] LT",
-        sameElse: "L"
-    };
-    function calendar(key, mom, now) {
-        var output = this._calendar[key] || this._calendar["sameElse"];
-        return isFunction(output) ? output.call(mom, now) : output;
-    }
-    function zeroFill(number, targetLength, forceSign) {
-        var absNumber = "" + Math.abs(number), zerosToFill = targetLength - absNumber.length, sign = number >= 0;
-        return (sign ? forceSign ? "+" : "" : "-") + Math.pow(10, Math.max(0, zerosToFill)).toString().substr(1) + absNumber;
-    }
-    var formattingTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|N{1,5}|YYYYYY|YYYYY|YYYY|YY|y{2,4}|yo?|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g, localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g, formatFunctions = {}, formatTokenFunctions = {};
-    // token:    'M'
-    // padded:   ['MM', 2]
-    // ordinal:  'Mo'
-    // callback: function () { this.month() + 1 }
-    function addFormatToken(token, padded, ordinal, callback) {
-        var func = callback;
-        if (typeof callback === "string") func = function() {
-            return this[callback]();
-        };
-        if (token) formatTokenFunctions[token] = func;
-        if (padded) formatTokenFunctions[padded[0]] = function() {
-            return zeroFill(func.apply(this, arguments), padded[1], padded[2]);
-        };
-        if (ordinal) formatTokenFunctions[ordinal] = function() {
-            return this.localeData().ordinal(func.apply(this, arguments), token);
-        };
-    }
-    function removeFormattingTokens(input) {
-        if (input.match(/\[[\s\S]/)) return input.replace(/^\[|\]$/g, "");
-        return input.replace(/\\/g, "");
-    }
-    function makeFormatFunction(format) {
-        var array = format.match(formattingTokens), i, length;
-        for(i = 0, length = array.length; i < length; i++)if (formatTokenFunctions[array[i]]) array[i] = formatTokenFunctions[array[i]];
-        else array[i] = removeFormattingTokens(array[i]);
-        return function(mom) {
-            var output = "", i;
-            for(i = 0; i < length; i++)output += isFunction(array[i]) ? array[i].call(mom, format) : array[i];
-            return output;
-        };
-    }
-    // format date using native date object
-    function formatMoment(m, format) {
-        if (!m.isValid()) return m.localeData().invalidDate();
-        format = expandFormat(format, m.localeData());
-        formatFunctions[format] = formatFunctions[format] || makeFormatFunction(format);
-        return formatFunctions[format](m);
-    }
-    function expandFormat(format, locale) {
-        var i = 5;
-        function replaceLongDateFormatTokens(input) {
-            return locale.longDateFormat(input) || input;
-        }
-        localFormattingTokens.lastIndex = 0;
-        while(i >= 0 && localFormattingTokens.test(format)){
-            format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
-            localFormattingTokens.lastIndex = 0;
-            i -= 1;
-        }
-        return format;
-    }
-    var defaultLongDateFormat = {
-        LTS: "h:mm:ss A",
-        LT: "h:mm A",
-        L: "MM/DD/YYYY",
-        LL: "MMMM D, YYYY",
-        LLL: "MMMM D, YYYY h:mm A",
-        LLLL: "dddd, MMMM D, YYYY h:mm A"
-    };
-    function longDateFormat(key) {
-        var format = this._longDateFormat[key], formatUpper = this._longDateFormat[key.toUpperCase()];
-        if (format || !formatUpper) return format;
-        this._longDateFormat[key] = formatUpper.match(formattingTokens).map(function(tok) {
-            if (tok === "MMMM" || tok === "MM" || tok === "DD" || tok === "dddd") return tok.slice(1);
-            return tok;
-        }).join("");
-        return this._longDateFormat[key];
-    }
-    var defaultInvalidDate = "Invalid date";
-    function invalidDate() {
-        return this._invalidDate;
-    }
-    var defaultOrdinal = "%d", defaultDayOfMonthOrdinalParse = /\d{1,2}/;
-    function ordinal(number) {
-        return this._ordinal.replace("%d", number);
-    }
-    var defaultRelativeTime = {
-        future: "in %s",
-        past: "%s ago",
-        s: "a few seconds",
-        ss: "%d seconds",
-        m: "a minute",
-        mm: "%d minutes",
-        h: "an hour",
-        hh: "%d hours",
-        d: "a day",
-        dd: "%d days",
-        w: "a week",
-        ww: "%d weeks",
-        M: "a month",
-        MM: "%d months",
-        y: "a year",
-        yy: "%d years"
-    };
-    function relativeTime(number, withoutSuffix, string, isFuture) {
-        var output = this._relativeTime[string];
-        return isFunction(output) ? output(number, withoutSuffix, string, isFuture) : output.replace(/%d/i, number);
-    }
-    function pastFuture(diff, output) {
-        var format = this._relativeTime[diff > 0 ? "future" : "past"];
-        return isFunction(format) ? format(output) : format.replace(/%s/i, output);
-    }
-    var aliases = {
-        D: "date",
-        dates: "date",
-        date: "date",
-        d: "day",
-        days: "day",
-        day: "day",
-        e: "weekday",
-        weekdays: "weekday",
-        weekday: "weekday",
-        E: "isoWeekday",
-        isoweekdays: "isoWeekday",
-        isoweekday: "isoWeekday",
-        DDD: "dayOfYear",
-        dayofyears: "dayOfYear",
-        dayofyear: "dayOfYear",
-        h: "hour",
-        hours: "hour",
-        hour: "hour",
-        ms: "millisecond",
-        milliseconds: "millisecond",
-        millisecond: "millisecond",
-        m: "minute",
-        minutes: "minute",
-        minute: "minute",
-        M: "month",
-        months: "month",
-        month: "month",
-        Q: "quarter",
-        quarters: "quarter",
-        quarter: "quarter",
-        s: "second",
-        seconds: "second",
-        second: "second",
-        gg: "weekYear",
-        weekyears: "weekYear",
-        weekyear: "weekYear",
-        GG: "isoWeekYear",
-        isoweekyears: "isoWeekYear",
-        isoweekyear: "isoWeekYear",
-        w: "week",
-        weeks: "week",
-        week: "week",
-        W: "isoWeek",
-        isoweeks: "isoWeek",
-        isoweek: "isoWeek",
-        y: "year",
-        years: "year",
-        year: "year"
-    };
-    function normalizeUnits(units) {
-        return typeof units === "string" ? aliases[units] || aliases[units.toLowerCase()] : undefined;
-    }
-    function normalizeObjectUnits(inputObject) {
-        var normalizedInput = {}, normalizedProp, prop;
-        for(prop in inputObject)if (hasOwnProp(inputObject, prop)) {
-            normalizedProp = normalizeUnits(prop);
-            if (normalizedProp) normalizedInput[normalizedProp] = inputObject[prop];
-        }
-        return normalizedInput;
-    }
-    var priorities = {
-        date: 9,
-        day: 11,
-        weekday: 11,
-        isoWeekday: 11,
-        dayOfYear: 4,
-        hour: 13,
-        millisecond: 16,
-        minute: 14,
-        month: 8,
-        quarter: 7,
-        second: 15,
-        weekYear: 1,
-        isoWeekYear: 1,
-        week: 5,
-        isoWeek: 5,
-        year: 1
-    };
-    function getPrioritizedUnits(unitsObj) {
-        var units = [], u;
-        for(u in unitsObj)if (hasOwnProp(unitsObj, u)) units.push({
-            unit: u,
-            priority: priorities[u]
-        });
-        units.sort(function(a, b) {
-            return a.priority - b.priority;
-        });
-        return units;
-    }
-    var match1 = /\d/, match2 = /\d\d/, match3 = /\d{3}/, match4 = /\d{4}/, match6 = /[+-]?\d{6}/, match1to2 = /\d\d?/, match3to4 = /\d\d\d\d?/, match5to6 = /\d\d\d\d\d\d?/, match1to3 = /\d{1,3}/, match1to4 = /\d{1,4}/, match1to6 = /[+-]?\d{1,6}/, matchUnsigned = /\d+/, matchSigned = /[+-]?\d+/, matchOffset = /Z|[+-]\d\d:?\d\d/gi, matchShortOffset = /Z|[+-]\d\d(?::?\d\d)?/gi, matchTimestamp = /[+-]?\d+(\.\d{1,3})?/, // any word (or two) characters or numbers including two/three word month in arabic.
-    // includes scottish gaelic two word and hyphenated months
-    matchWord = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i, match1to2NoLeadingZero = /^[1-9]\d?/, match1to2HasZero = /^([1-9]\d|\d)/, regexes;
-    regexes = {};
-    function addRegexToken(token, regex, strictRegex) {
-        regexes[token] = isFunction(regex) ? regex : function(isStrict, localeData) {
-            return isStrict && strictRegex ? strictRegex : regex;
-        };
-    }
-    function getParseRegexForToken(token, config) {
-        if (!hasOwnProp(regexes, token)) return new RegExp(unescapeFormat(token));
-        return regexes[token](config._strict, config._locale);
-    }
-    // Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
-    function unescapeFormat(s) {
-        return regexEscape(s.replace("\\", "").replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function(matched, p1, p2, p3, p4) {
-            return p1 || p2 || p3 || p4;
-        }));
-    }
-    function regexEscape(s) {
-        return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-    }
-    function absFloor(number) {
-        if (number < 0) // -0 -> 0
-        return Math.ceil(number) || 0;
-        else return Math.floor(number);
-    }
-    function toInt(argumentForCoercion) {
-        var coercedNumber = +argumentForCoercion, value = 0;
-        if (coercedNumber !== 0 && isFinite(coercedNumber)) value = absFloor(coercedNumber);
-        return value;
-    }
-    var tokens = {};
-    function addParseToken(token, callback) {
-        var i, func = callback, tokenLen;
-        if (typeof token === "string") token = [
-            token
-        ];
-        if (isNumber(callback)) func = function(input, array) {
-            array[callback] = toInt(input);
-        };
-        tokenLen = token.length;
-        for(i = 0; i < tokenLen; i++)tokens[token[i]] = func;
-    }
-    function addWeekParseToken(token, callback) {
-        addParseToken(token, function(input, array, config, token) {
-            config._w = config._w || {};
-            callback(input, config._w, config, token);
-        });
-    }
-    function addTimeToArrayFromToken(token, input, config) {
-        if (input != null && hasOwnProp(tokens, token)) tokens[token](input, config._a, config, token);
-    }
-    function isLeapYear(year) {
-        return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
-    }
-    var YEAR = 0, MONTH = 1, DATE = 2, HOUR = 3, MINUTE = 4, SECOND = 5, MILLISECOND = 6, WEEK = 7, WEEKDAY = 8;
-    // FORMATTING
-    addFormatToken("Y", 0, 0, function() {
-        var y = this.year();
-        return y <= 9999 ? zeroFill(y, 4) : "+" + y;
-    });
-    addFormatToken(0, [
-        "YY",
-        2
-    ], 0, function() {
-        return this.year() % 100;
-    });
-    addFormatToken(0, [
-        "YYYY",
-        4
-    ], 0, "year");
-    addFormatToken(0, [
-        "YYYYY",
-        5
-    ], 0, "year");
-    addFormatToken(0, [
-        "YYYYYY",
-        6,
-        true
-    ], 0, "year");
-    // PARSING
-    addRegexToken("Y", matchSigned);
-    addRegexToken("YY", match1to2, match2);
-    addRegexToken("YYYY", match1to4, match4);
-    addRegexToken("YYYYY", match1to6, match6);
-    addRegexToken("YYYYYY", match1to6, match6);
-    addParseToken([
-        "YYYYY",
-        "YYYYYY"
-    ], YEAR);
-    addParseToken("YYYY", function(input, array) {
-        array[YEAR] = input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
-    });
-    addParseToken("YY", function(input, array) {
-        array[YEAR] = hooks.parseTwoDigitYear(input);
-    });
-    addParseToken("Y", function(input, array) {
-        array[YEAR] = parseInt(input, 10);
-    });
-    // HELPERS
-    function daysInYear(year) {
-        return isLeapYear(year) ? 366 : 365;
-    }
-    // HOOKS
-    hooks.parseTwoDigitYear = function(input) {
-        return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
-    };
-    // MOMENTS
-    var getSetYear = makeGetSet("FullYear", true);
-    function getIsLeapYear() {
-        return isLeapYear(this.year());
-    }
-    function makeGetSet(unit, keepTime) {
-        return function(value) {
-            if (value != null) {
-                set$1(this, unit, value);
-                hooks.updateOffset(this, keepTime);
-                return this;
-            } else return get(this, unit);
-        };
-    }
-    function get(mom, unit) {
-        if (!mom.isValid()) return NaN;
-        var d = mom._d, isUTC = mom._isUTC;
-        switch(unit){
-            case "Milliseconds":
-                return isUTC ? d.getUTCMilliseconds() : d.getMilliseconds();
-            case "Seconds":
-                return isUTC ? d.getUTCSeconds() : d.getSeconds();
-            case "Minutes":
-                return isUTC ? d.getUTCMinutes() : d.getMinutes();
-            case "Hours":
-                return isUTC ? d.getUTCHours() : d.getHours();
-            case "Date":
-                return isUTC ? d.getUTCDate() : d.getDate();
-            case "Day":
-                return isUTC ? d.getUTCDay() : d.getDay();
-            case "Month":
-                return isUTC ? d.getUTCMonth() : d.getMonth();
-            case "FullYear":
-                return isUTC ? d.getUTCFullYear() : d.getFullYear();
-            default:
-                return NaN; // Just in case
-        }
-    }
-    function set$1(mom, unit, value) {
-        var d, isUTC, year, month, date;
-        if (!mom.isValid() || isNaN(value)) return;
-        d = mom._d;
-        isUTC = mom._isUTC;
-        switch(unit){
-            case "Milliseconds":
-                return void (isUTC ? d.setUTCMilliseconds(value) : d.setMilliseconds(value));
-            case "Seconds":
-                return void (isUTC ? d.setUTCSeconds(value) : d.setSeconds(value));
-            case "Minutes":
-                return void (isUTC ? d.setUTCMinutes(value) : d.setMinutes(value));
-            case "Hours":
-                return void (isUTC ? d.setUTCHours(value) : d.setHours(value));
-            case "Date":
-                return void (isUTC ? d.setUTCDate(value) : d.setDate(value));
-            // case 'Day': // Not real
-            //    return void (isUTC ? d.setUTCDay(value) : d.setDay(value));
-            // case 'Month': // Not used because we need to pass two variables
-            //     return void (isUTC ? d.setUTCMonth(value) : d.setMonth(value));
-            case "FullYear":
-                break; // See below ...
-            default:
-                return; // Just in case
-        }
-        year = value;
-        month = mom.month();
-        date = mom.date();
-        date = date === 29 && month === 1 && !isLeapYear(year) ? 28 : date;
-        isUTC ? d.setUTCFullYear(year, month, date) : d.setFullYear(year, month, date);
-    }
-    // MOMENTS
-    function stringGet(units) {
-        units = normalizeUnits(units);
-        if (isFunction(this[units])) return this[units]();
-        return this;
-    }
-    function stringSet(units, value) {
-        if (typeof units === "object") {
-            units = normalizeObjectUnits(units);
-            var prioritized = getPrioritizedUnits(units), i, prioritizedLen = prioritized.length;
-            for(i = 0; i < prioritizedLen; i++)this[prioritized[i].unit](units[prioritized[i].unit]);
-        } else {
-            units = normalizeUnits(units);
-            if (isFunction(this[units])) return this[units](value);
-        }
-        return this;
-    }
-    function mod(n, x) {
-        return (n % x + x) % x;
-    }
-    var indexOf;
-    if (Array.prototype.indexOf) indexOf = Array.prototype.indexOf;
-    else indexOf = function(o) {
-        // I know
-        var i;
-        for(i = 0; i < this.length; ++i){
-            if (this[i] === o) return i;
-        }
-        return -1;
-    };
-    function daysInMonth(year, month) {
-        if (isNaN(year) || isNaN(month)) return NaN;
-        var modMonth = mod(month, 12);
-        year += (month - modMonth) / 12;
-        return modMonth === 1 ? isLeapYear(year) ? 29 : 28 : 31 - modMonth % 7 % 2;
-    }
-    // FORMATTING
-    addFormatToken("M", [
-        "MM",
-        2
-    ], "Mo", function() {
-        return this.month() + 1;
-    });
-    addFormatToken("MMM", 0, 0, function(format) {
-        return this.localeData().monthsShort(this, format);
-    });
-    addFormatToken("MMMM", 0, 0, function(format) {
-        return this.localeData().months(this, format);
-    });
-    // PARSING
-    addRegexToken("M", match1to2, match1to2NoLeadingZero);
-    addRegexToken("MM", match1to2, match2);
-    addRegexToken("MMM", function(isStrict, locale) {
-        return locale.monthsShortRegex(isStrict);
-    });
-    addRegexToken("MMMM", function(isStrict, locale) {
-        return locale.monthsRegex(isStrict);
-    });
-    addParseToken([
-        "M",
-        "MM"
-    ], function(input, array) {
-        array[MONTH] = toInt(input) - 1;
-    });
-    addParseToken([
-        "MMM",
-        "MMMM"
-    ], function(input, array, config, token) {
-        var month = config._locale.monthsParse(input, token, config._strict);
-        // if we didn't find a month name, mark the date as invalid.
-        if (month != null) array[MONTH] = month;
-        else getParsingFlags(config).invalidMonth = input;
-    });
-    // LOCALES
-    var defaultLocaleMonths = "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), defaultLocaleMonthsShort = "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"), MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/, defaultMonthsShortRegex = matchWord, defaultMonthsRegex = matchWord;
-    function localeMonths(m, format) {
-        if (!m) return isArray(this._months) ? this._months : this._months["standalone"];
-        return isArray(this._months) ? this._months[m.month()] : this._months[(this._months.isFormat || MONTHS_IN_FORMAT).test(format) ? "format" : "standalone"][m.month()];
-    }
-    function localeMonthsShort(m, format) {
-        if (!m) return isArray(this._monthsShort) ? this._monthsShort : this._monthsShort["standalone"];
-        return isArray(this._monthsShort) ? this._monthsShort[m.month()] : this._monthsShort[MONTHS_IN_FORMAT.test(format) ? "format" : "standalone"][m.month()];
-    }
-    function handleStrictParse(monthName, format, strict) {
-        var i, ii, mom, llc = monthName.toLocaleLowerCase();
-        if (!this._monthsParse) {
-            // this is not used
-            this._monthsParse = [];
-            this._longMonthsParse = [];
-            this._shortMonthsParse = [];
-            for(i = 0; i < 12; ++i){
-                mom = createUTC([
-                    2000,
-                    i
-                ]);
-                this._shortMonthsParse[i] = this.monthsShort(mom, "").toLocaleLowerCase();
-                this._longMonthsParse[i] = this.months(mom, "").toLocaleLowerCase();
-            }
-        }
-        if (strict) {
-            if (format === "MMM") {
-                ii = indexOf.call(this._shortMonthsParse, llc);
-                return ii !== -1 ? ii : null;
-            } else {
-                ii = indexOf.call(this._longMonthsParse, llc);
-                return ii !== -1 ? ii : null;
-            }
-        } else if (format === "MMM") {
-            ii = indexOf.call(this._shortMonthsParse, llc);
-            if (ii !== -1) return ii;
-            ii = indexOf.call(this._longMonthsParse, llc);
-            return ii !== -1 ? ii : null;
-        } else {
-            ii = indexOf.call(this._longMonthsParse, llc);
-            if (ii !== -1) return ii;
-            ii = indexOf.call(this._shortMonthsParse, llc);
-            return ii !== -1 ? ii : null;
-        }
-    }
-    function localeMonthsParse(monthName, format, strict) {
-        var i, mom, regex;
-        if (this._monthsParseExact) return handleStrictParse.call(this, monthName, format, strict);
-        if (!this._monthsParse) {
-            this._monthsParse = [];
-            this._longMonthsParse = [];
-            this._shortMonthsParse = [];
-        }
-        // TODO: add sorting
-        // Sorting makes sure if one month (or abbr) is a prefix of another
-        // see sorting in computeMonthsParse
-        for(i = 0; i < 12; i++){
-            // make the regex if we don't have it already
-            mom = createUTC([
-                2000,
-                i
-            ]);
-            if (strict && !this._longMonthsParse[i]) {
-                this._longMonthsParse[i] = new RegExp("^" + this.months(mom, "").replace(".", "") + "$", "i");
-                this._shortMonthsParse[i] = new RegExp("^" + this.monthsShort(mom, "").replace(".", "") + "$", "i");
-            }
-            if (!strict && !this._monthsParse[i]) {
-                regex = "^" + this.months(mom, "") + "|^" + this.monthsShort(mom, "");
-                this._monthsParse[i] = new RegExp(regex.replace(".", ""), "i");
-            }
-            // test the regex
-            if (strict && format === "MMMM" && this._longMonthsParse[i].test(monthName)) return i;
-            else if (strict && format === "MMM" && this._shortMonthsParse[i].test(monthName)) return i;
-            else if (!strict && this._monthsParse[i].test(monthName)) return i;
-        }
-    }
-    // MOMENTS
-    function setMonth(mom, value) {
-        if (!mom.isValid()) // No op
-        return mom;
-        if (typeof value === "string") {
-            if (/^\d+$/.test(value)) value = toInt(value);
-            else {
-                value = mom.localeData().monthsParse(value);
-                // TODO: Another silent failure?
-                if (!isNumber(value)) return mom;
-            }
-        }
-        var month = value, date = mom.date();
-        date = date < 29 ? date : Math.min(date, daysInMonth(mom.year(), month));
-        mom._isUTC ? mom._d.setUTCMonth(month, date) : mom._d.setMonth(month, date);
-        return mom;
-    }
-    function getSetMonth(value) {
-        if (value != null) {
-            setMonth(this, value);
-            hooks.updateOffset(this, true);
-            return this;
-        } else return get(this, "Month");
-    }
-    function getDaysInMonth() {
-        return daysInMonth(this.year(), this.month());
-    }
-    function monthsShortRegex(isStrict) {
-        if (this._monthsParseExact) {
-            if (!hasOwnProp(this, "_monthsRegex")) computeMonthsParse.call(this);
-            if (isStrict) return this._monthsShortStrictRegex;
-            else return this._monthsShortRegex;
-        } else {
-            if (!hasOwnProp(this, "_monthsShortRegex")) this._monthsShortRegex = defaultMonthsShortRegex;
-            return this._monthsShortStrictRegex && isStrict ? this._monthsShortStrictRegex : this._monthsShortRegex;
-        }
-    }
-    function monthsRegex(isStrict) {
-        if (this._monthsParseExact) {
-            if (!hasOwnProp(this, "_monthsRegex")) computeMonthsParse.call(this);
-            if (isStrict) return this._monthsStrictRegex;
-            else return this._monthsRegex;
-        } else {
-            if (!hasOwnProp(this, "_monthsRegex")) this._monthsRegex = defaultMonthsRegex;
-            return this._monthsStrictRegex && isStrict ? this._monthsStrictRegex : this._monthsRegex;
-        }
-    }
-    function computeMonthsParse() {
-        function cmpLenRev(a, b) {
-            return b.length - a.length;
-        }
-        var shortPieces = [], longPieces = [], mixedPieces = [], i, mom, shortP, longP;
-        for(i = 0; i < 12; i++){
-            // make the regex if we don't have it already
-            mom = createUTC([
-                2000,
-                i
-            ]);
-            shortP = regexEscape(this.monthsShort(mom, ""));
-            longP = regexEscape(this.months(mom, ""));
-            shortPieces.push(shortP);
-            longPieces.push(longP);
-            mixedPieces.push(longP);
-            mixedPieces.push(shortP);
-        }
-        // Sorting makes sure if one month (or abbr) is a prefix of another it
-        // will match the longer piece.
-        shortPieces.sort(cmpLenRev);
-        longPieces.sort(cmpLenRev);
-        mixedPieces.sort(cmpLenRev);
-        this._monthsRegex = new RegExp("^(" + mixedPieces.join("|") + ")", "i");
-        this._monthsShortRegex = this._monthsRegex;
-        this._monthsStrictRegex = new RegExp("^(" + longPieces.join("|") + ")", "i");
-        this._monthsShortStrictRegex = new RegExp("^(" + shortPieces.join("|") + ")", "i");
-    }
-    function createDate(y, m, d, h, M, s, ms) {
-        // can't just apply() to create a date:
-        // https://stackoverflow.com/q/181348
-        var date;
-        // the date constructor remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0) {
-            // preserve leap years using a full 400 year cycle, then reset
-            date = new Date(y + 400, m, d, h, M, s, ms);
-            if (isFinite(date.getFullYear())) date.setFullYear(y);
-        } else date = new Date(y, m, d, h, M, s, ms);
-        return date;
-    }
-    function createUTCDate(y) {
-        var date, args;
-        // the Date.UTC function remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0) {
-            args = Array.prototype.slice.call(arguments);
-            // preserve leap years using a full 400 year cycle, then reset
-            args[0] = y + 400;
-            date = new Date(Date.UTC.apply(null, args));
-            if (isFinite(date.getUTCFullYear())) date.setUTCFullYear(y);
-        } else date = new Date(Date.UTC.apply(null, arguments));
-        return date;
-    }
-    // start-of-first-week - start-of-year
-    function firstWeekOffset(year, dow, doy) {
-        var fwd = 7 + dow - doy, // first-week day local weekday -- which local weekday is fwd
-        fwdlw = (7 + createUTCDate(year, 0, fwd).getUTCDay() - dow) % 7;
-        return -fwdlw + fwd - 1;
-    }
-    // https://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
-    function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
-        var localWeekday = (7 + weekday - dow) % 7, weekOffset = firstWeekOffset(year, dow, doy), dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset, resYear, resDayOfYear;
-        if (dayOfYear <= 0) {
-            resYear = year - 1;
-            resDayOfYear = daysInYear(resYear) + dayOfYear;
-        } else if (dayOfYear > daysInYear(year)) {
-            resYear = year + 1;
-            resDayOfYear = dayOfYear - daysInYear(year);
-        } else {
-            resYear = year;
-            resDayOfYear = dayOfYear;
-        }
-        return {
-            year: resYear,
-            dayOfYear: resDayOfYear
-        };
-    }
-    function weekOfYear(mom, dow, doy) {
-        var weekOffset = firstWeekOffset(mom.year(), dow, doy), week = Math.floor((mom.dayOfYear() - weekOffset - 1) / 7) + 1, resWeek, resYear;
-        if (week < 1) {
-            resYear = mom.year() - 1;
-            resWeek = week + weeksInYear(resYear, dow, doy);
-        } else if (week > weeksInYear(mom.year(), dow, doy)) {
-            resWeek = week - weeksInYear(mom.year(), dow, doy);
-            resYear = mom.year() + 1;
-        } else {
-            resYear = mom.year();
-            resWeek = week;
-        }
-        return {
-            week: resWeek,
-            year: resYear
-        };
-    }
-    function weeksInYear(year, dow, doy) {
-        var weekOffset = firstWeekOffset(year, dow, doy), weekOffsetNext = firstWeekOffset(year + 1, dow, doy);
-        return (daysInYear(year) - weekOffset + weekOffsetNext) / 7;
-    }
-    // FORMATTING
-    addFormatToken("w", [
-        "ww",
-        2
-    ], "wo", "week");
-    addFormatToken("W", [
-        "WW",
-        2
-    ], "Wo", "isoWeek");
-    // PARSING
-    addRegexToken("w", match1to2, match1to2NoLeadingZero);
-    addRegexToken("ww", match1to2, match2);
-    addRegexToken("W", match1to2, match1to2NoLeadingZero);
-    addRegexToken("WW", match1to2, match2);
-    addWeekParseToken([
-        "w",
-        "ww",
-        "W",
-        "WW"
-    ], function(input, week, config, token) {
-        week[token.substr(0, 1)] = toInt(input);
-    });
-    // HELPERS
-    // LOCALES
-    function localeWeek(mom) {
-        return weekOfYear(mom, this._week.dow, this._week.doy).week;
-    }
-    var defaultLocaleWeek = {
-        dow: 0,
-        doy: 6
-    };
-    function localeFirstDayOfWeek() {
-        return this._week.dow;
-    }
-    function localeFirstDayOfYear() {
-        return this._week.doy;
-    }
-    // MOMENTS
-    function getSetWeek(input) {
-        var week = this.localeData().week(this);
-        return input == null ? week : this.add((input - week) * 7, "d");
-    }
-    function getSetISOWeek(input) {
-        var week = weekOfYear(this, 1, 4).week;
-        return input == null ? week : this.add((input - week) * 7, "d");
-    }
-    // FORMATTING
-    addFormatToken("d", 0, "do", "day");
-    addFormatToken("dd", 0, 0, function(format) {
-        return this.localeData().weekdaysMin(this, format);
-    });
-    addFormatToken("ddd", 0, 0, function(format) {
-        return this.localeData().weekdaysShort(this, format);
-    });
-    addFormatToken("dddd", 0, 0, function(format) {
-        return this.localeData().weekdays(this, format);
-    });
-    addFormatToken("e", 0, 0, "weekday");
-    addFormatToken("E", 0, 0, "isoWeekday");
-    // PARSING
-    addRegexToken("d", match1to2);
-    addRegexToken("e", match1to2);
-    addRegexToken("E", match1to2);
-    addRegexToken("dd", function(isStrict, locale) {
-        return locale.weekdaysMinRegex(isStrict);
-    });
-    addRegexToken("ddd", function(isStrict, locale) {
-        return locale.weekdaysShortRegex(isStrict);
-    });
-    addRegexToken("dddd", function(isStrict, locale) {
-        return locale.weekdaysRegex(isStrict);
-    });
-    addWeekParseToken([
-        "dd",
-        "ddd",
-        "dddd"
-    ], function(input, week, config, token) {
-        var weekday = config._locale.weekdaysParse(input, token, config._strict);
-        // if we didn't get a weekday name, mark the date as invalid
-        if (weekday != null) week.d = weekday;
-        else getParsingFlags(config).invalidWeekday = input;
-    });
-    addWeekParseToken([
-        "d",
-        "e",
-        "E"
-    ], function(input, week, config, token) {
-        week[token] = toInt(input);
-    });
-    // HELPERS
-    function parseWeekday(input, locale) {
-        if (typeof input !== "string") return input;
-        if (!isNaN(input)) return parseInt(input, 10);
-        input = locale.weekdaysParse(input);
-        if (typeof input === "number") return input;
-        return null;
-    }
-    function parseIsoWeekday(input, locale) {
-        if (typeof input === "string") return locale.weekdaysParse(input) % 7 || 7;
-        return isNaN(input) ? null : input;
-    }
-    // LOCALES
-    function shiftWeekdays(ws, n) {
-        return ws.slice(n, 7).concat(ws.slice(0, n));
-    }
-    var defaultLocaleWeekdays = "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), defaultLocaleWeekdaysShort = "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"), defaultLocaleWeekdaysMin = "Su_Mo_Tu_We_Th_Fr_Sa".split("_"), defaultWeekdaysRegex = matchWord, defaultWeekdaysShortRegex = matchWord, defaultWeekdaysMinRegex = matchWord;
-    function localeWeekdays(m, format) {
-        var weekdays = isArray(this._weekdays) ? this._weekdays : this._weekdays[m && m !== true && this._weekdays.isFormat.test(format) ? "format" : "standalone"];
-        return m === true ? shiftWeekdays(weekdays, this._week.dow) : m ? weekdays[m.day()] : weekdays;
-    }
-    function localeWeekdaysShort(m) {
-        return m === true ? shiftWeekdays(this._weekdaysShort, this._week.dow) : m ? this._weekdaysShort[m.day()] : this._weekdaysShort;
-    }
-    function localeWeekdaysMin(m) {
-        return m === true ? shiftWeekdays(this._weekdaysMin, this._week.dow) : m ? this._weekdaysMin[m.day()] : this._weekdaysMin;
-    }
-    function handleStrictParse$1(weekdayName, format, strict) {
-        var i, ii, mom, llc = weekdayName.toLocaleLowerCase();
-        if (!this._weekdaysParse) {
-            this._weekdaysParse = [];
-            this._shortWeekdaysParse = [];
-            this._minWeekdaysParse = [];
-            for(i = 0; i < 7; ++i){
-                mom = createUTC([
-                    2000,
-                    1
-                ]).day(i);
-                this._minWeekdaysParse[i] = this.weekdaysMin(mom, "").toLocaleLowerCase();
-                this._shortWeekdaysParse[i] = this.weekdaysShort(mom, "").toLocaleLowerCase();
-                this._weekdaysParse[i] = this.weekdays(mom, "").toLocaleLowerCase();
-            }
-        }
-        if (strict) {
-            if (format === "dddd") {
-                ii = indexOf.call(this._weekdaysParse, llc);
-                return ii !== -1 ? ii : null;
-            } else if (format === "ddd") {
-                ii = indexOf.call(this._shortWeekdaysParse, llc);
-                return ii !== -1 ? ii : null;
-            } else {
-                ii = indexOf.call(this._minWeekdaysParse, llc);
-                return ii !== -1 ? ii : null;
-            }
-        } else {
-            if (format === "dddd") {
-                ii = indexOf.call(this._weekdaysParse, llc);
-                if (ii !== -1) return ii;
-                ii = indexOf.call(this._shortWeekdaysParse, llc);
-                if (ii !== -1) return ii;
-                ii = indexOf.call(this._minWeekdaysParse, llc);
-                return ii !== -1 ? ii : null;
-            } else if (format === "ddd") {
-                ii = indexOf.call(this._shortWeekdaysParse, llc);
-                if (ii !== -1) return ii;
-                ii = indexOf.call(this._weekdaysParse, llc);
-                if (ii !== -1) return ii;
-                ii = indexOf.call(this._minWeekdaysParse, llc);
-                return ii !== -1 ? ii : null;
-            } else {
-                ii = indexOf.call(this._minWeekdaysParse, llc);
-                if (ii !== -1) return ii;
-                ii = indexOf.call(this._weekdaysParse, llc);
-                if (ii !== -1) return ii;
-                ii = indexOf.call(this._shortWeekdaysParse, llc);
-                return ii !== -1 ? ii : null;
-            }
-        }
-    }
-    function localeWeekdaysParse(weekdayName, format, strict) {
-        var i, mom, regex;
-        if (this._weekdaysParseExact) return handleStrictParse$1.call(this, weekdayName, format, strict);
-        if (!this._weekdaysParse) {
-            this._weekdaysParse = [];
-            this._minWeekdaysParse = [];
-            this._shortWeekdaysParse = [];
-            this._fullWeekdaysParse = [];
-        }
-        for(i = 0; i < 7; i++){
-            // make the regex if we don't have it already
-            mom = createUTC([
-                2000,
-                1
-            ]).day(i);
-            if (strict && !this._fullWeekdaysParse[i]) {
-                this._fullWeekdaysParse[i] = new RegExp("^" + this.weekdays(mom, "").replace(".", "\\.?") + "$", "i");
-                this._shortWeekdaysParse[i] = new RegExp("^" + this.weekdaysShort(mom, "").replace(".", "\\.?") + "$", "i");
-                this._minWeekdaysParse[i] = new RegExp("^" + this.weekdaysMin(mom, "").replace(".", "\\.?") + "$", "i");
-            }
-            if (!this._weekdaysParse[i]) {
-                regex = "^" + this.weekdays(mom, "") + "|^" + this.weekdaysShort(mom, "") + "|^" + this.weekdaysMin(mom, "");
-                this._weekdaysParse[i] = new RegExp(regex.replace(".", ""), "i");
-            }
-            // test the regex
-            if (strict && format === "dddd" && this._fullWeekdaysParse[i].test(weekdayName)) return i;
-            else if (strict && format === "ddd" && this._shortWeekdaysParse[i].test(weekdayName)) return i;
-            else if (strict && format === "dd" && this._minWeekdaysParse[i].test(weekdayName)) return i;
-            else if (!strict && this._weekdaysParse[i].test(weekdayName)) return i;
-        }
-    }
-    // MOMENTS
-    function getSetDayOfWeek(input) {
-        if (!this.isValid()) return input != null ? this : NaN;
-        var day = get(this, "Day");
-        if (input != null) {
-            input = parseWeekday(input, this.localeData());
-            return this.add(input - day, "d");
-        } else return day;
-    }
-    function getSetLocaleDayOfWeek(input) {
-        if (!this.isValid()) return input != null ? this : NaN;
-        var weekday = (this.day() + 7 - this.localeData()._week.dow) % 7;
-        return input == null ? weekday : this.add(input - weekday, "d");
-    }
-    function getSetISODayOfWeek(input) {
-        if (!this.isValid()) return input != null ? this : NaN;
-        // behaves the same as moment#day except
-        // as a getter, returns 7 instead of 0 (1-7 range instead of 0-6)
-        // as a setter, sunday should belong to the previous week.
-        if (input != null) {
-            var weekday = parseIsoWeekday(input, this.localeData());
-            return this.day(this.day() % 7 ? weekday : weekday - 7);
-        } else return this.day() || 7;
-    }
-    function weekdaysRegex(isStrict) {
-        if (this._weekdaysParseExact) {
-            if (!hasOwnProp(this, "_weekdaysRegex")) computeWeekdaysParse.call(this);
-            if (isStrict) return this._weekdaysStrictRegex;
-            else return this._weekdaysRegex;
-        } else {
-            if (!hasOwnProp(this, "_weekdaysRegex")) this._weekdaysRegex = defaultWeekdaysRegex;
-            return this._weekdaysStrictRegex && isStrict ? this._weekdaysStrictRegex : this._weekdaysRegex;
-        }
-    }
-    function weekdaysShortRegex(isStrict) {
-        if (this._weekdaysParseExact) {
-            if (!hasOwnProp(this, "_weekdaysRegex")) computeWeekdaysParse.call(this);
-            if (isStrict) return this._weekdaysShortStrictRegex;
-            else return this._weekdaysShortRegex;
-        } else {
-            if (!hasOwnProp(this, "_weekdaysShortRegex")) this._weekdaysShortRegex = defaultWeekdaysShortRegex;
-            return this._weekdaysShortStrictRegex && isStrict ? this._weekdaysShortStrictRegex : this._weekdaysShortRegex;
-        }
-    }
-    function weekdaysMinRegex(isStrict) {
-        if (this._weekdaysParseExact) {
-            if (!hasOwnProp(this, "_weekdaysRegex")) computeWeekdaysParse.call(this);
-            if (isStrict) return this._weekdaysMinStrictRegex;
-            else return this._weekdaysMinRegex;
-        } else {
-            if (!hasOwnProp(this, "_weekdaysMinRegex")) this._weekdaysMinRegex = defaultWeekdaysMinRegex;
-            return this._weekdaysMinStrictRegex && isStrict ? this._weekdaysMinStrictRegex : this._weekdaysMinRegex;
-        }
-    }
-    function computeWeekdaysParse() {
-        function cmpLenRev(a, b) {
-            return b.length - a.length;
-        }
-        var minPieces = [], shortPieces = [], longPieces = [], mixedPieces = [], i, mom, minp, shortp, longp;
-        for(i = 0; i < 7; i++){
-            // make the regex if we don't have it already
-            mom = createUTC([
-                2000,
-                1
-            ]).day(i);
-            minp = regexEscape(this.weekdaysMin(mom, ""));
-            shortp = regexEscape(this.weekdaysShort(mom, ""));
-            longp = regexEscape(this.weekdays(mom, ""));
-            minPieces.push(minp);
-            shortPieces.push(shortp);
-            longPieces.push(longp);
-            mixedPieces.push(minp);
-            mixedPieces.push(shortp);
-            mixedPieces.push(longp);
-        }
-        // Sorting makes sure if one weekday (or abbr) is a prefix of another it
-        // will match the longer piece.
-        minPieces.sort(cmpLenRev);
-        shortPieces.sort(cmpLenRev);
-        longPieces.sort(cmpLenRev);
-        mixedPieces.sort(cmpLenRev);
-        this._weekdaysRegex = new RegExp("^(" + mixedPieces.join("|") + ")", "i");
-        this._weekdaysShortRegex = this._weekdaysRegex;
-        this._weekdaysMinRegex = this._weekdaysRegex;
-        this._weekdaysStrictRegex = new RegExp("^(" + longPieces.join("|") + ")", "i");
-        this._weekdaysShortStrictRegex = new RegExp("^(" + shortPieces.join("|") + ")", "i");
-        this._weekdaysMinStrictRegex = new RegExp("^(" + minPieces.join("|") + ")", "i");
-    }
-    // FORMATTING
-    function hFormat() {
-        return this.hours() % 12 || 12;
-    }
-    function kFormat() {
-        return this.hours() || 24;
-    }
-    addFormatToken("H", [
-        "HH",
-        2
-    ], 0, "hour");
-    addFormatToken("h", [
-        "hh",
-        2
-    ], 0, hFormat);
-    addFormatToken("k", [
-        "kk",
-        2
-    ], 0, kFormat);
-    addFormatToken("hmm", 0, 0, function() {
-        return "" + hFormat.apply(this) + zeroFill(this.minutes(), 2);
-    });
-    addFormatToken("hmmss", 0, 0, function() {
-        return "" + hFormat.apply(this) + zeroFill(this.minutes(), 2) + zeroFill(this.seconds(), 2);
-    });
-    addFormatToken("Hmm", 0, 0, function() {
-        return "" + this.hours() + zeroFill(this.minutes(), 2);
-    });
-    addFormatToken("Hmmss", 0, 0, function() {
-        return "" + this.hours() + zeroFill(this.minutes(), 2) + zeroFill(this.seconds(), 2);
-    });
-    function meridiem(token, lowercase) {
-        addFormatToken(token, 0, 0, function() {
-            return this.localeData().meridiem(this.hours(), this.minutes(), lowercase);
-        });
-    }
-    meridiem("a", true);
-    meridiem("A", false);
-    // PARSING
-    function matchMeridiem(isStrict, locale) {
-        return locale._meridiemParse;
-    }
-    addRegexToken("a", matchMeridiem);
-    addRegexToken("A", matchMeridiem);
-    addRegexToken("H", match1to2, match1to2HasZero);
-    addRegexToken("h", match1to2, match1to2NoLeadingZero);
-    addRegexToken("k", match1to2, match1to2NoLeadingZero);
-    addRegexToken("HH", match1to2, match2);
-    addRegexToken("hh", match1to2, match2);
-    addRegexToken("kk", match1to2, match2);
-    addRegexToken("hmm", match3to4);
-    addRegexToken("hmmss", match5to6);
-    addRegexToken("Hmm", match3to4);
-    addRegexToken("Hmmss", match5to6);
-    addParseToken([
-        "H",
-        "HH"
-    ], HOUR);
-    addParseToken([
-        "k",
-        "kk"
-    ], function(input, array, config) {
-        var kInput = toInt(input);
-        array[HOUR] = kInput === 24 ? 0 : kInput;
-    });
-    addParseToken([
-        "a",
-        "A"
-    ], function(input, array, config) {
-        config._isPm = config._locale.isPM(input);
-        config._meridiem = input;
-    });
-    addParseToken([
-        "h",
-        "hh"
-    ], function(input, array, config) {
-        array[HOUR] = toInt(input);
-        getParsingFlags(config).bigHour = true;
-    });
-    addParseToken("hmm", function(input, array, config) {
-        var pos = input.length - 2;
-        array[HOUR] = toInt(input.substr(0, pos));
-        array[MINUTE] = toInt(input.substr(pos));
-        getParsingFlags(config).bigHour = true;
-    });
-    addParseToken("hmmss", function(input, array, config) {
-        var pos1 = input.length - 4, pos2 = input.length - 2;
-        array[HOUR] = toInt(input.substr(0, pos1));
-        array[MINUTE] = toInt(input.substr(pos1, 2));
-        array[SECOND] = toInt(input.substr(pos2));
-        getParsingFlags(config).bigHour = true;
-    });
-    addParseToken("Hmm", function(input, array, config) {
-        var pos = input.length - 2;
-        array[HOUR] = toInt(input.substr(0, pos));
-        array[MINUTE] = toInt(input.substr(pos));
-    });
-    addParseToken("Hmmss", function(input, array, config) {
-        var pos1 = input.length - 4, pos2 = input.length - 2;
-        array[HOUR] = toInt(input.substr(0, pos1));
-        array[MINUTE] = toInt(input.substr(pos1, 2));
-        array[SECOND] = toInt(input.substr(pos2));
-    });
-    // LOCALES
-    function localeIsPM(input) {
-        // IE8 Quirks Mode & IE7 Standards Mode do not allow accessing strings like arrays
-        // Using charAt should be more compatible.
-        return (input + "").toLowerCase().charAt(0) === "p";
-    }
-    var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i, // Setting the hour should keep the time, because the user explicitly
-    // specified which hour they want. So trying to maintain the same hour (in
-    // a new timezone) makes sense. Adding/subtracting hours does not follow
-    // this rule.
-    getSetHour = makeGetSet("Hours", true);
-    function localeMeridiem(hours, minutes, isLower) {
-        if (hours > 11) return isLower ? "pm" : "PM";
-        else return isLower ? "am" : "AM";
-    }
-    var baseConfig = {
-        calendar: defaultCalendar,
-        longDateFormat: defaultLongDateFormat,
-        invalidDate: defaultInvalidDate,
-        ordinal: defaultOrdinal,
-        dayOfMonthOrdinalParse: defaultDayOfMonthOrdinalParse,
-        relativeTime: defaultRelativeTime,
-        months: defaultLocaleMonths,
-        monthsShort: defaultLocaleMonthsShort,
-        week: defaultLocaleWeek,
-        weekdays: defaultLocaleWeekdays,
-        weekdaysMin: defaultLocaleWeekdaysMin,
-        weekdaysShort: defaultLocaleWeekdaysShort,
-        meridiemParse: defaultLocaleMeridiemParse
-    };
-    // internal storage for locale config files
-    var locales = {}, localeFamilies = {}, globalLocale;
-    function commonPrefix(arr1, arr2) {
-        var i, minl = Math.min(arr1.length, arr2.length);
-        for(i = 0; i < minl; i += 1){
-            if (arr1[i] !== arr2[i]) return i;
-        }
-        return minl;
-    }
-    function normalizeLocale(key) {
-        return key ? key.toLowerCase().replace("_", "-") : key;
-    }
-    // pick the locale from the array
-    // try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
-    // substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
-    function chooseLocale(names) {
-        var i = 0, j, next, locale, split;
-        while(i < names.length){
-            split = normalizeLocale(names[i]).split("-");
-            j = split.length;
-            next = normalizeLocale(names[i + 1]);
-            next = next ? next.split("-") : null;
-            while(j > 0){
-                locale = loadLocale(split.slice(0, j).join("-"));
-                if (locale) return locale;
-                if (next && next.length >= j && commonPrefix(split, next) >= j - 1) break;
-                j--;
-            }
-            i++;
-        }
-        return globalLocale;
-    }
-    function isLocaleNameSane(name) {
-        // Prevent names that look like filesystem paths, i.e contain '/' or '\'
-        // Ensure name is available and function returns boolean
-        return !!(name && name.match("^[^/\\\\]*$"));
-    }
-    function loadLocale(name) {
-        var oldLocale = null, aliasedRequire;
-        // TODO: Find a better way to register and load all the locales in Node
-        if (locales[name] === undefined && true && module && module.exports && isLocaleNameSane(name)) try {
-            oldLocale = globalLocale._abbr;
-            aliasedRequire = undefined;
-            aliasedRequire("./locale/" + name);
-            getSetGlobalLocale(oldLocale);
-        } catch (e) {
-            // mark as not found to avoid repeating expensive file require call causing high CPU
-            // when trying to find en-US, en_US, en-us for every format call
-            locales[name] = null; // null means not found
-        }
-        return locales[name];
-    }
-    // This function will load locale and then set the global locale.  If
-    // no arguments are passed in, it will simply return the current global
-    // locale key.
-    function getSetGlobalLocale(key, values) {
-        var data;
-        if (key) {
-            if (isUndefined(values)) data = getLocale(key);
-            else data = defineLocale(key, values);
-            if (data) // moment.duration._locale = moment._locale = data;
-            globalLocale = data;
-            else if (typeof console !== "undefined" && console.warn) //warn user if arguments are passed but the locale could not be set
-            console.warn("Locale " + key + " not found. Did you forget to load it?");
-        }
-        return globalLocale._abbr;
-    }
-    function defineLocale(name, config) {
-        if (config !== null) {
-            var locale, parentConfig = baseConfig;
-            config.abbr = name;
-            if (locales[name] != null) {
-                deprecateSimple("defineLocaleOverride", "use moment.updateLocale(localeName, config) to change an existing locale. moment.defineLocale(localeName, config) should only be used for creating a new locale See http://momentjs.com/guides/#/warnings/define-locale/ for more info.");
-                parentConfig = locales[name]._config;
-            } else if (config.parentLocale != null) {
-                if (locales[config.parentLocale] != null) parentConfig = locales[config.parentLocale]._config;
-                else {
-                    locale = loadLocale(config.parentLocale);
-                    if (locale != null) parentConfig = locale._config;
-                    else {
-                        if (!localeFamilies[config.parentLocale]) localeFamilies[config.parentLocale] = [];
-                        localeFamilies[config.parentLocale].push({
-                            name: name,
-                            config: config
-                        });
-                        return null;
-                    }
-                }
-            }
-            locales[name] = new Locale(mergeConfigs(parentConfig, config));
-            if (localeFamilies[name]) localeFamilies[name].forEach(function(x) {
-                defineLocale(x.name, x.config);
-            });
-            // backwards compat for now: also set the locale
-            // make sure we set the locale AFTER all child locales have been
-            // created, so we won't end up with the child locale set.
-            getSetGlobalLocale(name);
-            return locales[name];
-        } else {
-            // useful for testing
-            delete locales[name];
-            return null;
-        }
-    }
-    function updateLocale(name, config) {
-        if (config != null) {
-            var locale, tmpLocale, parentConfig = baseConfig;
-            if (locales[name] != null && locales[name].parentLocale != null) // Update existing child locale in-place to avoid memory-leaks
-            locales[name].set(mergeConfigs(locales[name]._config, config));
-            else {
-                // MERGE
-                tmpLocale = loadLocale(name);
-                if (tmpLocale != null) parentConfig = tmpLocale._config;
-                config = mergeConfigs(parentConfig, config);
-                if (tmpLocale == null) // updateLocale is called for creating a new locale
-                // Set abbr so it will have a name (getters return
-                // undefined otherwise).
-                config.abbr = name;
-                locale = new Locale(config);
-                locale.parentLocale = locales[name];
-                locales[name] = locale;
-            }
-            // backwards compat for now: also set the locale
-            getSetGlobalLocale(name);
-        } else // pass null for config to unupdate, useful for tests
-        if (locales[name] != null) {
-            if (locales[name].parentLocale != null) {
-                locales[name] = locales[name].parentLocale;
-                if (name === getSetGlobalLocale()) getSetGlobalLocale(name);
-            } else if (locales[name] != null) delete locales[name];
-        }
-        return locales[name];
-    }
-    // returns locale data
-    function getLocale(key) {
-        var locale;
-        if (key && key._locale && key._locale._abbr) key = key._locale._abbr;
-        if (!key) return globalLocale;
-        if (!isArray(key)) {
-            //short-circuit everything else
-            locale = loadLocale(key);
-            if (locale) return locale;
-            key = [
-                key
-            ];
-        }
-        return chooseLocale(key);
-    }
-    function listLocales() {
-        return keys(locales);
-    }
-    function checkOverflow(m) {
-        var overflow, a = m._a;
-        if (a && getParsingFlags(m).overflow === -2) {
-            overflow = a[MONTH] < 0 || a[MONTH] > 11 ? MONTH : a[DATE] < 1 || a[DATE] > daysInMonth(a[YEAR], a[MONTH]) ? DATE : a[HOUR] < 0 || a[HOUR] > 24 || a[HOUR] === 24 && (a[MINUTE] !== 0 || a[SECOND] !== 0 || a[MILLISECOND] !== 0) ? HOUR : a[MINUTE] < 0 || a[MINUTE] > 59 ? MINUTE : a[SECOND] < 0 || a[SECOND] > 59 ? SECOND : a[MILLISECOND] < 0 || a[MILLISECOND] > 999 ? MILLISECOND : -1;
-            if (getParsingFlags(m)._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) overflow = DATE;
-            if (getParsingFlags(m)._overflowWeeks && overflow === -1) overflow = WEEK;
-            if (getParsingFlags(m)._overflowWeekday && overflow === -1) overflow = WEEKDAY;
-            getParsingFlags(m).overflow = overflow;
-        }
-        return m;
-    }
-    // iso 8601 regex
-    // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
-    var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/, basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d|))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/, tzRegex = /Z|[+-]\d\d(?::?\d\d)?/, isoDates = [
-        [
-            "YYYYYY-MM-DD",
-            /[+-]\d{6}-\d\d-\d\d/
-        ],
-        [
-            "YYYY-MM-DD",
-            /\d{4}-\d\d-\d\d/
-        ],
-        [
-            "GGGG-[W]WW-E",
-            /\d{4}-W\d\d-\d/
-        ],
-        [
-            "GGGG-[W]WW",
-            /\d{4}-W\d\d/,
-            false
-        ],
-        [
-            "YYYY-DDD",
-            /\d{4}-\d{3}/
-        ],
-        [
-            "YYYY-MM",
-            /\d{4}-\d\d/,
-            false
-        ],
-        [
-            "YYYYYYMMDD",
-            /[+-]\d{10}/
-        ],
-        [
-            "YYYYMMDD",
-            /\d{8}/
-        ],
-        [
-            "GGGG[W]WWE",
-            /\d{4}W\d{3}/
-        ],
-        [
-            "GGGG[W]WW",
-            /\d{4}W\d{2}/,
-            false
-        ],
-        [
-            "YYYYDDD",
-            /\d{7}/
-        ],
-        [
-            "YYYYMM",
-            /\d{6}/,
-            false
-        ],
-        [
-            "YYYY",
-            /\d{4}/,
-            false
-        ]
-    ], // iso time formats and regexes
-    isoTimes = [
-        [
-            "HH:mm:ss.SSSS",
-            /\d\d:\d\d:\d\d\.\d+/
-        ],
-        [
-            "HH:mm:ss,SSSS",
-            /\d\d:\d\d:\d\d,\d+/
-        ],
-        [
-            "HH:mm:ss",
-            /\d\d:\d\d:\d\d/
-        ],
-        [
-            "HH:mm",
-            /\d\d:\d\d/
-        ],
-        [
-            "HHmmss.SSSS",
-            /\d\d\d\d\d\d\.\d+/
-        ],
-        [
-            "HHmmss,SSSS",
-            /\d\d\d\d\d\d,\d+/
-        ],
-        [
-            "HHmmss",
-            /\d\d\d\d\d\d/
-        ],
-        [
-            "HHmm",
-            /\d\d\d\d/
-        ],
-        [
-            "HH",
-            /\d\d/
-        ]
-    ], aspNetJsonRegex = /^\/?Date\((-?\d+)/i, // RFC 2822 regex: For details see https://tools.ietf.org/html/rfc2822#section-3.3
-    rfc2822 = /^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(\d{2,4})\s(\d\d):(\d\d)(?::(\d\d))?\s(?:(UT|GMT|[ECMP][SD]T)|([Zz])|([+-]\d{4}))$/, obsOffsets = {
-        UT: 0,
-        GMT: 0,
-        EDT: -240,
-        EST: -300,
-        CDT: -300,
-        CST: -360,
-        MDT: -360,
-        MST: -420,
-        PDT: -420,
-        PST: -480
-    };
-    // date from iso format
-    function configFromISO(config) {
-        var i, l, string = config._i, match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string), allowTime, dateFormat, timeFormat, tzFormat, isoDatesLen = isoDates.length, isoTimesLen = isoTimes.length;
-        if (match) {
-            getParsingFlags(config).iso = true;
-            for(i = 0, l = isoDatesLen; i < l; i++)if (isoDates[i][1].exec(match[1])) {
-                dateFormat = isoDates[i][0];
-                allowTime = isoDates[i][2] !== false;
-                break;
-            }
-            if (dateFormat == null) {
-                config._isValid = false;
-                return;
-            }
-            if (match[3]) {
-                for(i = 0, l = isoTimesLen; i < l; i++)if (isoTimes[i][1].exec(match[3])) {
-                    // match[2] should be 'T' or space
-                    timeFormat = (match[2] || " ") + isoTimes[i][0];
-                    break;
-                }
-                if (timeFormat == null) {
-                    config._isValid = false;
-                    return;
-                }
-            }
-            if (!allowTime && timeFormat != null) {
-                config._isValid = false;
-                return;
-            }
-            if (match[4]) {
-                if (tzRegex.exec(match[4])) tzFormat = "Z";
-                else {
-                    config._isValid = false;
-                    return;
-                }
-            }
-            config._f = dateFormat + (timeFormat || "") + (tzFormat || "");
-            configFromStringAndFormat(config);
-        } else config._isValid = false;
-    }
-    function extractFromRFC2822Strings(yearStr, monthStr, dayStr, hourStr, minuteStr, secondStr) {
-        var result = [
-            untruncateYear(yearStr),
-            defaultLocaleMonthsShort.indexOf(monthStr),
-            parseInt(dayStr, 10),
-            parseInt(hourStr, 10),
-            parseInt(minuteStr, 10)
-        ];
-        if (secondStr) result.push(parseInt(secondStr, 10));
-        return result;
-    }
-    function untruncateYear(yearStr) {
-        var year = parseInt(yearStr, 10);
-        if (year <= 49) return 2000 + year;
-        else if (year <= 999) return 1900 + year;
-        return year;
-    }
-    function preprocessRFC2822(s) {
-        // Remove comments and folding whitespace and replace multiple-spaces with a single space
-        return s.replace(/\([^()]*\)|[\n\t]/g, " ").replace(/(\s\s+)/g, " ").replace(/^\s\s*/, "").replace(/\s\s*$/, "");
-    }
-    function checkWeekday(weekdayStr, parsedInput, config) {
-        if (weekdayStr) {
-            // TODO: Replace the vanilla JS Date object with an independent day-of-week check.
-            var weekdayProvided = defaultLocaleWeekdaysShort.indexOf(weekdayStr), weekdayActual = new Date(parsedInput[0], parsedInput[1], parsedInput[2]).getDay();
-            if (weekdayProvided !== weekdayActual) {
-                getParsingFlags(config).weekdayMismatch = true;
-                config._isValid = false;
-                return false;
-            }
-        }
-        return true;
-    }
-    function calculateOffset(obsOffset, militaryOffset, numOffset) {
-        if (obsOffset) return obsOffsets[obsOffset];
-        else if (militaryOffset) // the only allowed military tz is Z
-        return 0;
-        else {
-            var hm = parseInt(numOffset, 10), m = hm % 100, h = (hm - m) / 100;
-            return h * 60 + m;
-        }
-    }
-    // date and time from ref 2822 format
-    function configFromRFC2822(config) {
-        var match = rfc2822.exec(preprocessRFC2822(config._i)), parsedArray;
-        if (match) {
-            parsedArray = extractFromRFC2822Strings(match[4], match[3], match[2], match[5], match[6], match[7]);
-            if (!checkWeekday(match[1], parsedArray, config)) return;
-            config._a = parsedArray;
-            config._tzm = calculateOffset(match[8], match[9], match[10]);
-            config._d = createUTCDate.apply(null, config._a);
-            config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
-            getParsingFlags(config).rfc2822 = true;
-        } else config._isValid = false;
-    }
-    // date from 1) ASP.NET, 2) ISO, 3) RFC 2822 formats, or 4) optional fallback if parsing isn't strict
-    function configFromString(config) {
-        var matched = aspNetJsonRegex.exec(config._i);
-        if (matched !== null) {
-            config._d = new Date(+matched[1]);
-            return;
-        }
-        configFromISO(config);
-        if (config._isValid === false) delete config._isValid;
-        else return;
-        configFromRFC2822(config);
-        if (config._isValid === false) delete config._isValid;
-        else return;
-        if (config._strict) config._isValid = false;
-        else // Final attempt, use Input Fallback
-        hooks.createFromInputFallback(config);
-    }
-    hooks.createFromInputFallback = deprecate("value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are discouraged. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.", function(config) {
-        config._d = new Date(config._i + (config._useUTC ? " UTC" : ""));
-    });
-    // Pick the first defined of two or three arguments.
-    function defaults(a, b, c) {
-        if (a != null) return a;
-        if (b != null) return b;
-        return c;
-    }
-    function currentDateArray(config) {
-        // hooks is actually the exported moment object
-        var nowValue = new Date(hooks.now());
-        if (config._useUTC) return [
-            nowValue.getUTCFullYear(),
-            nowValue.getUTCMonth(),
-            nowValue.getUTCDate()
-        ];
-        return [
-            nowValue.getFullYear(),
-            nowValue.getMonth(),
-            nowValue.getDate()
-        ];
-    }
-    // convert an array to a date.
-    // the array should mirror the parameters below
-    // note: all values past the year are optional and will default to the lowest possible value.
-    // [year, month, day , hour, minute, second, millisecond]
-    function configFromArray(config) {
-        var i, date, input = [], currentDate, expectedWeekday, yearToUse;
-        if (config._d) return;
-        currentDate = currentDateArray(config);
-        //compute day of the year from weeks and weekdays
-        if (config._w && config._a[DATE] == null && config._a[MONTH] == null) dayOfYearFromWeekInfo(config);
-        //if the day of the year is set, figure out what it is
-        if (config._dayOfYear != null) {
-            yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
-            if (config._dayOfYear > daysInYear(yearToUse) || config._dayOfYear === 0) getParsingFlags(config)._overflowDayOfYear = true;
-            date = createUTCDate(yearToUse, 0, config._dayOfYear);
-            config._a[MONTH] = date.getUTCMonth();
-            config._a[DATE] = date.getUTCDate();
-        }
-        // Default to current date.
-        // * if no year, month, day of month are given, default to today
-        // * if day of month is given, default month and year
-        // * if month is given, default only year
-        // * if year is given, don't default anything
-        for(i = 0; i < 3 && config._a[i] == null; ++i)config._a[i] = input[i] = currentDate[i];
-        // Zero out whatever was not defaulted, including time
-        for(; i < 7; i++)config._a[i] = input[i] = config._a[i] == null ? i === 2 ? 1 : 0 : config._a[i];
-        // Check for 24:00:00.000
-        if (config._a[HOUR] === 24 && config._a[MINUTE] === 0 && config._a[SECOND] === 0 && config._a[MILLISECOND] === 0) {
-            config._nextDay = true;
-            config._a[HOUR] = 0;
-        }
-        config._d = (config._useUTC ? createUTCDate : createDate).apply(null, input);
-        expectedWeekday = config._useUTC ? config._d.getUTCDay() : config._d.getDay();
-        // Apply timezone offset from input. The actual utcOffset can be changed
-        // with parseZone.
-        if (config._tzm != null) config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
-        if (config._nextDay) config._a[HOUR] = 24;
-        // check for mismatching day of week
-        if (config._w && typeof config._w.d !== "undefined" && config._w.d !== expectedWeekday) getParsingFlags(config).weekdayMismatch = true;
-    }
-    function dayOfYearFromWeekInfo(config) {
-        var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow, curWeek;
-        w = config._w;
-        if (w.GG != null || w.W != null || w.E != null) {
-            dow = 1;
-            doy = 4;
-            // TODO: We need to take the current isoWeekYear, but that depends on
-            // how we interpret now (local, utc, fixed offset). So create
-            // a now version of current config (take local/utc/offset flags, and
-            // create now).
-            weekYear = defaults(w.GG, config._a[YEAR], weekOfYear(createLocal(), 1, 4).year);
-            week = defaults(w.W, 1);
-            weekday = defaults(w.E, 1);
-            if (weekday < 1 || weekday > 7) weekdayOverflow = true;
-        } else {
-            dow = config._locale._week.dow;
-            doy = config._locale._week.doy;
-            curWeek = weekOfYear(createLocal(), dow, doy);
-            weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
-            // Default to current week.
-            week = defaults(w.w, curWeek.week);
-            if (w.d != null) {
-                // weekday -- low day numbers are considered next week
-                weekday = w.d;
-                if (weekday < 0 || weekday > 6) weekdayOverflow = true;
-            } else if (w.e != null) {
-                // local weekday -- counting starts from beginning of week
-                weekday = w.e + dow;
-                if (w.e < 0 || w.e > 6) weekdayOverflow = true;
-            } else // default to beginning of week
-            weekday = dow;
-        }
-        if (week < 1 || week > weeksInYear(weekYear, dow, doy)) getParsingFlags(config)._overflowWeeks = true;
-        else if (weekdayOverflow != null) getParsingFlags(config)._overflowWeekday = true;
-        else {
-            temp = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy);
-            config._a[YEAR] = temp.year;
-            config._dayOfYear = temp.dayOfYear;
-        }
-    }
-    // constant that refers to the ISO standard
-    hooks.ISO_8601 = function() {};
-    // constant that refers to the RFC 2822 form
-    hooks.RFC_2822 = function() {};
-    // date from string and format string
-    function configFromStringAndFormat(config) {
-        // TODO: Move this to another part of the creation flow to prevent circular deps
-        if (config._f === hooks.ISO_8601) {
-            configFromISO(config);
-            return;
-        }
-        if (config._f === hooks.RFC_2822) {
-            configFromRFC2822(config);
-            return;
-        }
-        config._a = [];
-        getParsingFlags(config).empty = true;
-        // This array is used to make a Date, either with `new Date` or `Date.UTC`
-        var string = "" + config._i, i, parsedInput, tokens, token, skipped, stringLength = string.length, totalParsedInputLength = 0, era, tokenLen;
-        tokens = expandFormat(config._f, config._locale).match(formattingTokens) || [];
-        tokenLen = tokens.length;
-        for(i = 0; i < tokenLen; i++){
-            token = tokens[i];
-            parsedInput = (string.match(getParseRegexForToken(token, config)) || [])[0];
-            if (parsedInput) {
-                skipped = string.substr(0, string.indexOf(parsedInput));
-                if (skipped.length > 0) getParsingFlags(config).unusedInput.push(skipped);
-                string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
-                totalParsedInputLength += parsedInput.length;
-            }
-            // don't parse if it's not a known token
-            if (formatTokenFunctions[token]) {
-                if (parsedInput) getParsingFlags(config).empty = false;
-                else getParsingFlags(config).unusedTokens.push(token);
-                addTimeToArrayFromToken(token, parsedInput, config);
-            } else if (config._strict && !parsedInput) getParsingFlags(config).unusedTokens.push(token);
-        }
-        // add remaining unparsed input length to the string
-        getParsingFlags(config).charsLeftOver = stringLength - totalParsedInputLength;
-        if (string.length > 0) getParsingFlags(config).unusedInput.push(string);
-        // clear _12h flag if hour is <= 12
-        if (config._a[HOUR] <= 12 && getParsingFlags(config).bigHour === true && config._a[HOUR] > 0) getParsingFlags(config).bigHour = undefined;
-        getParsingFlags(config).parsedDateParts = config._a.slice(0);
-        getParsingFlags(config).meridiem = config._meridiem;
-        // handle meridiem
-        config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
-        // handle era
-        era = getParsingFlags(config).era;
-        if (era !== null) config._a[YEAR] = config._locale.erasConvertYear(era, config._a[YEAR]);
-        configFromArray(config);
-        checkOverflow(config);
-    }
-    function meridiemFixWrap(locale, hour, meridiem) {
-        var isPm;
-        if (meridiem == null) // nothing to do
-        return hour;
-        if (locale.meridiemHour != null) return locale.meridiemHour(hour, meridiem);
-        else if (locale.isPM != null) {
-            // Fallback
-            isPm = locale.isPM(meridiem);
-            if (isPm && hour < 12) hour += 12;
-            if (!isPm && hour === 12) hour = 0;
-            return hour;
-        } else // this is not supposed to happen
-        return hour;
-    }
-    // date from string and array of format strings
-    function configFromStringAndArray(config) {
-        var tempConfig, bestMoment, scoreToBeat, i, currentScore, validFormatFound, bestFormatIsValid = false, configfLen = config._f.length;
-        if (configfLen === 0) {
-            getParsingFlags(config).invalidFormat = true;
-            config._d = new Date(NaN);
-            return;
-        }
-        for(i = 0; i < configfLen; i++){
-            currentScore = 0;
-            validFormatFound = false;
-            tempConfig = copyConfig({}, config);
-            if (config._useUTC != null) tempConfig._useUTC = config._useUTC;
-            tempConfig._f = config._f[i];
-            configFromStringAndFormat(tempConfig);
-            if (isValid(tempConfig)) validFormatFound = true;
-            // if there is any input that was not parsed add a penalty for that format
-            currentScore += getParsingFlags(tempConfig).charsLeftOver;
-            //or tokens
-            currentScore += getParsingFlags(tempConfig).unusedTokens.length * 10;
-            getParsingFlags(tempConfig).score = currentScore;
-            if (!bestFormatIsValid) {
-                if (scoreToBeat == null || currentScore < scoreToBeat || validFormatFound) {
-                    scoreToBeat = currentScore;
-                    bestMoment = tempConfig;
-                    if (validFormatFound) bestFormatIsValid = true;
-                }
-            } else if (currentScore < scoreToBeat) {
-                scoreToBeat = currentScore;
-                bestMoment = tempConfig;
-            }
-        }
-        extend(config, bestMoment || tempConfig);
-    }
-    function configFromObject(config) {
-        if (config._d) return;
-        var i = normalizeObjectUnits(config._i), dayOrDate = i.day === undefined ? i.date : i.day;
-        config._a = map([
-            i.year,
-            i.month,
-            dayOrDate,
-            i.hour,
-            i.minute,
-            i.second,
-            i.millisecond
-        ], function(obj) {
-            return obj && parseInt(obj, 10);
-        });
-        configFromArray(config);
-    }
-    function createFromConfig(config) {
-        var res = new Moment(checkOverflow(prepareConfig(config)));
-        if (res._nextDay) {
-            // Adding is smart enough around DST
-            res.add(1, "d");
-            res._nextDay = undefined;
-        }
-        return res;
-    }
-    function prepareConfig(config) {
-        var input = config._i, format = config._f;
-        config._locale = config._locale || getLocale(config._l);
-        if (input === null || format === undefined && input === "") return createInvalid({
-            nullInput: true
-        });
-        if (typeof input === "string") config._i = input = config._locale.preparse(input);
-        if (isMoment(input)) return new Moment(checkOverflow(input));
-        else if (isDate(input)) config._d = input;
-        else if (isArray(format)) configFromStringAndArray(config);
-        else if (format) configFromStringAndFormat(config);
-        else configFromInput(config);
-        if (!isValid(config)) config._d = null;
-        return config;
-    }
-    function configFromInput(config) {
-        var input = config._i;
-        if (isUndefined(input)) config._d = new Date(hooks.now());
-        else if (isDate(input)) config._d = new Date(input.valueOf());
-        else if (typeof input === "string") configFromString(config);
-        else if (isArray(input)) {
-            config._a = map(input.slice(0), function(obj) {
-                return parseInt(obj, 10);
-            });
-            configFromArray(config);
-        } else if (isObject(input)) configFromObject(config);
-        else if (isNumber(input)) // from milliseconds
-        config._d = new Date(input);
-        else hooks.createFromInputFallback(config);
-    }
-    function createLocalOrUTC(input, format, locale, strict, isUTC) {
-        var c = {};
-        if (format === true || format === false) {
-            strict = format;
-            format = undefined;
-        }
-        if (locale === true || locale === false) {
-            strict = locale;
-            locale = undefined;
-        }
-        if (isObject(input) && isObjectEmpty(input) || isArray(input) && input.length === 0) input = undefined;
-        // object construction must be done this way.
-        // https://github.com/moment/moment/issues/1423
-        c._isAMomentObject = true;
-        c._useUTC = c._isUTC = isUTC;
-        c._l = locale;
-        c._i = input;
-        c._f = format;
-        c._strict = strict;
-        return createFromConfig(c);
-    }
-    function createLocal(input, format, locale, strict) {
-        return createLocalOrUTC(input, format, locale, strict, false);
-    }
-    var prototypeMin = deprecate("moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/", function() {
-        var other = createLocal.apply(null, arguments);
-        if (this.isValid() && other.isValid()) return other < this ? this : other;
-        else return createInvalid();
-    }), prototypeMax = deprecate("moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/", function() {
-        var other = createLocal.apply(null, arguments);
-        if (this.isValid() && other.isValid()) return other > this ? this : other;
-        else return createInvalid();
-    });
-    // Pick a moment m from moments so that m[fn](other) is true for all
-    // other. This relies on the function fn to be transitive.
-    //
-    // moments should either be an array of moment objects or an array, whose
-    // first element is an array of moment objects.
-    function pickBy(fn, moments) {
-        var res, i;
-        if (moments.length === 1 && isArray(moments[0])) moments = moments[0];
-        if (!moments.length) return createLocal();
-        res = moments[0];
-        for(i = 1; i < moments.length; ++i)if (!moments[i].isValid() || moments[i][fn](res)) res = moments[i];
-        return res;
-    }
-    // TODO: Use [].sort instead?
-    function min() {
-        var args = [].slice.call(arguments, 0);
-        return pickBy("isBefore", args);
-    }
-    function max() {
-        var args = [].slice.call(arguments, 0);
-        return pickBy("isAfter", args);
-    }
-    var now = function() {
-        return Date.now ? Date.now() : +new Date();
-    };
-    var ordering = [
-        "year",
-        "quarter",
-        "month",
-        "week",
-        "day",
-        "hour",
-        "minute",
-        "second",
-        "millisecond"
-    ];
-    function isDurationValid(m) {
-        var key, unitHasDecimal = false, i, orderLen = ordering.length;
-        for(key in m){
-            if (hasOwnProp(m, key) && !(indexOf.call(ordering, key) !== -1 && (m[key] == null || !isNaN(m[key])))) return false;
-        }
-        for(i = 0; i < orderLen; ++i)if (m[ordering[i]]) {
-            if (unitHasDecimal) return false; // only allow non-integers for smallest unit
-            if (parseFloat(m[ordering[i]]) !== toInt(m[ordering[i]])) unitHasDecimal = true;
-        }
-        return true;
-    }
-    function isValid$1() {
-        return this._isValid;
-    }
-    function createInvalid$1() {
-        return createDuration(NaN);
-    }
-    function Duration(duration) {
-        var normalizedInput = normalizeObjectUnits(duration), years = normalizedInput.year || 0, quarters = normalizedInput.quarter || 0, months = normalizedInput.month || 0, weeks = normalizedInput.week || normalizedInput.isoWeek || 0, days = normalizedInput.day || 0, hours = normalizedInput.hour || 0, minutes = normalizedInput.minute || 0, seconds = normalizedInput.second || 0, milliseconds = normalizedInput.millisecond || 0;
-        this._isValid = isDurationValid(normalizedInput);
-        // representation for dateAddRemove
-        this._milliseconds = +milliseconds + seconds * 1e3 + // 1000
-        minutes * 6e4 + // 1000 * 60
-        hours * 3600000; //using 1000 * 60 * 60 instead of 36e5 to avoid floating point rounding errors https://github.com/moment/moment/issues/2978
-        // Because of dateAddRemove treats 24 hours as different from a
-        // day when working around DST, we need to store them separately
-        this._days = +days + weeks * 7;
-        // It is impossible to translate months into days without knowing
-        // which months you are are talking about, so we have to store
-        // it separately.
-        this._months = +months + quarters * 3 + years * 12;
-        this._data = {};
-        this._locale = getLocale();
-        this._bubble();
-    }
-    function isDuration(obj) {
-        return obj instanceof Duration;
-    }
-    function absRound(number) {
-        if (number < 0) return Math.round(-1 * number) * -1;
-        else return Math.round(number);
-    }
-    // compare two arrays, return the number of differences
-    function compareArrays(array1, array2, dontConvert) {
-        var len = Math.min(array1.length, array2.length), lengthDiff = Math.abs(array1.length - array2.length), diffs = 0, i;
-        for(i = 0; i < len; i++)if (dontConvert && array1[i] !== array2[i] || !dontConvert && toInt(array1[i]) !== toInt(array2[i])) diffs++;
-        return diffs + lengthDiff;
-    }
-    // FORMATTING
-    function offset(token, separator) {
-        addFormatToken(token, 0, 0, function() {
-            var offset = this.utcOffset(), sign = "+";
-            if (offset < 0) {
-                offset = -offset;
-                sign = "-";
-            }
-            return sign + zeroFill(~~(offset / 60), 2) + separator + zeroFill(~~offset % 60, 2);
-        });
-    }
-    offset("Z", ":");
-    offset("ZZ", "");
-    // PARSING
-    addRegexToken("Z", matchShortOffset);
-    addRegexToken("ZZ", matchShortOffset);
-    addParseToken([
-        "Z",
-        "ZZ"
-    ], function(input, array, config) {
-        config._useUTC = true;
-        config._tzm = offsetFromString(matchShortOffset, input);
-    });
-    // HELPERS
-    // timezone chunker
-    // '+10:00' > ['10',  '00']
-    // '-1530'  > ['-15', '30']
-    var chunkOffset = /([\+\-]|\d\d)/gi;
-    function offsetFromString(matcher, string) {
-        var matches = (string || "").match(matcher), chunk, parts, minutes;
-        if (matches === null) return null;
-        chunk = matches[matches.length - 1] || [];
-        parts = (chunk + "").match(chunkOffset) || [
-            "-",
-            0,
-            0
-        ];
-        minutes = +(parts[1] * 60) + toInt(parts[2]);
-        return minutes === 0 ? 0 : parts[0] === "+" ? minutes : -minutes;
-    }
-    // Return a moment from input, that is local/utc/zone equivalent to model.
-    function cloneWithOffset(input, model) {
-        var res, diff;
-        if (model._isUTC) {
-            res = model.clone();
-            diff = (isMoment(input) || isDate(input) ? input.valueOf() : createLocal(input).valueOf()) - res.valueOf();
-            // Use low-level api, because this fn is low-level api.
-            res._d.setTime(res._d.valueOf() + diff);
-            hooks.updateOffset(res, false);
-            return res;
-        } else return createLocal(input).local();
-    }
-    function getDateOffset(m) {
-        // On Firefox.24 Date#getTimezoneOffset returns a floating point.
-        // https://github.com/moment/moment/pull/1871
-        return -Math.round(m._d.getTimezoneOffset());
-    }
-    // HOOKS
-    // This function will be called whenever a moment is mutated.
-    // It is intended to keep the offset in sync with the timezone.
-    hooks.updateOffset = function() {};
-    // MOMENTS
-    // keepLocalTime = true means only change the timezone, without
-    // affecting the local hour. So 5:31:26 +0300 --[utcOffset(2, true)]-->
-    // 5:31:26 +0200 It is possible that 5:31:26 doesn't exist with offset
-    // +0200, so we adjust the time as needed, to be valid.
-    //
-    // Keeping the time actually adds/subtracts (one hour)
-    // from the actual represented time. That is why we call updateOffset
-    // a second time. In case it wants us to change the offset again
-    // _changeInProgress == true case, then we have to adjust, because
-    // there is no such time in the given timezone.
-    function getSetOffset(input, keepLocalTime, keepMinutes) {
-        var offset = this._offset || 0, localAdjust;
-        if (!this.isValid()) return input != null ? this : NaN;
-        if (input != null) {
-            if (typeof input === "string") {
-                input = offsetFromString(matchShortOffset, input);
-                if (input === null) return this;
-            } else if (Math.abs(input) < 16 && !keepMinutes) input = input * 60;
-            if (!this._isUTC && keepLocalTime) localAdjust = getDateOffset(this);
-            this._offset = input;
-            this._isUTC = true;
-            if (localAdjust != null) this.add(localAdjust, "m");
-            if (offset !== input) {
-                if (!keepLocalTime || this._changeInProgress) addSubtract(this, createDuration(input - offset, "m"), 1, false);
-                else if (!this._changeInProgress) {
-                    this._changeInProgress = true;
-                    hooks.updateOffset(this, true);
-                    this._changeInProgress = null;
-                }
-            }
-            return this;
-        } else return this._isUTC ? offset : getDateOffset(this);
-    }
-    function getSetZone(input, keepLocalTime) {
-        if (input != null) {
-            if (typeof input !== "string") input = -input;
-            this.utcOffset(input, keepLocalTime);
-            return this;
-        } else return -this.utcOffset();
-    }
-    function setOffsetToUTC(keepLocalTime) {
-        return this.utcOffset(0, keepLocalTime);
-    }
-    function setOffsetToLocal(keepLocalTime) {
-        if (this._isUTC) {
-            this.utcOffset(0, keepLocalTime);
-            this._isUTC = false;
-            if (keepLocalTime) this.subtract(getDateOffset(this), "m");
-        }
-        return this;
-    }
-    function setOffsetToParsedOffset() {
-        if (this._tzm != null) this.utcOffset(this._tzm, false, true);
-        else if (typeof this._i === "string") {
-            var tZone = offsetFromString(matchOffset, this._i);
-            if (tZone != null) this.utcOffset(tZone);
-            else this.utcOffset(0, true);
-        }
-        return this;
-    }
-    function hasAlignedHourOffset(input) {
-        if (!this.isValid()) return false;
-        input = input ? createLocal(input).utcOffset() : 0;
-        return (this.utcOffset() - input) % 60 === 0;
-    }
-    function isDaylightSavingTime() {
-        return this.utcOffset() > this.clone().month(0).utcOffset() || this.utcOffset() > this.clone().month(5).utcOffset();
-    }
-    function isDaylightSavingTimeShifted() {
-        if (!isUndefined(this._isDSTShifted)) return this._isDSTShifted;
-        var c = {}, other;
-        copyConfig(c, this);
-        c = prepareConfig(c);
-        if (c._a) {
-            other = c._isUTC ? createUTC(c._a) : createLocal(c._a);
-            this._isDSTShifted = this.isValid() && compareArrays(c._a, other.toArray()) > 0;
-        } else this._isDSTShifted = false;
-        return this._isDSTShifted;
-    }
-    function isLocal() {
-        return this.isValid() ? !this._isUTC : false;
-    }
-    function isUtcOffset() {
-        return this.isValid() ? this._isUTC : false;
-    }
-    function isUtc() {
-        return this.isValid() ? this._isUTC && this._offset === 0 : false;
-    }
-    // ASP.NET json date format regex
-    var aspNetRegex = /^(-|\+)?(?:(\d*)[. ])?(\d+):(\d+)(?::(\d+)(\.\d*)?)?$/, // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
-    // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
-    // and further modified to allow for strings containing both week and day
-    isoRegex = /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;
-    function createDuration(input, key) {
-        var duration = input, // matching against regexp is expensive, do it on demand
-        match = null, sign, ret, diffRes;
-        if (isDuration(input)) duration = {
-            ms: input._milliseconds,
-            d: input._days,
-            M: input._months
-        };
-        else if (isNumber(input) || !isNaN(+input)) {
-            duration = {};
-            if (key) duration[key] = +input;
-            else duration.milliseconds = +input;
-        } else if (match = aspNetRegex.exec(input)) {
-            sign = match[1] === "-" ? -1 : 1;
-            duration = {
-                y: 0,
-                d: toInt(match[DATE]) * sign,
-                h: toInt(match[HOUR]) * sign,
-                m: toInt(match[MINUTE]) * sign,
-                s: toInt(match[SECOND]) * sign,
-                ms: toInt(absRound(match[MILLISECOND] * 1000)) * sign
-            };
-        } else if (match = isoRegex.exec(input)) {
-            sign = match[1] === "-" ? -1 : 1;
-            duration = {
-                y: parseIso(match[2], sign),
-                M: parseIso(match[3], sign),
-                w: parseIso(match[4], sign),
-                d: parseIso(match[5], sign),
-                h: parseIso(match[6], sign),
-                m: parseIso(match[7], sign),
-                s: parseIso(match[8], sign)
-            };
-        } else if (duration == null) // checks for null or undefined
-        duration = {};
-        else if (typeof duration === "object" && ("from" in duration || "to" in duration)) {
-            diffRes = momentsDifference(createLocal(duration.from), createLocal(duration.to));
-            duration = {};
-            duration.ms = diffRes.milliseconds;
-            duration.M = diffRes.months;
-        }
-        ret = new Duration(duration);
-        if (isDuration(input) && hasOwnProp(input, "_locale")) ret._locale = input._locale;
-        if (isDuration(input) && hasOwnProp(input, "_isValid")) ret._isValid = input._isValid;
-        return ret;
-    }
-    createDuration.fn = Duration.prototype;
-    createDuration.invalid = createInvalid$1;
-    function parseIso(inp, sign) {
-        // We'd normally use ~~inp for this, but unfortunately it also
-        // converts floats to ints.
-        // inp may be undefined, so careful calling replace on it.
-        var res = inp && parseFloat(inp.replace(",", "."));
-        // apply sign while we're at it
-        return (isNaN(res) ? 0 : res) * sign;
-    }
-    function positiveMomentsDifference(base, other) {
-        var res = {};
-        res.months = other.month() - base.month() + (other.year() - base.year()) * 12;
-        if (base.clone().add(res.months, "M").isAfter(other)) --res.months;
-        res.milliseconds = +other - +base.clone().add(res.months, "M");
-        return res;
-    }
-    function momentsDifference(base, other) {
-        var res;
-        if (!(base.isValid() && other.isValid())) return {
-            milliseconds: 0,
-            months: 0
-        };
-        other = cloneWithOffset(other, base);
-        if (base.isBefore(other)) res = positiveMomentsDifference(base, other);
-        else {
-            res = positiveMomentsDifference(other, base);
-            res.milliseconds = -res.milliseconds;
-            res.months = -res.months;
-        }
-        return res;
-    }
-    // TODO: remove 'name' arg after deprecation is removed
-    function createAdder(direction, name) {
-        return function(val, period) {
-            var dur, tmp;
-            //invert the arguments, but complain about it
-            if (period !== null && !isNaN(+period)) {
-                deprecateSimple(name, "moment()." + name + "(period, number) is deprecated. Please use moment()." + name + "(number, period). " + "See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info.");
-                tmp = val;
-                val = period;
-                period = tmp;
-            }
-            dur = createDuration(val, period);
-            addSubtract(this, dur, direction);
-            return this;
-        };
-    }
-    function addSubtract(mom, duration, isAdding, updateOffset) {
-        var milliseconds = duration._milliseconds, days = absRound(duration._days), months = absRound(duration._months);
-        if (!mom.isValid()) // No op
-        return;
-        updateOffset = updateOffset == null ? true : updateOffset;
-        if (months) setMonth(mom, get(mom, "Month") + months * isAdding);
-        if (days) set$1(mom, "Date", get(mom, "Date") + days * isAdding);
-        if (milliseconds) mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
-        if (updateOffset) hooks.updateOffset(mom, days || months);
-    }
-    var add = createAdder(1, "add"), subtract = createAdder(-1, "subtract");
-    function isString(input) {
-        return typeof input === "string" || input instanceof String;
-    }
-    // type MomentInput = Moment | Date | string | number | (number | string)[] | MomentInputObject | void; // null | undefined
-    function isMomentInput(input) {
-        return isMoment(input) || isDate(input) || isString(input) || isNumber(input) || isNumberOrStringArray(input) || isMomentInputObject(input) || input === null || input === undefined;
-    }
-    function isMomentInputObject(input) {
-        var objectTest = isObject(input) && !isObjectEmpty(input), propertyTest = false, properties = [
-            "years",
-            "year",
-            "y",
-            "months",
-            "month",
-            "M",
-            "days",
-            "day",
-            "d",
-            "dates",
-            "date",
-            "D",
-            "hours",
-            "hour",
-            "h",
-            "minutes",
-            "minute",
-            "m",
-            "seconds",
-            "second",
-            "s",
-            "milliseconds",
-            "millisecond",
-            "ms"
-        ], i, property, propertyLen = properties.length;
-        for(i = 0; i < propertyLen; i += 1){
-            property = properties[i];
-            propertyTest = propertyTest || hasOwnProp(input, property);
-        }
-        return objectTest && propertyTest;
-    }
-    function isNumberOrStringArray(input) {
-        var arrayTest = isArray(input), dataTypeTest = false;
-        if (arrayTest) dataTypeTest = input.filter(function(item) {
-            return !isNumber(item) && isString(input);
-        }).length === 0;
-        return arrayTest && dataTypeTest;
-    }
-    function isCalendarSpec(input) {
-        var objectTest = isObject(input) && !isObjectEmpty(input), propertyTest = false, properties = [
-            "sameDay",
-            "nextDay",
-            "lastDay",
-            "nextWeek",
-            "lastWeek",
-            "sameElse"
-        ], i, property;
-        for(i = 0; i < properties.length; i += 1){
-            property = properties[i];
-            propertyTest = propertyTest || hasOwnProp(input, property);
-        }
-        return objectTest && propertyTest;
-    }
-    function getCalendarFormat(myMoment, now) {
-        var diff = myMoment.diff(now, "days", true);
-        return diff < -6 ? "sameElse" : diff < -1 ? "lastWeek" : diff < 0 ? "lastDay" : diff < 1 ? "sameDay" : diff < 2 ? "nextDay" : diff < 7 ? "nextWeek" : "sameElse";
-    }
-    function calendar$1(time, formats) {
-        // Support for single parameter, formats only overload to the calendar function
-        if (arguments.length === 1) {
-            if (!arguments[0]) {
-                time = undefined;
-                formats = undefined;
-            } else if (isMomentInput(arguments[0])) {
-                time = arguments[0];
-                formats = undefined;
-            } else if (isCalendarSpec(arguments[0])) {
-                formats = arguments[0];
-                time = undefined;
-            }
-        }
-        // We want to compare the start of today, vs this.
-        // Getting start-of-today depends on whether we're local/utc/offset or not.
-        var now = time || createLocal(), sod = cloneWithOffset(now, this).startOf("day"), format = hooks.calendarFormat(this, sod) || "sameElse", output = formats && (isFunction(formats[format]) ? formats[format].call(this, now) : formats[format]);
-        return this.format(output || this.localeData().calendar(format, this, createLocal(now)));
-    }
-    function clone() {
-        return new Moment(this);
-    }
-    function isAfter(input, units) {
-        var localInput = isMoment(input) ? input : createLocal(input);
-        if (!(this.isValid() && localInput.isValid())) return false;
-        units = normalizeUnits(units) || "millisecond";
-        if (units === "millisecond") return this.valueOf() > localInput.valueOf();
-        else return localInput.valueOf() < this.clone().startOf(units).valueOf();
-    }
-    function isBefore(input, units) {
-        var localInput = isMoment(input) ? input : createLocal(input);
-        if (!(this.isValid() && localInput.isValid())) return false;
-        units = normalizeUnits(units) || "millisecond";
-        if (units === "millisecond") return this.valueOf() < localInput.valueOf();
-        else return this.clone().endOf(units).valueOf() < localInput.valueOf();
-    }
-    function isBetween(from, to, units, inclusivity) {
-        var localFrom = isMoment(from) ? from : createLocal(from), localTo = isMoment(to) ? to : createLocal(to);
-        if (!(this.isValid() && localFrom.isValid() && localTo.isValid())) return false;
-        inclusivity = inclusivity || "()";
-        return (inclusivity[0] === "(" ? this.isAfter(localFrom, units) : !this.isBefore(localFrom, units)) && (inclusivity[1] === ")" ? this.isBefore(localTo, units) : !this.isAfter(localTo, units));
-    }
-    function isSame(input, units) {
-        var localInput = isMoment(input) ? input : createLocal(input), inputMs;
-        if (!(this.isValid() && localInput.isValid())) return false;
-        units = normalizeUnits(units) || "millisecond";
-        if (units === "millisecond") return this.valueOf() === localInput.valueOf();
-        else {
-            inputMs = localInput.valueOf();
-            return this.clone().startOf(units).valueOf() <= inputMs && inputMs <= this.clone().endOf(units).valueOf();
-        }
-    }
-    function isSameOrAfter(input, units) {
-        return this.isSame(input, units) || this.isAfter(input, units);
-    }
-    function isSameOrBefore(input, units) {
-        return this.isSame(input, units) || this.isBefore(input, units);
-    }
-    function diff(input, units, asFloat) {
-        var that, zoneDelta, output;
-        if (!this.isValid()) return NaN;
-        that = cloneWithOffset(input, this);
-        if (!that.isValid()) return NaN;
-        zoneDelta = (that.utcOffset() - this.utcOffset()) * 6e4;
-        units = normalizeUnits(units);
-        switch(units){
-            case "year":
-                output = monthDiff(this, that) / 12;
-                break;
-            case "month":
-                output = monthDiff(this, that);
-                break;
-            case "quarter":
-                output = monthDiff(this, that) / 3;
-                break;
-            case "second":
-                output = (this - that) / 1e3;
-                break; // 1000
-            case "minute":
-                output = (this - that) / 6e4;
-                break; // 1000 * 60
-            case "hour":
-                output = (this - that) / 36e5;
-                break; // 1000 * 60 * 60
-            case "day":
-                output = (this - that - zoneDelta) / 864e5;
-                break; // 1000 * 60 * 60 * 24, negate dst
-            case "week":
-                output = (this - that - zoneDelta) / 6048e5;
-                break; // 1000 * 60 * 60 * 24 * 7, negate dst
-            default:
-                output = this - that;
-        }
-        return asFloat ? output : absFloor(output);
-    }
-    function monthDiff(a, b) {
-        if (a.date() < b.date()) // end-of-month calculations work correct when the start month has more
-        // days than the end month.
-        return -monthDiff(b, a);
-        // difference in months
-        var wholeMonthDiff = (b.year() - a.year()) * 12 + (b.month() - a.month()), // b is in (anchor - 1 month, anchor + 1 month)
-        anchor = a.clone().add(wholeMonthDiff, "months"), anchor2, adjust;
-        if (b - anchor < 0) {
-            anchor2 = a.clone().add(wholeMonthDiff - 1, "months");
-            // linear across the month
-            adjust = (b - anchor) / (anchor - anchor2);
-        } else {
-            anchor2 = a.clone().add(wholeMonthDiff + 1, "months");
-            // linear across the month
-            adjust = (b - anchor) / (anchor2 - anchor);
-        }
-        //check for negative zero, return zero if negative zero
-        return -(wholeMonthDiff + adjust) || 0;
-    }
-    hooks.defaultFormat = "YYYY-MM-DDTHH:mm:ssZ";
-    hooks.defaultFormatUtc = "YYYY-MM-DDTHH:mm:ss[Z]";
-    function toString() {
-        return this.clone().locale("en").format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
-    }
-    function toISOString(keepOffset) {
-        if (!this.isValid()) return null;
-        var utc = keepOffset !== true, m = utc ? this.clone().utc() : this;
-        if (m.year() < 0 || m.year() > 9999) return formatMoment(m, utc ? "YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]" : "YYYYYY-MM-DD[T]HH:mm:ss.SSSZ");
-        if (isFunction(Date.prototype.toISOString)) {
-            // native implementation is ~50x faster, use it when we can
-            if (utc) return this.toDate().toISOString();
-            else return new Date(this.valueOf() + this.utcOffset() * 60000).toISOString().replace("Z", formatMoment(m, "Z"));
-        }
-        return formatMoment(m, utc ? "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]" : "YYYY-MM-DD[T]HH:mm:ss.SSSZ");
-    }
-    /**
-     * Return a human readable representation of a moment that can
-     * also be evaluated to get a new moment which is the same
-     *
-     * @link https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
-     */ function inspect() {
-        if (!this.isValid()) return "moment.invalid(/* " + this._i + " */)";
-        var func = "moment", zone = "", prefix, year, datetime, suffix;
-        if (!this.isLocal()) {
-            func = this.utcOffset() === 0 ? "moment.utc" : "moment.parseZone";
-            zone = "Z";
-        }
-        prefix = "[" + func + '("]';
-        year = 0 <= this.year() && this.year() <= 9999 ? "YYYY" : "YYYYYY";
-        datetime = "-MM-DD[T]HH:mm:ss.SSS";
-        suffix = zone + '[")]';
-        return this.format(prefix + year + datetime + suffix);
-    }
-    function format(inputString) {
-        if (!inputString) inputString = this.isUtc() ? hooks.defaultFormatUtc : hooks.defaultFormat;
-        var output = formatMoment(this, inputString);
-        return this.localeData().postformat(output);
-    }
-    function from(time, withoutSuffix) {
-        if (this.isValid() && (isMoment(time) && time.isValid() || createLocal(time).isValid())) return createDuration({
-            to: this,
-            from: time
-        }).locale(this.locale()).humanize(!withoutSuffix);
-        else return this.localeData().invalidDate();
-    }
-    function fromNow(withoutSuffix) {
-        return this.from(createLocal(), withoutSuffix);
-    }
-    function to(time, withoutSuffix) {
-        if (this.isValid() && (isMoment(time) && time.isValid() || createLocal(time).isValid())) return createDuration({
-            from: this,
-            to: time
-        }).locale(this.locale()).humanize(!withoutSuffix);
-        else return this.localeData().invalidDate();
-    }
-    function toNow(withoutSuffix) {
-        return this.to(createLocal(), withoutSuffix);
-    }
-    // If passed a locale key, it will set the locale for this
-    // instance.  Otherwise, it will return the locale configuration
-    // variables for this instance.
-    function locale(key) {
-        var newLocaleData;
-        if (key === undefined) return this._locale._abbr;
-        else {
-            newLocaleData = getLocale(key);
-            if (newLocaleData != null) this._locale = newLocaleData;
-            return this;
-        }
-    }
-    var lang = deprecate("moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.", function(key) {
-        if (key === undefined) return this.localeData();
-        else return this.locale(key);
-    });
-    function localeData() {
-        return this._locale;
-    }
-    var MS_PER_SECOND = 1000, MS_PER_MINUTE = 60 * MS_PER_SECOND, MS_PER_HOUR = 60 * MS_PER_MINUTE, MS_PER_400_YEARS = 3506328 * MS_PER_HOUR;
-    // actual modulo - handles negative numbers (for dates before 1970):
-    function mod$1(dividend, divisor) {
-        return (dividend % divisor + divisor) % divisor;
-    }
-    function localStartOfDate(y, m, d) {
-        // the date constructor remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0) // preserve leap years using a full 400 year cycle, then reset
-        return new Date(y + 400, m, d) - MS_PER_400_YEARS;
-        else return new Date(y, m, d).valueOf();
-    }
-    function utcStartOfDate(y, m, d) {
-        // Date.UTC remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0) // preserve leap years using a full 400 year cycle, then reset
-        return Date.UTC(y + 400, m, d) - MS_PER_400_YEARS;
-        else return Date.UTC(y, m, d);
-    }
-    function startOf(units) {
-        var time, startOfDate;
-        units = normalizeUnits(units);
-        if (units === undefined || units === "millisecond" || !this.isValid()) return this;
-        startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
-        switch(units){
-            case "year":
-                time = startOfDate(this.year(), 0, 1);
-                break;
-            case "quarter":
-                time = startOfDate(this.year(), this.month() - this.month() % 3, 1);
-                break;
-            case "month":
-                time = startOfDate(this.year(), this.month(), 1);
-                break;
-            case "week":
-                time = startOfDate(this.year(), this.month(), this.date() - this.weekday());
-                break;
-            case "isoWeek":
-                time = startOfDate(this.year(), this.month(), this.date() - (this.isoWeekday() - 1));
-                break;
-            case "day":
-            case "date":
-                time = startOfDate(this.year(), this.month(), this.date());
-                break;
-            case "hour":
-                time = this._d.valueOf();
-                time -= mod$1(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR);
-                break;
-            case "minute":
-                time = this._d.valueOf();
-                time -= mod$1(time, MS_PER_MINUTE);
-                break;
-            case "second":
-                time = this._d.valueOf();
-                time -= mod$1(time, MS_PER_SECOND);
-                break;
-        }
-        this._d.setTime(time);
-        hooks.updateOffset(this, true);
-        return this;
-    }
-    function endOf(units) {
-        var time, startOfDate;
-        units = normalizeUnits(units);
-        if (units === undefined || units === "millisecond" || !this.isValid()) return this;
-        startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
-        switch(units){
-            case "year":
-                time = startOfDate(this.year() + 1, 0, 1) - 1;
-                break;
-            case "quarter":
-                time = startOfDate(this.year(), this.month() - this.month() % 3 + 3, 1) - 1;
-                break;
-            case "month":
-                time = startOfDate(this.year(), this.month() + 1, 1) - 1;
-                break;
-            case "week":
-                time = startOfDate(this.year(), this.month(), this.date() - this.weekday() + 7) - 1;
-                break;
-            case "isoWeek":
-                time = startOfDate(this.year(), this.month(), this.date() - (this.isoWeekday() - 1) + 7) - 1;
-                break;
-            case "day":
-            case "date":
-                time = startOfDate(this.year(), this.month(), this.date() + 1) - 1;
-                break;
-            case "hour":
-                time = this._d.valueOf();
-                time += MS_PER_HOUR - mod$1(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR) - 1;
-                break;
-            case "minute":
-                time = this._d.valueOf();
-                time += MS_PER_MINUTE - mod$1(time, MS_PER_MINUTE) - 1;
-                break;
-            case "second":
-                time = this._d.valueOf();
-                time += MS_PER_SECOND - mod$1(time, MS_PER_SECOND) - 1;
-                break;
-        }
-        this._d.setTime(time);
-        hooks.updateOffset(this, true);
-        return this;
-    }
-    function valueOf() {
-        return this._d.valueOf() - (this._offset || 0) * 60000;
-    }
-    function unix() {
-        return Math.floor(this.valueOf() / 1000);
-    }
-    function toDate() {
-        return new Date(this.valueOf());
-    }
-    function toArray() {
-        var m = this;
-        return [
-            m.year(),
-            m.month(),
-            m.date(),
-            m.hour(),
-            m.minute(),
-            m.second(),
-            m.millisecond()
-        ];
-    }
-    function toObject() {
-        var m = this;
-        return {
-            years: m.year(),
-            months: m.month(),
-            date: m.date(),
-            hours: m.hours(),
-            minutes: m.minutes(),
-            seconds: m.seconds(),
-            milliseconds: m.milliseconds()
-        };
-    }
-    function toJSON() {
-        // new Date(NaN).toJSON() === null
-        return this.isValid() ? this.toISOString() : null;
-    }
-    function isValid$2() {
-        return isValid(this);
-    }
-    function parsingFlags() {
-        return extend({}, getParsingFlags(this));
-    }
-    function invalidAt() {
-        return getParsingFlags(this).overflow;
-    }
-    function creationData() {
-        return {
-            input: this._i,
-            format: this._f,
-            locale: this._locale,
-            isUTC: this._isUTC,
-            strict: this._strict
-        };
-    }
-    addFormatToken("N", 0, 0, "eraAbbr");
-    addFormatToken("NN", 0, 0, "eraAbbr");
-    addFormatToken("NNN", 0, 0, "eraAbbr");
-    addFormatToken("NNNN", 0, 0, "eraName");
-    addFormatToken("NNNNN", 0, 0, "eraNarrow");
-    addFormatToken("y", [
-        "y",
-        1
-    ], "yo", "eraYear");
-    addFormatToken("y", [
-        "yy",
-        2
-    ], 0, "eraYear");
-    addFormatToken("y", [
-        "yyy",
-        3
-    ], 0, "eraYear");
-    addFormatToken("y", [
-        "yyyy",
-        4
-    ], 0, "eraYear");
-    addRegexToken("N", matchEraAbbr);
-    addRegexToken("NN", matchEraAbbr);
-    addRegexToken("NNN", matchEraAbbr);
-    addRegexToken("NNNN", matchEraName);
-    addRegexToken("NNNNN", matchEraNarrow);
-    addParseToken([
-        "N",
-        "NN",
-        "NNN",
-        "NNNN",
-        "NNNNN"
-    ], function(input, array, config, token) {
-        var era = config._locale.erasParse(input, token, config._strict);
-        if (era) getParsingFlags(config).era = era;
-        else getParsingFlags(config).invalidEra = input;
-    });
-    addRegexToken("y", matchUnsigned);
-    addRegexToken("yy", matchUnsigned);
-    addRegexToken("yyy", matchUnsigned);
-    addRegexToken("yyyy", matchUnsigned);
-    addRegexToken("yo", matchEraYearOrdinal);
-    addParseToken([
-        "y",
-        "yy",
-        "yyy",
-        "yyyy"
-    ], YEAR);
-    addParseToken([
-        "yo"
-    ], function(input, array, config, token) {
-        var match;
-        if (config._locale._eraYearOrdinalRegex) match = input.match(config._locale._eraYearOrdinalRegex);
-        if (config._locale.eraYearOrdinalParse) array[YEAR] = config._locale.eraYearOrdinalParse(input, match);
-        else array[YEAR] = parseInt(input, 10);
-    });
-    function localeEras(m, format) {
-        var i, l, date, eras = this._eras || getLocale("en")._eras;
-        for(i = 0, l = eras.length; i < l; ++i){
-            switch(typeof eras[i].since){
-                case "string":
-                    // truncate time
-                    date = hooks(eras[i].since).startOf("day");
-                    eras[i].since = date.valueOf();
-                    break;
-            }
-            switch(typeof eras[i].until){
-                case "undefined":
-                    eras[i].until = Infinity;
-                    break;
-                case "string":
-                    // truncate time
-                    date = hooks(eras[i].until).startOf("day").valueOf();
-                    eras[i].until = date.valueOf();
-                    break;
-            }
-        }
-        return eras;
-    }
-    function localeErasParse(eraName, format, strict) {
-        var i, l, eras = this.eras(), name, abbr, narrow;
-        eraName = eraName.toUpperCase();
-        for(i = 0, l = eras.length; i < l; ++i){
-            name = eras[i].name.toUpperCase();
-            abbr = eras[i].abbr.toUpperCase();
-            narrow = eras[i].narrow.toUpperCase();
-            if (strict) switch(format){
-                case "N":
-                case "NN":
-                case "NNN":
-                    if (abbr === eraName) return eras[i];
-                    break;
-                case "NNNN":
-                    if (name === eraName) return eras[i];
-                    break;
-                case "NNNNN":
-                    if (narrow === eraName) return eras[i];
-                    break;
-            }
-            else if ([
-                name,
-                abbr,
-                narrow
-            ].indexOf(eraName) >= 0) return eras[i];
-        }
-    }
-    function localeErasConvertYear(era, year) {
-        var dir = era.since <= era.until ? 1 : -1;
-        if (year === undefined) return hooks(era.since).year();
-        else return hooks(era.since).year() + (year - era.offset) * dir;
-    }
-    function getEraName() {
-        var i, l, val, eras = this.localeData().eras();
-        for(i = 0, l = eras.length; i < l; ++i){
-            // truncate time
-            val = this.clone().startOf("day").valueOf();
-            if (eras[i].since <= val && val <= eras[i].until) return eras[i].name;
-            if (eras[i].until <= val && val <= eras[i].since) return eras[i].name;
-        }
-        return "";
-    }
-    function getEraNarrow() {
-        var i, l, val, eras = this.localeData().eras();
-        for(i = 0, l = eras.length; i < l; ++i){
-            // truncate time
-            val = this.clone().startOf("day").valueOf();
-            if (eras[i].since <= val && val <= eras[i].until) return eras[i].narrow;
-            if (eras[i].until <= val && val <= eras[i].since) return eras[i].narrow;
-        }
-        return "";
-    }
-    function getEraAbbr() {
-        var i, l, val, eras = this.localeData().eras();
-        for(i = 0, l = eras.length; i < l; ++i){
-            // truncate time
-            val = this.clone().startOf("day").valueOf();
-            if (eras[i].since <= val && val <= eras[i].until) return eras[i].abbr;
-            if (eras[i].until <= val && val <= eras[i].since) return eras[i].abbr;
-        }
-        return "";
-    }
-    function getEraYear() {
-        var i, l, dir, val, eras = this.localeData().eras();
-        for(i = 0, l = eras.length; i < l; ++i){
-            dir = eras[i].since <= eras[i].until ? 1 : -1;
-            // truncate time
-            val = this.clone().startOf("day").valueOf();
-            if (eras[i].since <= val && val <= eras[i].until || eras[i].until <= val && val <= eras[i].since) return (this.year() - hooks(eras[i].since).year()) * dir + eras[i].offset;
-        }
-        return this.year();
-    }
-    function erasNameRegex(isStrict) {
-        if (!hasOwnProp(this, "_erasNameRegex")) computeErasParse.call(this);
-        return isStrict ? this._erasNameRegex : this._erasRegex;
-    }
-    function erasAbbrRegex(isStrict) {
-        if (!hasOwnProp(this, "_erasAbbrRegex")) computeErasParse.call(this);
-        return isStrict ? this._erasAbbrRegex : this._erasRegex;
-    }
-    function erasNarrowRegex(isStrict) {
-        if (!hasOwnProp(this, "_erasNarrowRegex")) computeErasParse.call(this);
-        return isStrict ? this._erasNarrowRegex : this._erasRegex;
-    }
-    function matchEraAbbr(isStrict, locale) {
-        return locale.erasAbbrRegex(isStrict);
-    }
-    function matchEraName(isStrict, locale) {
-        return locale.erasNameRegex(isStrict);
-    }
-    function matchEraNarrow(isStrict, locale) {
-        return locale.erasNarrowRegex(isStrict);
-    }
-    function matchEraYearOrdinal(isStrict, locale) {
-        return locale._eraYearOrdinalRegex || matchUnsigned;
-    }
-    function computeErasParse() {
-        var abbrPieces = [], namePieces = [], narrowPieces = [], mixedPieces = [], i, l, erasName, erasAbbr, erasNarrow, eras = this.eras();
-        for(i = 0, l = eras.length; i < l; ++i){
-            erasName = regexEscape(eras[i].name);
-            erasAbbr = regexEscape(eras[i].abbr);
-            erasNarrow = regexEscape(eras[i].narrow);
-            namePieces.push(erasName);
-            abbrPieces.push(erasAbbr);
-            narrowPieces.push(erasNarrow);
-            mixedPieces.push(erasName);
-            mixedPieces.push(erasAbbr);
-            mixedPieces.push(erasNarrow);
-        }
-        this._erasRegex = new RegExp("^(" + mixedPieces.join("|") + ")", "i");
-        this._erasNameRegex = new RegExp("^(" + namePieces.join("|") + ")", "i");
-        this._erasAbbrRegex = new RegExp("^(" + abbrPieces.join("|") + ")", "i");
-        this._erasNarrowRegex = new RegExp("^(" + narrowPieces.join("|") + ")", "i");
-    }
-    // FORMATTING
-    addFormatToken(0, [
-        "gg",
-        2
-    ], 0, function() {
-        return this.weekYear() % 100;
-    });
-    addFormatToken(0, [
-        "GG",
-        2
-    ], 0, function() {
-        return this.isoWeekYear() % 100;
-    });
-    function addWeekYearFormatToken(token, getter) {
-        addFormatToken(0, [
-            token,
-            token.length
-        ], 0, getter);
-    }
-    addWeekYearFormatToken("gggg", "weekYear");
-    addWeekYearFormatToken("ggggg", "weekYear");
-    addWeekYearFormatToken("GGGG", "isoWeekYear");
-    addWeekYearFormatToken("GGGGG", "isoWeekYear");
-    // ALIASES
-    // PARSING
-    addRegexToken("G", matchSigned);
-    addRegexToken("g", matchSigned);
-    addRegexToken("GG", match1to2, match2);
-    addRegexToken("gg", match1to2, match2);
-    addRegexToken("GGGG", match1to4, match4);
-    addRegexToken("gggg", match1to4, match4);
-    addRegexToken("GGGGG", match1to6, match6);
-    addRegexToken("ggggg", match1to6, match6);
-    addWeekParseToken([
-        "gggg",
-        "ggggg",
-        "GGGG",
-        "GGGGG"
-    ], function(input, week, config, token) {
-        week[token.substr(0, 2)] = toInt(input);
-    });
-    addWeekParseToken([
-        "gg",
-        "GG"
-    ], function(input, week, config, token) {
-        week[token] = hooks.parseTwoDigitYear(input);
-    });
-    // MOMENTS
-    function getSetWeekYear(input) {
-        return getSetWeekYearHelper.call(this, input, this.week(), this.weekday() + this.localeData()._week.dow, this.localeData()._week.dow, this.localeData()._week.doy);
-    }
-    function getSetISOWeekYear(input) {
-        return getSetWeekYearHelper.call(this, input, this.isoWeek(), this.isoWeekday(), 1, 4);
-    }
-    function getISOWeeksInYear() {
-        return weeksInYear(this.year(), 1, 4);
-    }
-    function getISOWeeksInISOWeekYear() {
-        return weeksInYear(this.isoWeekYear(), 1, 4);
-    }
-    function getWeeksInYear() {
-        var weekInfo = this.localeData()._week;
-        return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
-    }
-    function getWeeksInWeekYear() {
-        var weekInfo = this.localeData()._week;
-        return weeksInYear(this.weekYear(), weekInfo.dow, weekInfo.doy);
-    }
-    function getSetWeekYearHelper(input, week, weekday, dow, doy) {
-        var weeksTarget;
-        if (input == null) return weekOfYear(this, dow, doy).year;
-        else {
-            weeksTarget = weeksInYear(input, dow, doy);
-            if (week > weeksTarget) week = weeksTarget;
-            return setWeekAll.call(this, input, week, weekday, dow, doy);
-        }
-    }
-    function setWeekAll(weekYear, week, weekday, dow, doy) {
-        var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy), date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear);
-        this.year(date.getUTCFullYear());
-        this.month(date.getUTCMonth());
-        this.date(date.getUTCDate());
-        return this;
-    }
-    // FORMATTING
-    addFormatToken("Q", 0, "Qo", "quarter");
-    // PARSING
-    addRegexToken("Q", match1);
-    addParseToken("Q", function(input, array) {
-        array[MONTH] = (toInt(input) - 1) * 3;
-    });
-    // MOMENTS
-    function getSetQuarter(input) {
-        return input == null ? Math.ceil((this.month() + 1) / 3) : this.month((input - 1) * 3 + this.month() % 3);
-    }
-    // FORMATTING
-    addFormatToken("D", [
-        "DD",
-        2
-    ], "Do", "date");
-    // PARSING
-    addRegexToken("D", match1to2, match1to2NoLeadingZero);
-    addRegexToken("DD", match1to2, match2);
-    addRegexToken("Do", function(isStrict, locale) {
-        // TODO: Remove "ordinalParse" fallback in next major release.
-        return isStrict ? locale._dayOfMonthOrdinalParse || locale._ordinalParse : locale._dayOfMonthOrdinalParseLenient;
-    });
-    addParseToken([
-        "D",
-        "DD"
-    ], DATE);
-    addParseToken("Do", function(input, array) {
-        array[DATE] = toInt(input.match(match1to2)[0]);
-    });
-    // MOMENTS
-    var getSetDayOfMonth = makeGetSet("Date", true);
-    // FORMATTING
-    addFormatToken("DDD", [
-        "DDDD",
-        3
-    ], "DDDo", "dayOfYear");
-    // PARSING
-    addRegexToken("DDD", match1to3);
-    addRegexToken("DDDD", match3);
-    addParseToken([
-        "DDD",
-        "DDDD"
-    ], function(input, array, config) {
-        config._dayOfYear = toInt(input);
-    });
-    // HELPERS
-    // MOMENTS
-    function getSetDayOfYear(input) {
-        var dayOfYear = Math.round((this.clone().startOf("day") - this.clone().startOf("year")) / 864e5) + 1;
-        return input == null ? dayOfYear : this.add(input - dayOfYear, "d");
-    }
-    // FORMATTING
-    addFormatToken("m", [
-        "mm",
-        2
-    ], 0, "minute");
-    // PARSING
-    addRegexToken("m", match1to2, match1to2HasZero);
-    addRegexToken("mm", match1to2, match2);
-    addParseToken([
-        "m",
-        "mm"
-    ], MINUTE);
-    // MOMENTS
-    var getSetMinute = makeGetSet("Minutes", false);
-    // FORMATTING
-    addFormatToken("s", [
-        "ss",
-        2
-    ], 0, "second");
-    // PARSING
-    addRegexToken("s", match1to2, match1to2HasZero);
-    addRegexToken("ss", match1to2, match2);
-    addParseToken([
-        "s",
-        "ss"
-    ], SECOND);
-    // MOMENTS
-    var getSetSecond = makeGetSet("Seconds", false);
-    // FORMATTING
-    addFormatToken("S", 0, 0, function() {
-        return ~~(this.millisecond() / 100);
-    });
-    addFormatToken(0, [
-        "SS",
-        2
-    ], 0, function() {
-        return ~~(this.millisecond() / 10);
-    });
-    addFormatToken(0, [
-        "SSS",
-        3
-    ], 0, "millisecond");
-    addFormatToken(0, [
-        "SSSS",
-        4
-    ], 0, function() {
-        return this.millisecond() * 10;
-    });
-    addFormatToken(0, [
-        "SSSSS",
-        5
-    ], 0, function() {
-        return this.millisecond() * 100;
-    });
-    addFormatToken(0, [
-        "SSSSSS",
-        6
-    ], 0, function() {
-        return this.millisecond() * 1000;
-    });
-    addFormatToken(0, [
-        "SSSSSSS",
-        7
-    ], 0, function() {
-        return this.millisecond() * 10000;
-    });
-    addFormatToken(0, [
-        "SSSSSSSS",
-        8
-    ], 0, function() {
-        return this.millisecond() * 100000;
-    });
-    addFormatToken(0, [
-        "SSSSSSSSS",
-        9
-    ], 0, function() {
-        return this.millisecond() * 1000000;
-    });
-    // PARSING
-    addRegexToken("S", match1to3, match1);
-    addRegexToken("SS", match1to3, match2);
-    addRegexToken("SSS", match1to3, match3);
-    var token, getSetMillisecond;
-    for(token = "SSSS"; token.length <= 9; token += "S")addRegexToken(token, matchUnsigned);
-    function parseMs(input, array) {
-        array[MILLISECOND] = toInt(("0." + input) * 1000);
-    }
-    for(token = "S"; token.length <= 9; token += "S")addParseToken(token, parseMs);
-    getSetMillisecond = makeGetSet("Milliseconds", false);
-    // FORMATTING
-    addFormatToken("z", 0, 0, "zoneAbbr");
-    addFormatToken("zz", 0, 0, "zoneName");
-    // MOMENTS
-    function getZoneAbbr() {
-        return this._isUTC ? "UTC" : "";
-    }
-    function getZoneName() {
-        return this._isUTC ? "Coordinated Universal Time" : "";
-    }
-    var proto = Moment.prototype;
-    proto.add = add;
-    proto.calendar = calendar$1;
-    proto.clone = clone;
-    proto.diff = diff;
-    proto.endOf = endOf;
-    proto.format = format;
-    proto.from = from;
-    proto.fromNow = fromNow;
-    proto.to = to;
-    proto.toNow = toNow;
-    proto.get = stringGet;
-    proto.invalidAt = invalidAt;
-    proto.isAfter = isAfter;
-    proto.isBefore = isBefore;
-    proto.isBetween = isBetween;
-    proto.isSame = isSame;
-    proto.isSameOrAfter = isSameOrAfter;
-    proto.isSameOrBefore = isSameOrBefore;
-    proto.isValid = isValid$2;
-    proto.lang = lang;
-    proto.locale = locale;
-    proto.localeData = localeData;
-    proto.max = prototypeMax;
-    proto.min = prototypeMin;
-    proto.parsingFlags = parsingFlags;
-    proto.set = stringSet;
-    proto.startOf = startOf;
-    proto.subtract = subtract;
-    proto.toArray = toArray;
-    proto.toObject = toObject;
-    proto.toDate = toDate;
-    proto.toISOString = toISOString;
-    proto.inspect = inspect;
-    if (typeof Symbol !== "undefined" && Symbol.for != null) proto[Symbol.for("nodejs.util.inspect.custom")] = function() {
-        return "Moment<" + this.format() + ">";
-    };
-    proto.toJSON = toJSON;
-    proto.toString = toString;
-    proto.unix = unix;
-    proto.valueOf = valueOf;
-    proto.creationData = creationData;
-    proto.eraName = getEraName;
-    proto.eraNarrow = getEraNarrow;
-    proto.eraAbbr = getEraAbbr;
-    proto.eraYear = getEraYear;
-    proto.year = getSetYear;
-    proto.isLeapYear = getIsLeapYear;
-    proto.weekYear = getSetWeekYear;
-    proto.isoWeekYear = getSetISOWeekYear;
-    proto.quarter = proto.quarters = getSetQuarter;
-    proto.month = getSetMonth;
-    proto.daysInMonth = getDaysInMonth;
-    proto.week = proto.weeks = getSetWeek;
-    proto.isoWeek = proto.isoWeeks = getSetISOWeek;
-    proto.weeksInYear = getWeeksInYear;
-    proto.weeksInWeekYear = getWeeksInWeekYear;
-    proto.isoWeeksInYear = getISOWeeksInYear;
-    proto.isoWeeksInISOWeekYear = getISOWeeksInISOWeekYear;
-    proto.date = getSetDayOfMonth;
-    proto.day = proto.days = getSetDayOfWeek;
-    proto.weekday = getSetLocaleDayOfWeek;
-    proto.isoWeekday = getSetISODayOfWeek;
-    proto.dayOfYear = getSetDayOfYear;
-    proto.hour = proto.hours = getSetHour;
-    proto.minute = proto.minutes = getSetMinute;
-    proto.second = proto.seconds = getSetSecond;
-    proto.millisecond = proto.milliseconds = getSetMillisecond;
-    proto.utcOffset = getSetOffset;
-    proto.utc = setOffsetToUTC;
-    proto.local = setOffsetToLocal;
-    proto.parseZone = setOffsetToParsedOffset;
-    proto.hasAlignedHourOffset = hasAlignedHourOffset;
-    proto.isDST = isDaylightSavingTime;
-    proto.isLocal = isLocal;
-    proto.isUtcOffset = isUtcOffset;
-    proto.isUtc = isUtc;
-    proto.isUTC = isUtc;
-    proto.zoneAbbr = getZoneAbbr;
-    proto.zoneName = getZoneName;
-    proto.dates = deprecate("dates accessor is deprecated. Use date instead.", getSetDayOfMonth);
-    proto.months = deprecate("months accessor is deprecated. Use month instead", getSetMonth);
-    proto.years = deprecate("years accessor is deprecated. Use year instead", getSetYear);
-    proto.zone = deprecate("moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/", getSetZone);
-    proto.isDSTShifted = deprecate("isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information", isDaylightSavingTimeShifted);
-    function createUnix(input) {
-        return createLocal(input * 1000);
-    }
-    function createInZone() {
-        return createLocal.apply(null, arguments).parseZone();
-    }
-    function preParsePostFormat(string) {
-        return string;
-    }
-    var proto$1 = Locale.prototype;
-    proto$1.calendar = calendar;
-    proto$1.longDateFormat = longDateFormat;
-    proto$1.invalidDate = invalidDate;
-    proto$1.ordinal = ordinal;
-    proto$1.preparse = preParsePostFormat;
-    proto$1.postformat = preParsePostFormat;
-    proto$1.relativeTime = relativeTime;
-    proto$1.pastFuture = pastFuture;
-    proto$1.set = set;
-    proto$1.eras = localeEras;
-    proto$1.erasParse = localeErasParse;
-    proto$1.erasConvertYear = localeErasConvertYear;
-    proto$1.erasAbbrRegex = erasAbbrRegex;
-    proto$1.erasNameRegex = erasNameRegex;
-    proto$1.erasNarrowRegex = erasNarrowRegex;
-    proto$1.months = localeMonths;
-    proto$1.monthsShort = localeMonthsShort;
-    proto$1.monthsParse = localeMonthsParse;
-    proto$1.monthsRegex = monthsRegex;
-    proto$1.monthsShortRegex = monthsShortRegex;
-    proto$1.week = localeWeek;
-    proto$1.firstDayOfYear = localeFirstDayOfYear;
-    proto$1.firstDayOfWeek = localeFirstDayOfWeek;
-    proto$1.weekdays = localeWeekdays;
-    proto$1.weekdaysMin = localeWeekdaysMin;
-    proto$1.weekdaysShort = localeWeekdaysShort;
-    proto$1.weekdaysParse = localeWeekdaysParse;
-    proto$1.weekdaysRegex = weekdaysRegex;
-    proto$1.weekdaysShortRegex = weekdaysShortRegex;
-    proto$1.weekdaysMinRegex = weekdaysMinRegex;
-    proto$1.isPM = localeIsPM;
-    proto$1.meridiem = localeMeridiem;
-    function get$1(format, index, field, setter) {
-        var locale = getLocale(), utc = createUTC().set(setter, index);
-        return locale[field](utc, format);
-    }
-    function listMonthsImpl(format, index, field) {
-        if (isNumber(format)) {
-            index = format;
-            format = undefined;
-        }
-        format = format || "";
-        if (index != null) return get$1(format, index, field, "month");
-        var i, out = [];
-        for(i = 0; i < 12; i++)out[i] = get$1(format, i, field, "month");
-        return out;
-    }
-    // ()
-    // (5)
-    // (fmt, 5)
-    // (fmt)
-    // (true)
-    // (true, 5)
-    // (true, fmt, 5)
-    // (true, fmt)
-    function listWeekdaysImpl(localeSorted, format, index, field) {
-        if (typeof localeSorted === "boolean") {
-            if (isNumber(format)) {
-                index = format;
-                format = undefined;
-            }
-            format = format || "";
-        } else {
-            format = localeSorted;
-            index = format;
-            localeSorted = false;
-            if (isNumber(format)) {
-                index = format;
-                format = undefined;
-            }
-            format = format || "";
-        }
-        var locale = getLocale(), shift = localeSorted ? locale._week.dow : 0, i, out = [];
-        if (index != null) return get$1(format, (index + shift) % 7, field, "day");
-        for(i = 0; i < 7; i++)out[i] = get$1(format, (i + shift) % 7, field, "day");
-        return out;
-    }
-    function listMonths(format, index) {
-        return listMonthsImpl(format, index, "months");
-    }
-    function listMonthsShort(format, index) {
-        return listMonthsImpl(format, index, "monthsShort");
-    }
-    function listWeekdays(localeSorted, format, index) {
-        return listWeekdaysImpl(localeSorted, format, index, "weekdays");
-    }
-    function listWeekdaysShort(localeSorted, format, index) {
-        return listWeekdaysImpl(localeSorted, format, index, "weekdaysShort");
-    }
-    function listWeekdaysMin(localeSorted, format, index) {
-        return listWeekdaysImpl(localeSorted, format, index, "weekdaysMin");
-    }
-    getSetGlobalLocale("en", {
-        eras: [
-            {
-                since: "0001-01-01",
-                until: Infinity,
-                offset: 1,
-                name: "Anno Domini",
-                narrow: "AD",
-                abbr: "AD"
-            },
-            {
-                since: "0000-12-31",
-                until: -Infinity,
-                offset: 1,
-                name: "Before Christ",
-                narrow: "BC",
-                abbr: "BC"
-            }
-        ],
-        dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
-        ordinal: function(number) {
-            var b = number % 10, output = toInt(number % 100 / 10) === 1 ? "th" : b === 1 ? "st" : b === 2 ? "nd" : b === 3 ? "rd" : "th";
-            return number + output;
-        }
-    });
-    // Side effect imports
-    hooks.lang = deprecate("moment.lang is deprecated. Use moment.locale instead.", getSetGlobalLocale);
-    hooks.langData = deprecate("moment.langData is deprecated. Use moment.localeData instead.", getLocale);
-    var mathAbs = Math.abs;
-    function abs() {
-        var data = this._data;
-        this._milliseconds = mathAbs(this._milliseconds);
-        this._days = mathAbs(this._days);
-        this._months = mathAbs(this._months);
-        data.milliseconds = mathAbs(data.milliseconds);
-        data.seconds = mathAbs(data.seconds);
-        data.minutes = mathAbs(data.minutes);
-        data.hours = mathAbs(data.hours);
-        data.months = mathAbs(data.months);
-        data.years = mathAbs(data.years);
-        return this;
-    }
-    function addSubtract$1(duration, input, value, direction) {
-        var other = createDuration(input, value);
-        duration._milliseconds += direction * other._milliseconds;
-        duration._days += direction * other._days;
-        duration._months += direction * other._months;
-        return duration._bubble();
-    }
-    // supports only 2.0-style add(1, 's') or add(duration)
-    function add$1(input, value) {
-        return addSubtract$1(this, input, value, 1);
-    }
-    // supports only 2.0-style subtract(1, 's') or subtract(duration)
-    function subtract$1(input, value) {
-        return addSubtract$1(this, input, value, -1);
-    }
-    function absCeil(number) {
-        if (number < 0) return Math.floor(number);
-        else return Math.ceil(number);
-    }
-    function bubble() {
-        var milliseconds = this._milliseconds, days = this._days, months = this._months, data = this._data, seconds, minutes, hours, years, monthsFromDays;
-        // if we have a mix of positive and negative values, bubble down first
-        // check: https://github.com/moment/moment/issues/2166
-        if (!(milliseconds >= 0 && days >= 0 && months >= 0 || milliseconds <= 0 && days <= 0 && months <= 0)) {
-            milliseconds += absCeil(monthsToDays(months) + days) * 864e5;
-            days = 0;
-            months = 0;
-        }
-        // The following code bubbles up values, see the tests for
-        // examples of what that means.
-        data.milliseconds = milliseconds % 1000;
-        seconds = absFloor(milliseconds / 1000);
-        data.seconds = seconds % 60;
-        minutes = absFloor(seconds / 60);
-        data.minutes = minutes % 60;
-        hours = absFloor(minutes / 60);
-        data.hours = hours % 24;
-        days += absFloor(hours / 24);
-        // convert days to months
-        monthsFromDays = absFloor(daysToMonths(days));
-        months += monthsFromDays;
-        days -= absCeil(monthsToDays(monthsFromDays));
-        // 12 months -> 1 year
-        years = absFloor(months / 12);
-        months %= 12;
-        data.days = days;
-        data.months = months;
-        data.years = years;
-        return this;
-    }
-    function daysToMonths(days) {
-        // 400 years have 146097 days (taking into account leap year rules)
-        // 400 years have 12 months === 4800
-        return days * 4800 / 146097;
-    }
-    function monthsToDays(months) {
-        // the reverse of daysToMonths
-        return months * 146097 / 4800;
-    }
-    function as(units) {
-        if (!this.isValid()) return NaN;
-        var days, months, milliseconds = this._milliseconds;
-        units = normalizeUnits(units);
-        if (units === "month" || units === "quarter" || units === "year") {
-            days = this._days + milliseconds / 864e5;
-            months = this._months + daysToMonths(days);
-            switch(units){
-                case "month":
-                    return months;
-                case "quarter":
-                    return months / 3;
-                case "year":
-                    return months / 12;
-            }
-        } else {
-            // handle milliseconds separately because of floating point math errors (issue #1867)
-            days = this._days + Math.round(monthsToDays(this._months));
-            switch(units){
-                case "week":
-                    return days / 7 + milliseconds / 6048e5;
-                case "day":
-                    return days + milliseconds / 864e5;
-                case "hour":
-                    return days * 24 + milliseconds / 36e5;
-                case "minute":
-                    return days * 1440 + milliseconds / 6e4;
-                case "second":
-                    return days * 86400 + milliseconds / 1000;
-                // Math.floor prevents floating point math errors here
-                case "millisecond":
-                    return Math.floor(days * 864e5) + milliseconds;
-                default:
-                    throw new Error("Unknown unit " + units);
-            }
-        }
-    }
-    function makeAs(alias) {
-        return function() {
-            return this.as(alias);
-        };
-    }
-    var asMilliseconds = makeAs("ms"), asSeconds = makeAs("s"), asMinutes = makeAs("m"), asHours = makeAs("h"), asDays = makeAs("d"), asWeeks = makeAs("w"), asMonths = makeAs("M"), asQuarters = makeAs("Q"), asYears = makeAs("y"), valueOf$1 = asMilliseconds;
-    function clone$1() {
-        return createDuration(this);
-    }
-    function get$2(units) {
-        units = normalizeUnits(units);
-        return this.isValid() ? this[units + "s"]() : NaN;
-    }
-    function makeGetter(name) {
-        return function() {
-            return this.isValid() ? this._data[name] : NaN;
-        };
-    }
-    var milliseconds = makeGetter("milliseconds"), seconds = makeGetter("seconds"), minutes = makeGetter("minutes"), hours = makeGetter("hours"), days = makeGetter("days"), months = makeGetter("months"), years = makeGetter("years");
-    function weeks() {
-        return absFloor(this.days() / 7);
-    }
-    var round = Math.round, thresholds = {
-        ss: 44,
-        s: 45,
-        m: 45,
-        h: 22,
-        d: 26,
-        w: null,
-        M: 11
-    };
-    // helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
-    function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale) {
-        return locale.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
-    }
-    function relativeTime$1(posNegDuration, withoutSuffix, thresholds, locale) {
-        var duration = createDuration(posNegDuration).abs(), seconds = round(duration.as("s")), minutes = round(duration.as("m")), hours = round(duration.as("h")), days = round(duration.as("d")), months = round(duration.as("M")), weeks = round(duration.as("w")), years = round(duration.as("y")), a = seconds <= thresholds.ss && [
-            "s",
-            seconds
-        ] || seconds < thresholds.s && [
-            "ss",
-            seconds
-        ] || minutes <= 1 && [
-            "m"
-        ] || minutes < thresholds.m && [
-            "mm",
-            minutes
-        ] || hours <= 1 && [
-            "h"
-        ] || hours < thresholds.h && [
-            "hh",
-            hours
-        ] || days <= 1 && [
-            "d"
-        ] || days < thresholds.d && [
-            "dd",
-            days
-        ];
-        if (thresholds.w != null) a = a || weeks <= 1 && [
-            "w"
-        ] || weeks < thresholds.w && [
-            "ww",
-            weeks
-        ];
-        a = a || months <= 1 && [
-            "M"
-        ] || months < thresholds.M && [
-            "MM",
-            months
-        ] || years <= 1 && [
-            "y"
-        ] || [
-            "yy",
-            years
-        ];
-        a[2] = withoutSuffix;
-        a[3] = +posNegDuration > 0;
-        a[4] = locale;
-        return substituteTimeAgo.apply(null, a);
-    }
-    // This function allows you to set the rounding function for relative time strings
-    function getSetRelativeTimeRounding(roundingFunction) {
-        if (roundingFunction === undefined) return round;
-        if (typeof roundingFunction === "function") {
-            round = roundingFunction;
-            return true;
-        }
-        return false;
-    }
-    // This function allows you to set a threshold for relative time strings
-    function getSetRelativeTimeThreshold(threshold, limit) {
-        if (thresholds[threshold] === undefined) return false;
-        if (limit === undefined) return thresholds[threshold];
-        thresholds[threshold] = limit;
-        if (threshold === "s") thresholds.ss = limit - 1;
-        return true;
-    }
-    function humanize(argWithSuffix, argThresholds) {
-        if (!this.isValid()) return this.localeData().invalidDate();
-        var withSuffix = false, th = thresholds, locale, output;
-        if (typeof argWithSuffix === "object") {
-            argThresholds = argWithSuffix;
-            argWithSuffix = false;
-        }
-        if (typeof argWithSuffix === "boolean") withSuffix = argWithSuffix;
-        if (typeof argThresholds === "object") {
-            th = Object.assign({}, thresholds, argThresholds);
-            if (argThresholds.s != null && argThresholds.ss == null) th.ss = argThresholds.s - 1;
-        }
-        locale = this.localeData();
-        output = relativeTime$1(this, !withSuffix, th, locale);
-        if (withSuffix) output = locale.pastFuture(+this, output);
-        return locale.postformat(output);
-    }
-    var abs$1 = Math.abs;
-    function sign(x) {
-        return (x > 0) - (x < 0) || +x;
-    }
-    function toISOString$1() {
-        // for ISO strings we do not use the normal bubbling rules:
-        //  * milliseconds bubble up until they become hours
-        //  * days do not bubble at all
-        //  * months bubble up until they become years
-        // This is because there is no context-free conversion between hours and days
-        // (think of clock changes)
-        // and also not between days and months (28-31 days per month)
-        if (!this.isValid()) return this.localeData().invalidDate();
-        var seconds = abs$1(this._milliseconds) / 1000, days = abs$1(this._days), months = abs$1(this._months), minutes, hours, years, s, total = this.asSeconds(), totalSign, ymSign, daysSign, hmsSign;
-        if (!total) // this is the same as C#'s (Noda) and python (isodate)...
-        // but not other JS (goog.date)
-        return "P0D";
-        // 3600 seconds -> 60 minutes -> 1 hour
-        minutes = absFloor(seconds / 60);
-        hours = absFloor(minutes / 60);
-        seconds %= 60;
-        minutes %= 60;
-        // 12 months -> 1 year
-        years = absFloor(months / 12);
-        months %= 12;
-        // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
-        s = seconds ? seconds.toFixed(3).replace(/\.?0+$/, "") : "";
-        totalSign = total < 0 ? "-" : "";
-        ymSign = sign(this._months) !== sign(total) ? "-" : "";
-        daysSign = sign(this._days) !== sign(total) ? "-" : "";
-        hmsSign = sign(this._milliseconds) !== sign(total) ? "-" : "";
-        return totalSign + "P" + (years ? ymSign + years + "Y" : "") + (months ? ymSign + months + "M" : "") + (days ? daysSign + days + "D" : "") + (hours || minutes || seconds ? "T" : "") + (hours ? hmsSign + hours + "H" : "") + (minutes ? hmsSign + minutes + "M" : "") + (seconds ? hmsSign + s + "S" : "");
-    }
-    var proto$2 = Duration.prototype;
-    proto$2.isValid = isValid$1;
-    proto$2.abs = abs;
-    proto$2.add = add$1;
-    proto$2.subtract = subtract$1;
-    proto$2.as = as;
-    proto$2.asMilliseconds = asMilliseconds;
-    proto$2.asSeconds = asSeconds;
-    proto$2.asMinutes = asMinutes;
-    proto$2.asHours = asHours;
-    proto$2.asDays = asDays;
-    proto$2.asWeeks = asWeeks;
-    proto$2.asMonths = asMonths;
-    proto$2.asQuarters = asQuarters;
-    proto$2.asYears = asYears;
-    proto$2.valueOf = valueOf$1;
-    proto$2._bubble = bubble;
-    proto$2.clone = clone$1;
-    proto$2.get = get$2;
-    proto$2.milliseconds = milliseconds;
-    proto$2.seconds = seconds;
-    proto$2.minutes = minutes;
-    proto$2.hours = hours;
-    proto$2.days = days;
-    proto$2.weeks = weeks;
-    proto$2.months = months;
-    proto$2.years = years;
-    proto$2.humanize = humanize;
-    proto$2.toISOString = toISOString$1;
-    proto$2.toString = toISOString$1;
-    proto$2.toJSON = toISOString$1;
-    proto$2.locale = locale;
-    proto$2.localeData = localeData;
-    proto$2.toIsoString = deprecate("toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)", toISOString$1);
-    proto$2.lang = lang;
-    // FORMATTING
-    addFormatToken("X", 0, 0, "unix");
-    addFormatToken("x", 0, 0, "valueOf");
-    // PARSING
-    addRegexToken("x", matchSigned);
-    addRegexToken("X", matchTimestamp);
-    addParseToken("X", function(input, array, config) {
-        config._d = new Date(parseFloat(input) * 1000);
-    });
-    addParseToken("x", function(input, array, config) {
-        config._d = new Date(toInt(input));
-    });
-    //! moment.js
-    hooks.version = "2.30.1";
-    setHookCallback(createLocal);
-    hooks.fn = proto;
-    hooks.min = min;
-    hooks.max = max;
-    hooks.now = now;
-    hooks.utc = createUTC;
-    hooks.unix = createUnix;
-    hooks.months = listMonths;
-    hooks.isDate = isDate;
-    hooks.locale = getSetGlobalLocale;
-    hooks.invalid = createInvalid;
-    hooks.duration = createDuration;
-    hooks.isMoment = isMoment;
-    hooks.weekdays = listWeekdays;
-    hooks.parseZone = createInZone;
-    hooks.localeData = getLocale;
-    hooks.isDuration = isDuration;
-    hooks.monthsShort = listMonthsShort;
-    hooks.weekdaysMin = listWeekdaysMin;
-    hooks.defineLocale = defineLocale;
-    hooks.updateLocale = updateLocale;
-    hooks.locales = listLocales;
-    hooks.weekdaysShort = listWeekdaysShort;
-    hooks.normalizeUnits = normalizeUnits;
-    hooks.relativeTimeRounding = getSetRelativeTimeRounding;
-    hooks.relativeTimeThreshold = getSetRelativeTimeThreshold;
-    hooks.calendarFormat = getCalendarFormat;
-    hooks.prototype = proto;
-    // currently HTML5 input type only supports 24-hour formats
-    hooks.HTML5_FMT = {
-        DATETIME_LOCAL: "YYYY-MM-DDTHH:mm",
-        DATETIME_LOCAL_SECONDS: "YYYY-MM-DDTHH:mm:ss",
-        DATETIME_LOCAL_MS: "YYYY-MM-DDTHH:mm:ss.SSS",
-        DATE: "YYYY-MM-DD",
-        TIME: "HH:mm",
-        TIME_SECONDS: "HH:mm:ss",
-        TIME_MS: "HH:mm:ss.SSS",
-        WEEK: "GGGG-[W]WW",
-        MONTH: "YYYY-MM"
-    };
-    return hooks;
-});
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","./update-user":"2SBwg","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ","../profile-view/favorite-movies":"dTTQH"}],"2SBwg":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$95d1 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$95d1.prelude(module);
 
-},{}],"dTTQH":[function(require,module,exports) {
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "UpdateUser", ()=>UpdateUser);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _form = require("react-bootstrap/Form");
+var _formDefault = parcelHelpers.interopDefault(_form);
+var _button = require("react-bootstrap/Button");
+var _buttonDefault = parcelHelpers.interopDefault(_button);
+var _row = require("react-bootstrap/Row");
+var _rowDefault = parcelHelpers.interopDefault(_row);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+const UpdateUser = ({ formData, handleUpdate, handleSubmit })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default), {
+                onSubmit: handleSubmit,
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                        fileName: "src/components/profile-view/update-user.jsx",
+                        lineNumber: 12,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                        children: " Update profile information "
+                    }, void 0, false, {
+                        fileName: "src/components/profile-view/update-user.jsx",
+                        lineNumber: 13,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
+                        controlId: "formUsername",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
+                                children: "Username:"
+                            }, void 0, false, {
+                                fileName: "src/components/profile-view/update-user.jsx",
+                                lineNumber: 15,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
+                                type: "text",
+                                minLength: 5,
+                                value: formData.UserName,
+                                onChange: (e)=>handleUpdate(e),
+                                required: true
+                            }, void 0, false, {
+                                fileName: "src/components/profile-view/update-user.jsx",
+                                lineNumber: 16,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                                fileName: "src/components/profile-view/update-user.jsx",
+                                lineNumber: 23,
+                                columnNumber: 9
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/profile-view/update-user.jsx",
+                        lineNumber: 14,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
+                        controlId: "formBirthday",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
+                                children: " Birthday: "
+                            }, void 0, false, {
+                                fileName: "src/components/profile-view/update-user.jsx",
+                                lineNumber: 26,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
+                                type: "date",
+                                value: formData.Birthdate,
+                                onChange: (e)=>handleUpdate(e),
+                                required: true
+                            }, void 0, false, {
+                                fileName: "src/components/profile-view/update-user.jsx",
+                                lineNumber: 27,
+                                columnNumber: 11
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/profile-view/update-user.jsx",
+                        lineNumber: 25,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                        fileName: "src/components/profile-view/update-user.jsx",
+                        lineNumber: 34,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
+                        controlId: "formEmail",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
+                                children: " Email: "
+                            }, void 0, false, {
+                                fileName: "src/components/profile-view/update-user.jsx",
+                                lineNumber: 36,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
+                                type: "email",
+                                value: formData.Email,
+                                onChange: (e)=>handleUpdate(e),
+                                required: true
+                            }, void 0, false, {
+                                fileName: "src/components/profile-view/update-user.jsx",
+                                lineNumber: 37,
+                                columnNumber: 11
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/profile-view/update-user.jsx",
+                        lineNumber: 35,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                        fileName: "src/components/profile-view/update-user.jsx",
+                        lineNumber: 44,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
+                        controlId: "formPassword",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
+                                children: "Password:"
+                            }, void 0, false, {
+                                fileName: "src/components/profile-view/update-user.jsx",
+                                lineNumber: 46,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
+                                type: "password",
+                                minLength: 8,
+                                value: formData.Password,
+                                onChange: (e)=>handleUpdate(e)
+                            }, void 0, false, {
+                                fileName: "src/components/profile-view/update-user.jsx",
+                                lineNumber: 48,
+                                columnNumber: 11
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/profile-view/update-user.jsx",
+                        lineNumber: 45,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                        fileName: "src/components/profile-view/update-user.jsx",
+                        lineNumber: 55,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                        variant: "primary",
+                        type: "submit",
+                        children: [
+                            " ",
+                            "Submit changes",
+                            " "
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/profile-view/update-user.jsx",
+                        lineNumber: 56,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/profile-view/update-user.jsx",
+                lineNumber: 11,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                fileName: "src/components/profile-view/update-user.jsx",
+                lineNumber: 61,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/profile-view/update-user.jsx",
+        lineNumber: 10,
+        columnNumber: 5
+    }, undefined);
+};
+_c = UpdateUser;
+UpdateUser.propTypes = {
+    formData: (0, _propTypesDefault.default).object.isRequired,
+    handleUpdate: (0, _propTypesDefault.default).func.isRequired,
+    handleSubmit: (0, _propTypesDefault.default).func.isRequired
+};
+var _c;
+$RefreshReg$(_c, "UpdateUser");
+
+  $parcel$ReactRefreshHelpers$95d1.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap/Form":"iBZ80","react-bootstrap/Button":"aPzUt","react-bootstrap/Row":"cMC39","prop-types":"7wKI2","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ"}],"dTTQH":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$8767 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -48332,110 +44067,94 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _row = require("react-bootstrap/Row");
+var _rowDefault = parcelHelpers.interopDefault(_row);
+var _col = require("react-bootstrap/Col");
+var _colDefault = parcelHelpers.interopDefault(_col);
 var _reactRouterDom = require("react-router-dom");
-var _reactBootstrap = require("react-bootstrap");
 var _movieCard = require("../movie-card/movie-card");
-var _profileViewScss = require("./profile-view.scss");
-function FavoriteMovies({ favoriteMovieList = [], setFavoriteMovieList }) {
-    const removeFav = (id)=>{
-        const token = localStorage.getItem("token");
-        const username = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).username : null;
-        const movie = favoriteMovieList.find((movie)=>movie._id === id); // Resolve movie variable
-        const url = `https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${id}`;
-        fetch(url, {
-            method: "DELETE",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
+var _s = $RefreshSig$();
+const FavoriteMovies = ({ user, favoriteMovies })=>{
+    _s();
+    const [movieDetails, setMovieDetails] = (0, _react.useState)({});
+    (0, _react.useEffect)(()=>{
+        // Fetch movie details when favoriteMovies or user changes
+        fetchMovieDetails();
+    }, [
+        favoriteMovies,
+        user
+    ]);
+    const fetchMovieDetails = async ()=>{
+        // Iterate through favoriteMovies and fetch details for each movie
+        const detailsPromises = favoriteMovies.map(async (movie1)=>{
+            try {
+                const response = await fetch(`https://letflix-0d183cd4a94e.herokuapp.com/movies/${movie1._id}`);
+                if (!response.ok) throw new Error(`Failed to fetch movie details for movie with ID ${movie1._id}`);
+                const movieDetails = await response.json();
+                return movieDetails;
+            } catch (error) {
+                console.error(error);
+                return null;
             }
-        }).then((response)=>{
-            if (response.ok) {
-                // Handle successful removal by updating the UI
-                console.log("Favorite movie removed successfully");
-                // Remove the movie from the UI
-                setFavoriteMovieList((prevMovies)=>prevMovies.filter((movie)=>movie._id !== id));
-            } else throw new Error("Failed to remove the movie");
-        }).catch((error)=>{
-            console.error("Could not remove the movie:", error);
         });
+        // Wait for all detailsPromises to resolve
+        const details = await Promise.all(detailsPromises);
+        setMovieDetails(details);
     };
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
-            children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                        xs: 12,
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
-                            children: "Favorite Movies"
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+        className: "mb-5",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                className: "title",
+                children: "List of favorite movies"
+            }, void 0, false, {
+                fileName: "src/components/profile-view/favorite-movies.jsx",
+                lineNumber: 39,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
+                children: favoriteMovies.map((movieId)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                        md: 6,
+                        children: movieDetails[index] && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                            to: `/movies/${movie._id}`,
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                                isFavorite: user.FavoriteMovies.includes(movie._id),
+                                movie: movieDetails[index]
+                            }, movie._id, false, {
+                                fileName: "src/components/profile-view/favorite-movies.jsx",
+                                lineNumber: 45,
+                                columnNumber: 17
+                            }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/profile-view/favorite-movies.jsx",
-                            lineNumber: 42,
-                            columnNumber: 13
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "src/components/profile-view/favorite-movies.jsx",
-                        lineNumber: 41,
-                        columnNumber: 11
-                    }, this)
-                }, void 0, false, {
-                    fileName: "src/components/profile-view/favorite-movies.jsx",
-                    lineNumber: 40,
-                    columnNumber: 9
-                }, this),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                    children: favoriteMovieList.map(({ ImagePath, Title, _id })=>{
-                        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                            xs: 12,
-                            md: 6,
-                            lg: 3,
-                            className: "fav-movie",
-                            children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                                    movie: {
-                                        ImagePath,
-                                        Title,
-                                        _id
-                                    }
-                                }, void 0, false, {
-                                    fileName: "src/components/profile-view/favorite-movies.jsx",
-                                    lineNumber: 49,
-                                    columnNumber: 17
-                                }, this),
-                                " ",
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                    variant: "secondary",
-                                    onClick: ()=>removeFav(_id),
-                                    children: "Remove"
-                                }, void 0, false, {
-                                    fileName: "src/components/profile-view/favorite-movies.jsx",
-                                    lineNumber: 50,
-                                    columnNumber: 17
-                                }, this)
-                            ]
-                        }, _id, true, {
-                            fileName: "src/components/profile-view/favorite-movies.jsx",
-                            lineNumber: 48,
+                            lineNumber: 44,
                             columnNumber: 15
-                        }, this);
-                    })
-                }, void 0, false, {
-                    fileName: "src/components/profile-view/favorite-movies.jsx",
-                    lineNumber: 45,
-                    columnNumber: 9
-                }, this)
-            ]
-        }, void 0, true, {
-            fileName: "src/components/profile-view/favorite-movies.jsx",
-            lineNumber: 39,
-            columnNumber: 7
-        }, this)
-    }, void 0, false, {
+                        }, undefined)
+                    }, movieId, false, {
+                        fileName: "src/components/profile-view/favorite-movies.jsx",
+                        lineNumber: 42,
+                        columnNumber: 11
+                    }, undefined))
+            }, void 0, false, {
+                fileName: "src/components/profile-view/favorite-movies.jsx",
+                lineNumber: 40,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
         fileName: "src/components/profile-view/favorite-movies.jsx",
         lineNumber: 38,
         columnNumber: 5
-    }, this);
-}
+    }, undefined);
+};
+_s(FavoriteMovies, "XPQgXvXctq5H5k3xDf6tfzGm0JA=");
 _c = FavoriteMovies;
+FavoriteMovies.propTypes = {
+    favoriteMovies: (0, _propTypesDefault.default).array.isRequired,
+    user: (0, _propTypesDefault.default).object.isRequired
+};
 exports.default = FavoriteMovies;
 var _c;
 $RefreshReg$(_c, "FavoriteMovies");
@@ -48445,6 +44164,6 @@ $RefreshReg$(_c, "FavoriteMovies");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"fdOAw","react-bootstrap":"3AD9A","../movie-card/movie-card":"bwuIu","./profile-view.scss":"eyKYH","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"eyKYH":[function() {},{}],"i5LP7":[function() {},{}],"lJZlQ":[function() {},{}]},["5qIsR","1xC6H","d8Dch"], "d8Dch", "parcelRequireaec4")
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"fdOAw","../movie-card/movie-card":"bwuIu","@parcel/transformer-js/src/esmodule-helpers.js":"72xaU","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"LvBOQ","prop-types":"7wKI2","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6"}],"i5LP7":[function() {},{}],"lJZlQ":[function() {},{}]},["d5irm","7tNP8","d8Dch"], "d8Dch", "parcelRequireaec4")
 
 //# sourceMappingURL=index.b4b6dfad.js.map

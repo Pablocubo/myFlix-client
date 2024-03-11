@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { LoginView } from "../login-view/login-view";
@@ -30,6 +30,9 @@ export const MainView = () => {
     }
   }, [token]);
 
+  const favoriteMovies = useMemo(() => movies.filter(movie => user?.FavoriteMovies?.includes(movie._id)), [movies, user?.FavoriteMovies]);
+
+  
   const fetchMovies = () => {
     fetch("https://letflix-0d183cd4a94e.herokuapp.com/movies", {
       headers: {
@@ -79,7 +82,7 @@ export const MainView = () => {
         if (response.ok) {
             alert("Favorite movie added successfully!");
             
-            setFavorites(prevFavorites => [...prevFavorites, movie]);
+            setFavorites(prevFavorites => [...prevFavorites, movie._id]);
         } else {
             alert("Error adding favorite movie");
             throw new Error('Failed to add the favorite movie');
@@ -100,14 +103,14 @@ export const MainView = () => {
         'Content-Type': 'application/json'
       }
     })
-      .then(async (response) => {
-        if (response.ok) {
-          console.log('Favorite movie removed successfully');
-          setFavorites(prevFavorites => prevFavorites.filter(favMovie => favMovie._id !== movie._id));
-        } else {
-          throw new Error('Failed to remove the favorite movie');
-        }
-      })
+     .then(async (response) => {
+      if (response.ok) {
+        console.log('Favorite movie removed successfully');
+        setFavorites(prevFavorites => prevFavorites.filter(favMovieId => favMovieId !== movie._id)); // Use setFavorites from props
+      } else {
+        throw new Error('Failed to remove the favorite movie');
+      }
+    })
       .catch(error => {
         console.error('Error removing favorite movie:', error);
       });
@@ -118,7 +121,7 @@ export const MainView = () => {
     setToken(data.token);
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data.user));
-    localStorage.setItem('favoriteMovies', JSON.stringify(data.user.FavoriteMovies));
+    setFavorites(data.user.FavoriteMovies || []); // Make sure FavoriteMovies is an array of movie objects or IDs
   };
 
   const onLoggedOut = () => {
@@ -155,9 +158,9 @@ export const MainView = () => {
                   {movies.map((movie) => (
                     <Col key={movie._id} xs={12} md={4}>
                       <MovieCard
-                        movie={movie} // Pass the whole movie object to MovieCard, show all the movie details
+                        movie={movie} 
                         addFav={() => addFav(movie)}
-                        removeFav={() => removeFav(movie._id)}  // Pass the movie id to removeFav only id needed for remove
+                        removeFav={() => removeFav(movie)}  
                         isFavorite={favorites.includes(movie._id)}
                       />
                     </Col>
@@ -170,7 +173,7 @@ export const MainView = () => {
             <Route key={movie._id} path={`/movies/${movie._id}`} element={<MovieView movie={movie} />} />
           ))}
           <Route path="/profile" element={<ProfileView user={user} movies={movies} setUser={setUser} addFav={addFav} removeFav={removeFav} />} />
-          <Route path="/favorites" element={<FavoriteMovies setFavoriteMovieList={setFavorites} user={user} />} />
+          <Route path="/favorites" element={<FavoriteMovies user={user} favoriteMovies={favoriteMovies} />} />
           <Route
             path="/login"
             element={
