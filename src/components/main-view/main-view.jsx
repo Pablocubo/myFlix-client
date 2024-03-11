@@ -1,72 +1,50 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { NavigationBar } from "../navigation-bar/navigation-bar";
-import { LoginView } from "../login-view/login-view";
-import { SignupView } from "../signup-view/signup-view";
-import { MovieCard } from "../movie-card/movie-card";
-import { MovieView } from "../movie-view/movie-view";
-import ProfileView from "../profile-view/profile-view";
-import { BrowserRouter, Routes, Route, Navigate, } from "react-router-dom";
+import React, { useState, useEffect, useMemo } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Container, Row, Col } from 'react-bootstrap';
+
+import { NavigationBar } from '../navigation-bar/navigation-bar';
+import { LoginView } from '../login-view/login-view';
+import { SignupView } from '../signup-view/signup-view';
+import { MovieCard } from '../movie-card/movie-card';
+import { MovieView } from '../movie-view/movie-view';
+import ProfileView from '../profile-view/profile-view';
 import FavoriteMovies from '../profile-view/favorite-movies';
 
-export const MainView = () => {
-  let storedUser = null;
-  try {
-    const userData = localStorage.getItem("user");
-    storedUser = userData ? JSON.parse(userData) : null;
-  } catch (error) {
-    console.error('Error parsing user from localStorage:', error);
-  }
 
-  const [user, setUser] = useState(storedUser);
-  const [token, setToken] = useState(localStorage.getItem("token"));
+export const MainView = () => {
+  const [user, setUser] = useState(() => {
+    try {
+      const userData = localStorage.getItem('user');
+      return userData ? JSON.parse(userData) : null;
+    } catch (error) {
+      console.error('Error parsing user from localStorage:', error);
+      return null;
+    }
+  });
+
+  const [token, setToken] = useState(localStorage.getItem('token'));
   const [movies, setMovies] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    // Fetch movies when token changes (working good movies are being fethed)
     if (token) {
       fetchMovies();
     }
   }, [token]);
 
-  const favoriteMovies = useMemo(() => movies.filter(movie => user?.FavoriteMovies?.includes(movie._id)), [movies, user?.FavoriteMovies]);
-
-  
-  const fetchMovies = () => {
-    fetch("https://letflix-0d183cd4a94e.herokuapp.com/movies", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const moviesFromApi = data.map((movie) => ({
-          _id: movie._id,
-          Title: movie.Title,
-          Description: movie.Description,
-          Genre: {
-            Name: movie.Genre.Name,
-            Description: movie.Genre.Description
-          },
-          Director: {
-            Name: movie.Director.Name,
-            Bio: movie.Director.Bio,
-            Birth: movie.Director.Birth,
-            Death: movie.Director.Death
-          },
-          Actors: movie.Actors,
-          Bio: movie.Bio,
-          ImagePath: movie.ImagePath,
-          Featured: movie.Featured
-        }));
-
-        setMovies(moviesFromApi);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
+  const fetchMovies = async () => {
+    try {
+      const response = await fetch("https://letflix-0d183cd4a94e.herokuapp.com/movies", {
+        headers: { Authorization: `Bearer ${token}` },
       });
+      const data = await response.json();
+      setMovies(data.map(movie => ({ ...movie, ImagePath: movie.ImagePath, Featured: movie.Featured })));
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+    }
   };
+
+  const favoriteMovies = useMemo(() => movies.filter(movie => favorites.includes(movie._id)), [movies, favorites]);
 
   const addFav = (movie) => {
     const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
