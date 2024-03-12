@@ -10,8 +10,8 @@ import { MovieView } from '../movie-view/movie-view';
 import ProfileView from '../profile-view/profile-view';
 import FavoriteMovies from '../profile-view/favorite-movies';
 
-
 export const MainView = () => {
+  
   const [user, setUser] = useState(() => {
     try {
       const userData = localStorage.getItem('user');
@@ -99,7 +99,8 @@ export const MainView = () => {
     setToken(data.token);
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data.user));
-    setFavorites(data.user.FavoriteMovies || []); // Make sure FavoriteMovies is an array of movie objects or IDs
+    setFavorites(data.user.FavoriteMovies || []); 
+    navigate('/'); 
   };
 
   const onLoggedOut = () => {
@@ -151,7 +152,7 @@ export const MainView = () => {
             <Route key={movie._id} path={`/movies/${movie._id}`} element={<MovieView movie={movie} />} />
           ))}
           <Route path="/profile" element={<ProfileView user={user} movies={movies} setUser={setUser} addFav={addFav} removeFav={removeFav} />} />
-          <Route path="/favorites" element={<FavoriteMovies user={user} favoriteMovies={favoriteMovies} />} />
+          {user && user.favoriteMovies && <Route path="/favorites" element={<FavoriteMovies user={user} favoriteMovies={favoriteMovies} />} />}
           <Route
             path="/login"
             element={

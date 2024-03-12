@@ -1,31 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Link } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 
-const FavoriteMovies = ({ user }) => {
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
-
-  useEffect(() => {
-    if (user && user.favoriteMovies) {
-      setFavoriteMovies(user.favoriteMovies);
-    }
-  }, [user]);
-
+const FavoriteMovies = ({ user, favoriteMovies, addFav, removeFav }) => {
   return (
-    <Col>
-      <h3>List of Favorite Movies</h3>
+    <Col className="mb-5">
+      <h3 className="title">List of favorite movies</h3>
       <Row>
         {favoriteMovies.map((movie) => (
-          <Col key={movie._id} md={4}>
-            <Link to={`/movies/${movie._id}`}>
-              <MovieCard
-                key={movie._id}
-                isFavorite={user.favoriteMovies.includes(movie._id)}
-                movie={movie} />
-            </Link>
+          <Col key={movie._id} md={6}>
+
+            <MovieCard
+              movie={movie}
+              isFavorite={user.FavoriteMovies.includes(movie._id)}
+
+              addFav={() => addFav(movie)} // Assuming addFav/removeFav expect the whole movie object
+              removeFav={() => removeFav(movie)}
+            />
           </Col>
         ))}
       </Row>
@@ -35,8 +28,9 @@ const FavoriteMovies = ({ user }) => {
 
 FavoriteMovies.propTypes = {
   user: PropTypes.shape({
-    favoriteMovies: PropTypes.arrayOf(PropTypes.string), // Adjust prop type to allow undefined initially
-  }),
+    FavoriteMovies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+  favoriteMovies: PropTypes.array.isRequired, // Ensure this prop is validated for better type checking
 };
 
 export default FavoriteMovies;
