@@ -12,12 +12,12 @@ export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
   // Initialize state with user data
   const [username, setUsername] = useState(user?.UserName || "");
   const [email, setEmail] = useState(user?.Email || "");
-  const [birthdate, setBirthdate] = useState(user?.Birthdate || "");
+  const [birthdate, setBirthdate] = useState(user?.Birthday || "");
 
   useEffect(() => {
-    setUsername(user?.UserName || "");
+    setUsername(user?.Username || "");
     setEmail(user?.Email || "");
-    setBirthdate(user?.Birthdate || "");
+    setBirthdate(user?.Birthday || "");
   }, [user]);
 
   // Format the birthdate for display

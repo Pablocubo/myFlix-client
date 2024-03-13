@@ -48,69 +48,53 @@ export const MainView = () => {
   const favoriteMovies = useMemo(() => movies.filter(movie => favorites.includes(movie._id)), [movies, favorites]);
 
   const addFav = (movie) => {
-    const username = user?.UserName || null; 
-
+    const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
+    const token = localStorage.getItem("token");
     fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${movie._id}`, {
-      method: 'POST',
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(async (response) => {
+        if (response.ok) {
+            alert("Favorite movie added successfully!");
+            
+            setFavorites(prevFavorites => [...prevFavorites, movie._id]);
+        } else {
+            alert("Error adding favorite movie");
+            throw new Error('Failed to add the favorite movie');
+        }
+    })
+    .catch(error => {
+        console.error('Error adding favorite movie:', error);
+    });
+  };
+  
+  
+  
+  const removeFav = (movie) => {
+    const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
+    const token = localStorage.getItem('token');
+    fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${movie._id}`, {
+      method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       }
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to add the favorite movie');
+     .then(async (response) => {
+      if (response.ok) {
+        console.log('Favorite movie removed successfully');
+        setFavorites(prevFavorites => prevFavorites.filter(favMovieId => favMovieId !== movie._id)); // Use setFavorites from props
+      } else {
+        throw new Error('Failed to remove the favorite movie');
       }
-      return response.json();
     })
-    .then(() => {
-      /* alert("Favorite movie added successfully!"); */
-      
-      // Optimistically update the UI and local storage
-      const updatedFavorites = [...favorites, movie._id];
-      setFavorites(updatedFavorites);
-
-      const updatedUser = {...user, FavoriteMovies: updatedFavorites};
-      setUser(updatedUser);
-      localStorage.setItem('user', JSON.stringify(updatedUser));
-    })
-    .catch(error => {
-      console.error('Error adding favorite movie:', error);
-      alert(error.message); // More sophisticated user feedback could be implemented here
-    });
-  };
-  
-  const removeFav = async (movie) => {
-    const username = user?.UserName; // Ensuring this matches your user object structure
-    if (!username) {
-      console.error("User's username is missing.");
-      return;
-    }
-    const url = `https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${movie._id}`;
-  
-    try {
-        const response = await fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        });
-  
-        if (!response.ok) {
-            throw new Error('Failed to remove the favorite movie');
-        }
-  
-        // Optimistically update UI
-        const updatedFavorites = favorites.filter(favMovieId => favMovieId !== movie._id);
-        setFavorites(updatedFavorites);
-  
-        // Update user object in localStorage, if needed
-        updateUserInLocalStorage(updatedFavorites);
-    } catch (error) {
+      .catch(error => {
         console.error('Error removing favorite movie:', error);
-        alert("Error removing favorite movie");
-    }
+      });
   };
   
 
