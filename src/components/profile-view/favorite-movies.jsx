@@ -2,9 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+
 import { MovieCard } from "../movie-card/movie-card";
 
-const FavoriteMovies = ({ user, favoriteMovies, addFav, removeFav }) => {
+export const FavoriteMovies = ({ user, favoriteMovies, addFav, removeFav }) => {
   return (
     <Col className="mb-5">
       <h3 className="title">List of favorite movies</h3>
@@ -33,4 +34,3 @@ FavoriteMovies.propTypes = {
   favoriteMovies: PropTypes.array.isRequired, // Ensure this prop is validated for better type checking
 };
 
-export default FavoriteMovies;

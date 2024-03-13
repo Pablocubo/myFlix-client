@@ -1,2 +1,96 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+import { useState } from 'react';
+import { foods, filterItems } from './data.js';
+
+export default function FilterableList() {
+  const [query, setQuery] = useState('');
+
+  function handleChange(e) {
+    setQuery(e.target.value);
+  }
+
+  // Call filterItems to filter the list of foods based on the query
+  const filteredFoods = filterItems(foods, query);
+
+  return (
+    <>
+      <SearchBar handleChange={handleChange} query={query} />
+      <hr />
+      {/* Pass the filteredFoods to the List component */}
+      <List items={filteredFoods} />
+    </>
+  );
+}
+
+function SearchBar({ handleChange, query }) {
+  return (
+    <label>
+      Search:{' '}
+      <input
+        value={query}
+        onChange={handleChange}
+      />
+    </label>
+  );
+}
+
+function List({ items }) {
+  return (
+    <table>
+      <tbody>
+        {items.map(food => (
+          <tr key={food.id}>
+            <td>{food.name}</td>
+            <td>{food.description}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+
+import { useState } from 'react';
+import { foods, filterItems } from './data.js';
+
+export default function FilterableList() {
+  return (
+    <>
+      <SearchBar />
+      <hr />
+      <List items={foods} />
+    </>
+  );
+}
+
+function SearchBar() {
+  const [query, setQuery] = useState('');
+  
+  function handleChange(e) {
+    setQuery(e.target.value);
+  }
+
+  return (
+    <label>
+      Search:{' '}
+      <input
+        value={query}
+        onChange={handleChange}
+      />
+    </label>
+  );
+}
+
+function List({ items }) {
+  return (
+    <table>
+      <tbody>
+        {items.map(food => (
+          <tr key={food.id}>
+            <td>{food.name}</td>
+            <td>{food.description}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}

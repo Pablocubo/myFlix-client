@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
-import FavoriteMovies from '../profile-view/favorite-movies'; // Ensure this is used or remove if unnecessary
+import { FavoriteMovies } from '../profile-view/favorite-movies';
 import { UpdateUser } from "./update-user";
-import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
-import MovieCard from '../movie-card/movie-card'; // Adjust the import path as necessary
+import { MovieCard } from '../movie-card/movie-card'; // Adjust the import path as necessary
+import moment from 'moment';
 
-const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
+export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
   const navigate = useNavigate();
   
   // Initialize state with user data
@@ -91,7 +91,7 @@ const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
       <Row>
         <Card>
           <Card.Body>
-            <Card.Title><h2> Hello {user.username}! </h2></Card.Title>
+            <Card.Title><h2> Hello {user.username} </h2></Card.Title>
             <Card.Text>
               <strong>Username:</strong> {user.username}
             </Card.Text>
@@ -134,4 +134,3 @@ const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
   );
 };
 
-export default ProfileView;

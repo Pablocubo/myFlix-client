@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-
 import { NavigationBar } from '../navigation-bar/navigation-bar';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
-import ProfileView from '../profile-view/profile-view';
-import FavoriteMovies from '../profile-view/favorite-movies';
+import { ProfileView } from '../profile-view/profile-view';
+import { FavoriteMovies } from '../profile-view/favorite-movies';
 
 export const MainView = () => {
   
