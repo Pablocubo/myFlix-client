@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
-import { FavoriteMovies } from '../profile-view/favorite-movies';
+
 import { UpdateUser } from "./update-user";
 import { useNavigate } from 'react-router-dom';
 import { MovieCard } from '../movie-card/movie-card'; // Adjust the import path as necessary

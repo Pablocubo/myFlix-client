@@ -1,25 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
+import { Link } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 
-export const FavoriteMovies = ({ user, favoriteMovies, addFav, removeFav }) => {
+export const FavoriteMovies = ({ user }) => {
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
+
+  useEffect(() => {
+    // Assuming user.favoriteMovies is an array of movie IDs initially
+    // Adjusted to check if user.favoriteMovies is truthy before setting
+    if (user && user.favoriteMovies) {
+      // Here, you would fetch the movie details based on the IDs or ensure favoriteMovies contains detailed movie objects
+      setFavoriteMovies(user.favoriteMovies);
+    }
+  }, [user]);
+
+  // Handling for when favoriteMovies is empty
+  if (favoriteMovies.length === 0) {
+    return (
+      <Col>
+        <h3>List of Favorite Movies</h3>
+        <p>No favorite movies to display.</p>
+      </Col>
+    );
+  }
+
   return (
-    <Col className="mb-5">
-      <h3 className="title">List of favorite movies</h3>
+    <Col>
+      <h3>List of Favorite Movies</h3>
       <Row>
         {favoriteMovies.map((movie) => (
-          <Col key={movie._id} md={6}>
-
-            <MovieCard
-              movie={movie}
-              isFavorite={user.FavoriteMovies.includes(movie._id)}
-
-              addFav={() => addFav(movie)} // Assuming addFav/removeFav expect the whole movie object
-              removeFav={() => removeFav(movie)}
-            />
+          <Col key={movie._id} md={4}>
+            <Link to={`/movies/${movie._id}`}>
+              <MovieCard
+                isFavorite={user.favoriteMovies.includes(movie._id)}
+                movie={movie} />
+            </Link>
           </Col>
         ))}
       </Row>
@@ -29,8 +47,7 @@ export const FavoriteMovies = ({ user, favoriteMovies, addFav, removeFav }) => {
 
 FavoriteMovies.propTypes = {
   user: PropTypes.shape({
-    FavoriteMovies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }).isRequired,
-  favoriteMovies: PropTypes.array.isRequired, // Ensure this prop is validated for better type checking
+    favoriteMovies: PropTypes.array, // This allows the array to be initially undefined
+  }),
 };
 

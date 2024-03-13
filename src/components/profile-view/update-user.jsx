@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Row";
 import PropTypes from "prop-types";
 
 export const UpdateUser = ({ formData, handleUpdate, handleSubmit }) => {
+  
   return (
     <Row>
       <Form onSubmit={handleSubmit}>
