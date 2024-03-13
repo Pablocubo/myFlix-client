@@ -18,11 +18,19 @@ export const MainView = () => {
 
   useEffect(() => {
     // Fetch movies or other user-specific data here if needed
-    const token = localStorage.getItem('token');
     if (token) {
-      fetchMovies(token);
+      fetchMovies();
     }
-  }, [token]); 
+  }, [token]); // This useEffect is dependent on `token` to fetch movies
+  
+  useEffect(() => {
+    // This useEffect is for synchronizing the user state with localStorage
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+      setFavorites(storedUser.FavoriteMovies || []);
+    }
+  }, []); 
   
 
   const fetchMovies = async () => {
@@ -72,33 +80,40 @@ export const MainView = () => {
     });
   };
   
-const removeFav = (movie, user, token, favorites, setFavorites, updateFavoritesInLocalStorage) => {
-    const username = user?.username;
-   
-    fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${movie._id}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
+  const removeFav = async (movie) => {
+    const username = user?.UserName; // Ensuring this matches your user object structure
+    if (!username) {
+      console.error("User's username is missing.");
+      return;
+    }
+    const url = `https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${movie._id}`;
+  
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+  
         if (!response.ok) {
-            // Rollback optimistic update in case of error
-            setFavorites(favorites);
-            updateFavoritesInLocalStorage(favorites); // Rollback local storage update
             throw new Error('Failed to remove the favorite movie');
         }
+  
         // Optimistically update UI
         const updatedFavorites = favorites.filter(favMovieId => favMovieId !== movie._id);
         setFavorites(updatedFavorites);
-        updateFavoritesInLocalStorage(updatedFavorites);
-    })
-    .catch(error => {
+  
+        // Update user object in localStorage, if needed
+        updateUserInLocalStorage(updatedFavorites);
+    } catch (error) {
         console.error('Error removing favorite movie:', error);
         alert("Error removing favorite movie");
-    });
-};
+    }
+  };
+  
+
 
   
   const onLoggedIn = (data) => {

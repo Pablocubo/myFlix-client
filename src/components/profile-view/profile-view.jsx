@@ -39,33 +39,54 @@ export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const token = localStorage.getItem("token");
-
+  
+    // Adjusted to match the backend field names exactly.
+    const updatedUserData = {
+      Username: username, // Use 'Username' to match your mongoose schema
+      Email: email,
+      Birthday: birthdate, // Format the date as your backend expects, if necessary
+      // No need to send Password if you're not updating it
+      // FavoriteMovies are likely managed separately, not directly through profile update
+    };
+  
     fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${user._id}`, {
       method: "PUT",
-      body: JSON.stringify(formData),
+      body: JSON.stringify(updatedUserData),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     })
-      .then(response => response.ok ? response.json() : Promise.reject('Update failed'))
-      .then(data => {
-        alert("Update successful");
-        localStorage.setItem("user", JSON.stringify(data));
-        setUser(data);
-      })
-      .catch(error => {
-        alert(error);
-        console.error(error);
-      });
+    .then((response) => response.ok ? response.json() : Promise.reject('Update failed'))
+    .then((data) => {
+      alert("Update successful");
+      localStorage.setItem("user", JSON.stringify(data)); // Update local storage
+      setUser(data); // Update state to reflect the new user data
+    })
+    .catch((error) => {
+      console.error("Failed to update user information:", error);
+      alert("Failed to update user information");
+    });
   };
+  
 
   const handleUpdate = (e) => {
     const { name, value } = e.target;
-    if (name === "username") setUsername(value);
-    else if (name === "email") setEmail(value);
-    else if (name === "birthdate") setBirthdate(value);
+    switch (name) {
+      case "username":
+        setUsername(value);
+        break;
+      case "email":
+        setEmail(value);
+        break;
+      case "birthdate":
+        setBirthdate(value);
+        break;
+      default:
+        console.warn("Unknown form field:", name);
+    }
   };
+  
 
   const handleDeleteAccount = () => {
     const token = localStorage.getItem("token");
@@ -91,12 +112,12 @@ export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
       <Row>
         <Card>
           <Card.Body>
-            <Card.Title><h2> Hello {user.username} </h2></Card.Title>
+            <Card.Title><h2> Hello {user.Username} </h2></Card.Title>
             <Card.Text>
-              <strong>Username:</strong> {user.username}
+              <strong>Username:</strong> {user.Username}
             </Card.Text>
             <Card.Text>
-              <strong>Email:</strong> {user.email}
+              <strong>Email:</strong> {user.Email}
             </Card.Text>
             <Card.Text>
               <strong>Birthday:</strong> {formattedBirthday}
