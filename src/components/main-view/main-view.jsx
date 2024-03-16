@@ -10,11 +10,18 @@ import { BrowserRouter, Routes, Route, Navigate, } from "react-router-dom";
 import { FavoriteMovies } from '../profile-view/favorite-movies';
 
 export const MainView = () => {
- const storedUser = JSON.parse(localStorage.getItem("user"));
-  const [user, setUser] = useState(storedUser);
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState(storedUser || { FavoriteMovies: [] });
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [movies, setMovies] = useState([]);
   const [favorites, setFavorites] = useState([]);
+
+  const favoriteMovies = useMemo(() => {
+    if (user && user.FavoriteMovies) {
+      return movies.filter(movie => user.FavoriteMovies.includes(movie._id));
+    }
+    return [];
+  }, [movies, user]);
 
   useEffect(() => {
     // Fetch movies when token changes (working good movies are being fethed)
@@ -23,9 +30,6 @@ export const MainView = () => {
     }
   }, [token]);
 
-  const favoriteMovies = useMemo(() => movies.filter(movie => user?.FavoriteMovies?.includes(movie._id)), [movies, user?.FavoriteMovies]);
-
-  
   const fetchMovies = () => {
     fetch("https://letflix-0d183cd4a94e.herokuapp.com/movies", {
       headers: {
@@ -65,26 +69,26 @@ export const MainView = () => {
     const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
     const token = localStorage.getItem("token");
     fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${movie._id}`, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        }
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
     })
-    .then(async (response) => {
+      .then(async (response) => {
         if (response.ok) {
-                        
-            setFavorites(prevFavorites => [...prevFavorites, movie._id]);
+
+          setFavorites(prevFavorites => [...prevFavorites, movie._id]);
         } else {
-            alert("Error adding favorite movie");
-            throw new Error('Failed to add the favorite movie');
+          alert("Error adding favorite movie");
+          throw new Error('Failed to add the favorite movie');
         }
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         console.error('Error adding favorite movie:', error);
-    });
+      });
   };
-  
+
   const removeFav = (movie) => {
     const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
     const token = localStorage.getItem('token');
@@ -95,50 +99,50 @@ export const MainView = () => {
         'Content-Type': 'application/json'
       }
     })
-     .then(async (response) => {
-      if (response.ok) {
-        console.log('Favorite movie removed successfully');
-        setFavorites(prevFavorites => prevFavorites.filter(favMovieId => favMovieId !== movie._id)); // Use setFavorites from props
-      } else {
-        throw new Error('Failed to remove the favorite movie');
-      }
-    })
+      .then(async (response) => {
+        if (response.ok) {
+          console.log('Favorite movie removed successfully');
+          setFavorites(prevFavorites => prevFavorites.filter(favMovieId => favMovieId !== movie._id)); // Use setFavorites from props
+        } else {
+          throw new Error('Failed to remove the favorite movie');
+        }
+      })
       .catch(error => {
         console.error('Error removing favorite movie:', error);
       });
   };
   
-const onLoggedIn = (authData) => {
-  const { token, user } = authData; // Assuming authData contains a token and basic user info
+  const onLoggedIn = (authData) => {
+    const { token, user } = authData; // Assuming authData contains a token and basic user info
 
-  // Step 1: Store the token in localStorage and state
-  localStorage.setItem('token', token);
-  setToken(token);
+    // Step 1: Store the token in localStorage and state
+    localStorage.setItem('token', token);
+    setToken(token);
 
-  // Step 2: Fetch the complete user data
-  fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${user.username}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Failed to fetch user data');
-    }
-    return response.json();
-  })
-  .then(fullUserData => {
-    // Step 3: Update application state and localStorage with complete user data
-    setUser(fullUserData);
-    localStorage.setItem('user', JSON.stringify(fullUserData));
-    // Assuming FavoriteMovies is part of the fullUserData
-    setFavorites(fullUserData.FavoriteMovies || []);
-  })
-  .catch(error => {
-    console.error('Error fetching user data:', error);
-  });
-};
+    // Step 2: Fetch the complete user data
+    fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${user.username}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
+        }
+        return response.json();
+      })
+      .then(fullUserData => {
+        // Step 3: Update application state and localStorage with complete user data
+        setUser(fullUserData);
+        localStorage.setItem('user', JSON.stringify(fullUserData));
+        // Assuming FavoriteMovies is part of the fullUserData
+        setFavorites(fullUserData.FavoriteMovies || []);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+  };
 
 
   const onLoggedOut = () => {

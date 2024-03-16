@@ -6,54 +6,54 @@ import { Link } from 'react-router-dom';
 import { MovieCard } from '../movie-card/movie-card';
 
 export const FavoriteMovies = ({ user }) => {
-  const [favoriteMoviesDetails, setFavoriteMoviesDetails] = useState([]);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   useEffect(() => {
-    const fetchMovieDetails = async () => {
-      // Clear existing movie details
-      setFavoriteMoviesDetails([]);
-
-      // Assuming user.FavoriteMovies contains movie IDs
-      const movieDetailsPromises = user.FavoriteMovies.map(movieId =>
-        fetch(`https://letflix-0d183cd4a94e.herokuapp.com/movies/${movieId}`)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .catch(error => console.error('There has been a problem with your fetch operation:', error))
-      );
-
-      // Wait for all fetches to complete and then set the state with the new movie details
-      Promise.all(movieDetailsPromises)
-        .then(details => setFavoriteMoviesDetails(details))
-        .catch(error => console.error('Error fetching movie details:', error));
+    const fetchFavoriteMovies = async () => {
+      try {
+        const response = await fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${user.username}/favorites`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}` // Assuming you're using JWT for authentication
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch favorite movies');
+        }
+        const data = await response.json();
+        setFavoriteMovies(data);
+      } catch (error) {
+        console.error('Error fetching favorite movies:', error);
+      }
     };
 
-    if (user && user.FavoriteMovies) {
-      fetchMovieDetails();
-    }
-  }, [user, user.FavoriteMovies]); // Re-run when user or their FavoriteMovies change
+    fetchFavoriteMovies();
 
-  if (favoriteMoviesDetails.length === 0) {
+    // Clean up function (optional)
+    return () => {
+      // Perform any cleanup here if necessary
+    };
+  }, [user.Username]); // Dependency array ensures useEffect runs when username changes
+
+  if (!favoriteMovies || favoriteMovies.length === 0) {
     return (
       <Col>
-        <h3>List of Favorite Movies</h3>
-        <p>No favorite movies to display.</p>
+        <h3 className="title">List of favorite movies</h3>
+        <p>You have no favorite movies added.</p>
       </Col>
     );
   }
 
   return (
-    <Col>
-      <h3>List of Favorite Movies</h3>
+    <Col className="mb-5">
+      <h3 className="title">List of favorite movies</h3>
       <Row>
-        {favoriteMoviesDetails.map(movie => (
-          <Col key={movie._id} md={4}>
+        {favoriteMovies.map((movie) => (
+          <Col key={movie._id} md={3}>
             <Link to={`/movies/${movie._id}`}>
               <MovieCard
-                isFavorite={true} // If this component is rendering, it's a favorite by default
+                key={movie._id}
+                // Ensure user and user.FavoriteMovies are defined before using .includes
+                isFavorite={user && user.FavoriteMovies ? user.FavoriteMovies.includes(movie._id) : false}
                 movie={movie}
               />
             </Link>
@@ -65,7 +65,5 @@ export const FavoriteMovies = ({ user }) => {
 };
 
 FavoriteMovies.propTypes = {
-  user: PropTypes.shape({
-    FavoriteMovies: PropTypes.arrayOf(PropTypes.string),
-  }),
+  user: PropTypes.object.isRequired
 };
