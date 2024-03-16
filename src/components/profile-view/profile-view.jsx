@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Button } from 'react-bootstrap';
-
+import React, { useState, useEffect } from "react";
+import { Row, Col, Card, Button } from "react-bootstrap";
+import { FavoriteMovies } from "./favorite-movies";
 import { UpdateUser } from "./update-user";
-import { useNavigate } from 'react-router-dom';
-import { MovieCard } from '../movie-card/movie-card'; // Adjust the import path as necessary
-import moment from 'moment';
+import { useNavigate } from "react-router-dom";
+import { MovieCard } from "../movie-card/movie-card";
+import moment from "moment";
 
 export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
   const navigate = useNavigate();
 
   // Initialize state with user data
-  const [username, setUsername] = useState(user?.UserName || "");
-  const [email, setEmail] = useState(user?.Email || "");
-  const [birthdate, setBirthdate] = useState(user?.Birthday || "");
+  const [username, setUsername] = useState(user.UserName || "");
+  const [email, setEmail] = useState(user.Email || "");
+  const [birthdate, setBirthdate] = useState(user.Birthday || "");
 
   useEffect(() => {
-    setUsername(user?.Username || "");
-    setEmail(user?.Email || "");
-    setBirthdate(user?.Birthday || "");
+    setUsername(user.Username || "");
+    setEmail(user.Email || "");
+    setBirthdate(user.Birthday || "");
   }, [user]);
 
   // Format the birthdate for display
@@ -136,22 +136,7 @@ export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
         </Col>
       </Row>
       <hr />
-      <div>
-        <h2>Your Favorite Movies</h2>
-        <Row xs={1} md={2} className="g-4">
-          {filteredFavoriteMovies.map((movie) => (
-            <Col key={movie._id}>
-              <MovieCard
-                movie={movie}
-                isFavorite={isMovieFavorite(movie._id)}
-                addFav={addFav}
-                removeFav={removeFav}
-              />
-            </Col>
-          ))}
-        </Row>
-      </div>
+      <FavoriteMovies user={user} />
     </>
   );
 };
-

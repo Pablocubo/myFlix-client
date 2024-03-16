@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Col, Form, Button, Container, Row, Card } from 'react-bootstrap';
-
+import { FavoriteMovies }  from '../profile-view/favorite-movies';
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
