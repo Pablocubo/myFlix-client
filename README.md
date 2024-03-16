@@ -27,7 +27,7 @@ The app is designed to work with the `movie_api`, which provides access to a dat
 
 ### Link to App
 
-The myMovie App is hosted on Netlify and can be accessed at: [myMovie App](https://mymovie-api.netlify.app/).
+The myMovie App is hosted on Netlify and can be accessed at: [myMovie App](https://letflixnow.netlify.app/).
 
 ## Views
 
