@@ -8,7 +8,7 @@ import moment from 'moment';
 
 export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
   const navigate = useNavigate();
-  
+
   // Initialize state with user data
   const [username, setUsername] = useState(user?.UserName || "");
   const [email, setEmail] = useState(user?.Email || "");
@@ -29,12 +29,12 @@ export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
   // Determine if a movie is in the user's favorites
   const isMovieFavorite = (movieId) => user?.FavoriteMovies.includes(movieId);
 
-  // Prepare formData with current state values for submission
-  const formData = {
-    UserName: username,
-    Email: email,
-    Birthdate: birthdate
-  };
+ // Preparing formData with current state values
+ const formData = {
+  UserName: username,
+  Email: email,
+  Birthdate: birthdate
+};
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -112,12 +112,12 @@ export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
       <Row>
         <Card>
           <Card.Body>
-            <Card.Title><h2> Hello {user.Username} </h2></Card.Title>
+            <Card.Title><h2> Hello {user.username} </h2></Card.Title>
             <Card.Text>
-              <strong>Username:</strong> {user.Username}
+              <strong>Username:</strong> {user.username}
             </Card.Text>
             <Card.Text>
-              <strong>Email:</strong> {user.Email}
+              <strong>Email:</strong> {user.email}
             </Card.Text>
             <Card.Text>
               <strong>Birthday:</strong> {formattedBirthday}
