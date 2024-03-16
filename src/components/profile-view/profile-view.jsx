@@ -3,16 +3,17 @@ import { Row, Col, Card, Button } from "react-bootstrap";
 import { FavoriteMovies } from "./favorite-movies";
 import { UpdateUser } from "./update-user";
 import { useNavigate } from "react-router-dom";
-import { MovieCard } from "../movie-card/movie-card";
+
 import moment from "moment";
 
-export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
+export const ProfileView = ({ user, setUser, addFav, removeFav }) => {
   const navigate = useNavigate();
 
   // Initialize state with user data
   const [username, setUsername] = useState(user.UserName || "");
   const [email, setEmail] = useState(user.Email || "");
   const [birthdate, setBirthdate] = useState(user.Birthday || "");
+  const [password, setPassword] = useState(user.Password || "");
 
   useEffect(() => {
     setUsername(user.Username || "");
@@ -23,23 +24,18 @@ export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
   // Format the birthdate for display
   const formattedBirthday = moment(user?.Birthdate).format('MMMM Do, YYYY');
 
-  // Filter user's favorite movies
-  const filteredFavoriteMovies = movies.filter(movie => user?.FavoriteMovies?.includes(movie._id));
-
-  // Determine if a movie is in the user's favorites
-  const isMovieFavorite = (movieId) => user?.FavoriteMovies.includes(movieId);
-
- // Preparing formData with current state values
- const formData = {
-  UserName: username,
-  Email: email,
-  Birthdate: birthdate
-};
+  // Preparing formData with current state values
+  const formData = {
+    UserName: username,
+    Email: email,
+    Birthdate: birthdate,
+    Password: password
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const token = localStorage.getItem("token");
-  
+
     // Adjusted to match the backend field names exactly.
     const updatedUserData = {
       Username: username, // Use 'Username' to match your mongoose schema
@@ -48,7 +44,7 @@ export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
       // No need to send Password if you're not updating it
       // FavoriteMovies are likely managed separately, not directly through profile update
     };
-  
+
     fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${user._id}`, {
       method: "PUT",
       body: JSON.stringify(updatedUserData),
@@ -57,18 +53,18 @@ export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then((response) => response.ok ? response.json() : Promise.reject('Update failed'))
-    .then((data) => {
-      alert("Update successful");
-      localStorage.setItem("user", JSON.stringify(data)); // Update local storage
-      setUser(data); // Update state to reflect the new user data
-    })
-    .catch((error) => {
-      console.error("Failed to update user information:", error);
-      alert("Failed to update user information");
-    });
+      .then((response) => response.ok ? response.json() : Promise.reject('Update failed'))
+      .then((data) => {
+        alert("Update successful");
+        localStorage.setItem("user", JSON.stringify(data)); // Update local storage
+        setUser(data); // Update state to reflect the new user data
+      })
+      .catch((error) => {
+        console.error("Failed to update user information:", error);
+        alert("Failed to update user information");
+      });
   };
-  
+
 
   const handleUpdate = (e) => {
     const { name, value } = e.target;
@@ -78,6 +74,9 @@ export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
         break;
       case "email":
         setEmail(value);
+        break; // Added missing break statement
+      case "password":
+        setPassword(value);
         break;
       case "birthdate":
         setBirthdate(value);
@@ -86,7 +85,7 @@ export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
         console.warn("Unknown form field:", name);
     }
   };
-  
+
 
   const handleDeleteAccount = () => {
     const token = localStorage.getItem("token");
@@ -136,7 +135,7 @@ export const ProfileView = ({ user, setUser, movies, addFav, removeFav }) => {
         </Col>
       </Row>
       <hr />
-      <FavoriteMovies user={user} />
+      <FavoriteMovies user={user} addFav={addFav} removeFav={removeFav} />
     </>
   );
 };

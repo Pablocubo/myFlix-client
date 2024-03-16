@@ -5,7 +5,7 @@ import { BookmarkHeart, BookmarkHeartFill } from "react-bootstrap-icons";
 import "./movie-card.scss";
 
 export const MovieCard = ({ movie, addFav, removeFav, isFavorite }) => {
-  const handleAddFav = () => addFav(movie);
+  const handleAddFav = () => addFav(movie._id);
   const handleRemoveFav = () => removeFav(movie);
 
   return (

@@ -66,6 +66,7 @@ export const MainView = () => {
   };
 
   const addFav = (movie) => {
+    
     const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
     const token = localStorage.getItem("token");
     fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${movie._id}`, {
@@ -89,7 +90,7 @@ export const MainView = () => {
       });
   };
 
-  const removeFav = (movie) => {
+  const removeFav = (movie, onMovieRemoved) => {
     const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
     const token = localStorage.getItem('token');
     fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${username}/movies/${movie._id}`, {
@@ -99,14 +100,16 @@ export const MainView = () => {
         'Content-Type': 'application/json'
       }
     })
-      .then(async (response) => {
-        if (response.ok) {
+    .then(response => {
+      if (response.ok) {
           console.log('Favorite movie removed successfully');
-          setFavorites(prevFavorites => prevFavorites.filter(favMovieId => favMovieId !== movie._id)); // Use setFavorites from props
-        } else {
+          if (typeof onMovieRemoved === 'function') {
+              onMovieRemoved(movie._id);
+          }
+      } else {
           throw new Error('Failed to remove the favorite movie');
-        }
-      })
+      }
+  })
       .catch(error => {
         console.error('Error removing favorite movie:', error);
       });
@@ -194,7 +197,7 @@ export const MainView = () => {
             <Route key={movie._id} path={`/movies/${movie._id}`} element={<MovieView movie={movie} />} />
           ))}
           <Route path="/profile" element={<ProfileView user={user} movies={movies} setUser={setUser} addFav={addFav} removeFav={removeFav} />} />
-          <Route path="/favorites" element={<FavoriteMovies user={user} favoriteMovies={favoriteMovies} />} />
+          <Route path="/favorites" element={<FavoriteMovies user={user} favoriteMovies={favoriteMovies} addFav={addFav} removeFav={removeFav} />} />
           <Route
             path="/login"
             element={
