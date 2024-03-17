@@ -10,20 +10,23 @@ import { BrowserRouter, Routes, Route, Navigate, } from "react-router-dom";
 import { FavoriteMovies } from '../profile-view/favorite-movies';
 
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const [user, setUser] = useState(storedUser || { FavoriteMovies: [] });
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [movies, setMovies] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    // Fetch movies when token changes (working good movies are being fethed)
+    // Fetch movies and user info in two files. check console.log to see the data
     if (token) {
       getUserInfo();
       fetchMovies();
     }
   }, [token]);
 
+  const onMovieRemoved = (removedMovieId) => {
+    setFavorites(prevFavorites => prevFavorites.filter(id => id !== removedMovieId));
+  };
+  
   const fetchMovies = () => {
     fetch("https://letflix-0d183cd4a94e.herokuapp.com/movies", {
       headers: {
@@ -58,6 +61,7 @@ export const MainView = () => {
         console.error('Error fetching data:', error);
       });
   };
+
   const getUserInfo = () => {
     const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
     const token = localStorage.getItem("token");
@@ -116,7 +120,8 @@ export const MainView = () => {
         if (response.ok) {
           console.log('Favorite movie removed successfully');
           if (typeof onMovieRemoved === 'function') {
-            onMovieRemoved(movie._id);
+            onMovieRemoved(movie._id); // Invoke the callback with the removed movie's ID
+            setFavorites(prevFavorites => prevFavorites.filter(id => id !== movie._id)); // Remove movie from favorites
           }
         } else {
           throw new Error('Failed to remove the favorite movie');
@@ -144,7 +149,7 @@ export const MainView = () => {
               <>
                 <Row>
                   <Col>
-                    <LoginView onLoggedIn={setUser} /> {/* // setUser is takin userdata from loginview and setting it to user state */}
+                    <LoginView onLoggedIn={setUser} /> {/* // setUser is taking userdata from loginview and setting it to user state */}
                   </Col>
                 </Row>
                 <Row>
@@ -163,7 +168,7 @@ export const MainView = () => {
                       <MovieCard
                         movie={movie} // Pass the whole movie object to MovieCard, show all the movie details
                         addFav={() => addFav(movie)}
-                        removeFav={() => removeFav(movie)}  // Pass the movie id to removeFav only id needed for remove
+                        removeFav={(movie) => removeFav(movie, onMovieRemoved)}  // Pass the movie id to removeFav only id needed for remove
                         isFavorite={favorites.includes(movie._id)}
                       />
                     </Col>
