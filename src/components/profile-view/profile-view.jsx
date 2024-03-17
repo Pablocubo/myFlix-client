@@ -8,6 +8,7 @@ import moment from "moment";
 
 export const ProfileView = ({ user, setUser, addFav, removeFav }) => {
   const navigate = useNavigate();
+  console.log("user profile", user);
 
   // Initialize state with user data
   const [username, setUsername] = useState(user.UserName || "");

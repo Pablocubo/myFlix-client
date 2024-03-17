@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Col, Form, Button, Container, Row, Card } from 'react-bootstrap';
-import { FavoriteMovies }  from '../profile-view/favorite-movies';
+
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +26,7 @@ export const LoginView = ({ onLoggedIn }) => {
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
-          onLoggedIn({ user: data.user, token: data.token });
+          onLoggedIn(data.user);
         } else {
           console.log("data.user:", data.user);
           alert("no such user");

@@ -33,9 +33,9 @@ The myMovie App is hosted on Netlify and can be accessed at: [myMovie App](https
 
 - **Login View:** Allows users to log in with a username and password.
 - **Signup View:** Enables new users to register by providing a username, password, email, and date of birth.
-- **Main View:** Displays all movies with image, title, and description; includes live search and genre filtering features.
-- **Single Movie View:** Offers detailed information about a single movie and related functionalities.
-- **Profile View:** Shows user details, allows info updates, deregistration, and management of favorite movies.
+- **Main View:** Displays all movies with image, title, and description.
+- **Single Movie View:** Offers detailed information about a single movie.
+- **Profile View:** Shows user details, allows user updates, deregistration, and management of favorite movies.
 
 ## Set up This App
 
