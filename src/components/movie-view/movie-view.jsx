@@ -10,25 +10,25 @@ export const MovieView = ({ movie }) => {
 
   return (
     <Row className="justify-content-center">
-      <Col md={4}> {/* This will make the card take half the width on medium-sized screens and above */}
+      <Col md={4}>
         <Card>
           <Card.Img variant="top" src={ImagePath} alt={`Cover of ${Title}`} />
           <Card.Body>
             <Card.Title>{Title}</Card.Title>
             <Card.Text>{Description}</Card.Text>
-            <Card.Text>
+            <div>
               <strong>Genre:</strong> {Genre ? Genre.Name : 'N/A'}
-            </Card.Text>
-            <Card.Text>
+            </div>
+            <div>
               {Genre && Genre.Description}
-            </Card.Text>
-            <Card.Text>
+            </div>
+            <div>
               <strong>Director:</strong> {Director ? Director.Name : 'N/A'}
-            </Card.Text>
-            <Card.Text>
-              {Director && <div><strong>Bio:</strong> {Director.Bio}</div>}
-              {Director && Director.Birth && <div><strong>Birth:</strong> {Director.Birth}</div>}
-            </Card.Text>
+            </div>
+            <div>
+              {Director && <><strong>Bio:</strong> {Director.Bio}</>}
+              {Director && Director.Birth && <><strong>Birth:</strong> {Director.Birth}</>}
+            </div>
           </Card.Body>
           <Card.Footer>
             <Link to="/" className="btn btn-primary">Back</Link>

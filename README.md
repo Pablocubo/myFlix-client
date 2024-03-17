@@ -1,53 +1,46 @@
-# MyFlix Client.
+### README.md
 
-This project is the front-end implementation for the LetFlix app. It utilizes Parcel as the build tool to compile and bundle the source code.
+# LetFLix movie App
 
-## Project Structure
+## Project Description
 
-The project structure for the source code is organized as follows:
+A client-side for an app called myFlix, built using React based on its existing server-side code, comprising a REST API and a database. It offers a comprehensive platform for movie enthusiasts to explore, favorite, and learn more about a wide range of movies.
 
-myFlix-client
-├── .gitignore
-├── package.json
-└── src
-components:
-main-view.jsx
-login-view.jsx
-signup-view.jsx
-movie-view.jsx
-movie-card.jsx
-profile-view.jsx
-user-info.jsx
-navigation-bar.jsx
+## Project Dependencies
 
-├── index.html
-├── index.scss
-└── index.jsx
+This project leverages several key technologies and libraries, including:
 
-## Instructions
+- React: For building the user interface with a component-based architecture.
+- ReactDOM: Allows the React app to communicate with the DOM.
+- React-Router-Dom: Manages navigation and routing within the app.
+- Bootstrap & React-Bootstrap: Used for styling and to utilize React components that mirror Bootstrap components.
+- React-Bootstrap-Icons: Provides icons as React components from Bootstrap Icons.
+- Prop-Types: For type-checking the props passed to components.
+- Moment: A library to parse, validate, manipulate, and display dates and times in JavaScript.
+- Parcel (v.2.12.0) & Parcel/Transformer-Sass (v.2.12.2): For application bundling and Sass support.
 
-To set up and run the project:
+## Process
 
-### 1. Clone the Repository
+### The API the Project Uses
 
-Clone this repository to your local machine:
+The app is designed to work with the `movie_api`, which provides access to a database of movies, directors, genres, and users. For more details about the API, visit the [GitHub repository](https://github.com/pablocubo/Movie-API).
 
-```bash
-git clone <repository-url>
-cd myFlix-client
+### Link to App
 
-2. Install Dependencies
-Install the required dependencies using npm: npm install
+The myMovie App is hosted on Netlify and can be accessed at: [myMovie App](https://letflixnow.netlify.app/).
 
-3. Build the Project
-Use Parcel to build and compile the project: parcel src/index.html
+## Views
 
-Replace <repository-url> with the URL of your repository.
+- **Login View:** Allows users to log in with a username and password.
+- **Signup View:** Enables new users to register by providing a username, password, email, and date of birth.
+- **Main View:** Displays all movies with image, title, and description.
+- **Single Movie View:** Offers detailed information about a single movie.
+- **Profile View:** Shows user details, allows user updates, deregistration, and management of favorite movies.
 
-This command initiates Parcel to compile the source code using the entry point specified in src/index.html.
+## Set up This App
 
-Additional Information
-For detailed instructions on setting up a new repository and configuring Parcel for your MyFlix app, refer to the Achievement 3 project brief for MyFlix’s frontend code.
+1. Clone this repository to your local machine.
+2. Navigate to the `movie_api-client` folder and run `npm install` to install all project dependencies.
+3. Start the application by running `parcel src/index.html` in your terminal.
 
-
-Replace `<repository-url>` with the actual URL of your repository. This README provides a brief overview of the project structure and instructions for setting up and running the project using Parcel. Add any additional information or steps specific to your project as needed.
+This setup will launch the myMovie App in your default web browser, ready for you to explore and interact with the vast world of movies it offers.

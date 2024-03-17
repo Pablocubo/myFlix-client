@@ -1,92 +1,96 @@
-import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Button, Container } from 'react-bootstrap';
-import FavoriteMovies from '../profile-view/favorite-movies';
+import React, { useState, useEffect } from "react";
+import { Row, Col, Card, Button } from "react-bootstrap";
+import { FavoriteMovies } from "./favorite-movies";
 import { UpdateUser } from "./update-user";
-import moment from 'moment';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const ProfileView = ({ token, user, movies, onSubmit }) => {
+import moment from "moment";
 
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  // Initialize state with empty values or defaults
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthdate, setBirthdate] = useState("");
-  const [password, setPassword] = useState("");
-   // Format the birthday using Moment.js
-   const formattedBirthday = moment(user.birthdate).format('MMMM Do, YYYY');
-  
+export const ProfileView = ({ user, setUser, addFav, removeFav }) => {
+  const navigate = useNavigate();
+  console.log("user profile", user);
+
+  // Initialize state with user data
+  const [username, setUsername] = useState(user.UserName || "");
+  const [email, setEmail] = useState(user.Email || "");
+  const [birthdate, setBirthdate] = useState(user.Birthday || "");
+  const [password, setPassword] = useState(user.Password || "");
+
   useEffect(() => {
-    if (user) {
-      setUsername(user.UserName || "");
-      setEmail(user.Email || "");
-      setBirthdate(user.Birthdate || "");
-    }
+    setUsername(user.Username || "");
+    setEmail(user.Email || "");
+    setBirthdate(user.Birthday || "");
   }, [user]);
 
-
-  const favoriteMovies = movies.filter(m => user?.FavoriteMovies?.includes(m._id));
-
+  // Format the birthdate for display
+  const formattedBirthday = moment(user?.Birthdate).format('MMMM Do, YYYY');
 
   // Preparing formData with current state values
   const formData = {
     UserName: username,
     Email: email,
-    Password: password,
-    Birthdate: birthdate
+    Birthdate: birthdate,
+    Password: password
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const token = localStorage.getItem("token");
 
-    // Send updated user information to the server, endpoint /users/:username
-    fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${storedUser.UserName}`, {
+    // Adjusted to match the backend field names exactly.
+    const updatedUserData = {
+      Username: username, // Use 'Username' to match your mongoose schema
+      Email: email,
+      Birthday: birthdate, // Format the date as your backend expects, if necessary
+      // No need to send Password if you're not updating it
+      // FavoriteMovies are likely managed separately, not directly through profile update
+    };
+
+    fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${user._id}`, {
       method: "PUT",
-      body: JSON.stringify(formData),
+      body: JSON.stringify(updatedUserData),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     })
-      .then((response) => {
-        if (response.ok) {
-          alert("Update successful");
-          return response.json();
-        }
-        alert("Update failed");
-      })
+      .then((response) => response.ok ? response.json() : Promise.reject('Update failed'))
       .then((data) => {
-        localStorage.setItem("user", JSON.stringify(data));
-        onSubmit(data);
-        // Update local state with new user data
-        setUser(data);
+        alert("Update successful");
+        localStorage.setItem("user", JSON.stringify(data)); // Update local storage
+        setUser(data); // Update state to reflect the new user data
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Failed to update user information:", error);
+        alert("Failed to update user information");
       });
   };
 
+
   const handleUpdate = (e) => {
-    switch (e.target.type) {
-      case "text":
-        setUsername(e.target.value);
+    const { name, value } = e.target;
+    switch (name) {
+      case "username":
+        setUsername(value);
         break;
       case "email":
-        setEmail(e.target.value);
-        break;
+        setEmail(value);
+        break; // Added missing break statement
       case "password":
-        setPassword(e.target.value);
+        setPassword(value);
         break;
-      case "date":
-        setBirthdate(e.target.value);
+      case "birthdate":
+        setBirthdate(value);
         break;
       default:
-      // It's good practice to handle default case
+        console.warn("Unknown form field:", name);
     }
-  }
+  };
 
-  const handleDeleteAccount = (id) => {
-    fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${id}`, {
+
+  const handleDeleteAccount = () => {
+    const token = localStorage.getItem("token");
+    fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${user._id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -96,7 +100,7 @@ const ProfileView = ({ token, user, movies, onSubmit }) => {
       if (response.ok) {
         alert("The account has been successfully deleted.");
         localStorage.clear();
-        window.location.reload();
+        navigate('/signup');
       } else {
         alert("Something went wrong.");
       }
@@ -108,7 +112,7 @@ const ProfileView = ({ token, user, movies, onSubmit }) => {
       <Row>
         <Card>
           <Card.Body>
-            <Card.Title><h2> Hello {user.username}! </h2></Card.Title>
+            <Card.Title><h2> Hello {user.username} </h2></Card.Title>
             <Card.Text>
               <strong>Username:</strong> {user.username}
             </Card.Text>
@@ -118,7 +122,7 @@ const ProfileView = ({ token, user, movies, onSubmit }) => {
             <Card.Text>
               <strong>Birthday:</strong> {formattedBirthday}
             </Card.Text>
-            <Button onClick={() => handleDeleteAccount(user._id)} className="button-delete mt-3" type="submit" variant="outline-secondary">
+            <Button onClick={handleDeleteAccount} className="button-delete mt-3" type="submit" variant="danger">
               Delete account
             </Button>
           </Card.Body>
@@ -130,14 +134,9 @@ const ProfileView = ({ token, user, movies, onSubmit }) => {
             handleSubmit={handleSubmit}
           />
         </Col>
-        <br />
       </Row>
       <hr />
-      <Row className="justify-content-center">
-      <FavoriteMovies user={user} />
-      </Row>
+      <FavoriteMovies user={user} addFav={addFav} removeFav={removeFav} />
     </>
   );
 };
-
-export default ProfileView;

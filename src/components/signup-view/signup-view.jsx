@@ -31,7 +31,7 @@ export const SignupView = () => {
 
     if (response.ok) {
       alert('Signup successful');
-      navigate('/main-view'); // Adjust the route as per your routing setup
+      navigate('/'); // Adjust the route as per your routing setup
     } else {
       const responseBody = await response.json();
       alert(`Signup failed: ${responseBody.message}`);
