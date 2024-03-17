@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
@@ -14,6 +14,7 @@ export const MainView = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [movies, setMovies] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     // Fetch movies and user info in two files. check console.log to see the data
@@ -23,10 +24,11 @@ export const MainView = () => {
     }
   }, [token]);
 
+
   const onMovieRemoved = (removedMovieId) => {
     setFavorites(prevFavorites => prevFavorites.filter(id => id !== removedMovieId));
   };
-  
+
   const fetchMovies = () => {
     fetch("https://letflix-0d183cd4a94e.herokuapp.com/movies", {
       headers: {
@@ -139,10 +141,31 @@ export const MainView = () => {
 
   };
 
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  // Filter movies based on search 
+  const filteredMovies = useMemo(() => {
+    const result = movies.filter(movie => movie.Title.toLowerCase().includes(search.toLowerCase()));
+    console.log(result); // Log the filtered movies for debugging
+    return result;
+  }, [movies, search]);
+
   return (
     <BrowserRouter>
       <NavigationBar onLoggedOut={onLoggedOut} user={user} />
       <Container>
+        <Row className="mb-3 justify-content-center">
+          <Col xs={12} md={8} lg={4}>
+            <Form.Control
+              type="search"
+              placeholder="Search for movies..."
+              value={search}
+              onChange={handleSearchChange}
+            />
+          </Col>
+        </Row>
         <Routes>
           <Route path="/" element={
             !user ? (
@@ -163,7 +186,7 @@ export const MainView = () => {
             ) : (
               <>
                 <Row xs={1} md={2} lg={3} xl={4} className="g-4">
-                  {movies.map((movie) => (
+                    {filteredMovies.map((movie) => (
                     <Col key={movie._id} xs={12} md={4}>
                       <MovieCard
                         movie={movie} // Pass the whole movie object to MovieCard, show all the movie details
