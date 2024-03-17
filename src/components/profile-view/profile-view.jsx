@@ -43,7 +43,7 @@ export const ProfileView = ({ user, setUser, addFav, removeFav }) => {
       Email: email,
       Birthday: birthdate, // Format the date as your backend expects, if necessary
       // No need to send Password if you're not updating it
-      // FavoriteMovies are likely managed separately, not directly through profile update
+
     };
 
     fetch(`https://letflix-0d183cd4a94e.herokuapp.com/users/${user._id}`, {

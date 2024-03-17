@@ -70,7 +70,7 @@ export const MainView = () => {
       .then((data) => {
         setFavorites(data.FavoriteMovies); // Set favorites from user data, so now it display on movie card favorite button
 
-        /* setMovies(moviesFromApi); */
+
       })
       .catch((error) => {
         console.error('Error fetching user data:', error);

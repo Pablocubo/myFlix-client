@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import PropTypes from "prop-types";
 
 export const UpdateUser = ({ formData, handleUpdate, handleSubmit }) => {
-  
+
   return (
     <Row>
       <Form onSubmit={handleSubmit}>
@@ -39,7 +39,7 @@ export const UpdateUser = ({ formData, handleUpdate, handleSubmit }) => {
           <Form.Control
             type="password"
             minLength={8}
-            name="password" // Optional field, ensure this is handled correctly in your handleSubmit
+            name="password"
             value={formData.Password || ''} // Use || '' to avoid controlled input turning uncontrolled error
             onChange={handleUpdate}
           />
