@@ -161,25 +161,18 @@ export const MainView = () => {
           <Route path="/" element={
             !user ? (
               <>
-                  <Row className="mb-3 justify-content-center">
-                    <Col xs={12} md={8} lg={4}>
-                      <Form.Control
-                        type="search"
-                        placeholder="Search for movies..."
-                        value={search}
-                        onChange={handleSearchChange}
-                      />
-                    </Col>
-                    <Col>
-                      <LoginView onLoggedIn={setUser} /> {/* // setUser is taking userdata from loginview and setting it to user state */}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <SignupView />
-                    </Col>
-                  </Row>
-                </>
+              {/* Only show login and signup options if user is not logged in */}
+              <Row className="justify-content-center mt-3">
+                <Col xs={12} md={6} lg={4} className="text-center">
+                  <LoginView onLoggedIn={setUser} />
+                </Col>
+              </Row>
+              <Row className="justify-content-center">
+                <Col>
+                  <SignupView />
+                </Col>
+              </Row>
+            </>
                 ) : movies.length === 0 ? (
                 <div>The list is empty!</div>
                 ) : (

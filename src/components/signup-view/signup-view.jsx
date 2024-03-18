@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // For React Router v6
 import { Form, Button, Card, CardGroup, Container, Col, Row } from "react-bootstrap";
 
+
 export const SignupView = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
