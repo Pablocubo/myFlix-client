@@ -27528,7 +27528,6 @@ const MainView = ()=>{
                                     lineNumber: 222,
                                     columnNumber: 25
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                                    md: 10,
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
                                         onLoggedIn: setUser
                                     }, void 0, false, {
@@ -27557,7 +27556,6 @@ const MainView = ()=>{
                                     lineNumber: 234,
                                     columnNumber: 23
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                                    md: 10,
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {
                                         onSignedUp: (user)=>setUser(user)
                                     }, void 0, false, {
