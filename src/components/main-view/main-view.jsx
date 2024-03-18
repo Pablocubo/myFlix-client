@@ -145,6 +145,19 @@ export const MainView = () => {
     setSearch(e.target.value);
   };
 
+  const SearchForm = ({ search, handleSearchChange }) => (
+    <Row className="mb-3 justify-content-center">
+      <Col xs={12} md={8} lg={4}>
+        <Form.Control
+          type="search"
+          placeholder="Search for movies..."
+          value={search}
+          onChange={handleSearchChange}
+        />
+      </Col>
+    </Row>
+  );
+
   // Filter movies based on search 
   const filteredMovies = useMemo(() => {
     const result = movies.filter(movie => movie.Title.toLowerCase().includes(search.toLowerCase()));
@@ -156,42 +169,30 @@ export const MainView = () => {
     <BrowserRouter>
       <NavigationBar onLoggedOut={onLoggedOut} user={user} />
       <Container>
-        <Row className="mb-3 justify-content-center">
-          <Col xs={12} md={8} lg={4}>
-            <Form.Control
-              type="search"
-              placeholder="Search for movies..."
-              value={search}
-              onChange={handleSearchChange}
-            />
-          </Col>
-        </Row>
         <Routes>
           <Route path="/" element={
             !user ? (
               <>
+                <SearchForm search={search} handleSearchChange={handleSearchChange} />
                 <Row>
-                  <Col>
-                    <LoginView onLoggedIn={setUser} /> {/* // setUser is taking userdata from loginview and setting it to user state */}
-                  </Col>
+                  <Col><LoginView onLoggedIn={setUser} /></Col>
                 </Row>
                 <Row>
-                  <Col>
-                    <SignupView />
-                  </Col>
+                  <Col><SignupView /></Col>
                 </Row>
               </>
             ) : movies.length === 0 ? (
               <div>The list is empty!</div>
             ) : (
               <>
+                <SearchForm search={search} handleSearchChange={handleSearchChange} />
                 <Row xs={1} md={2} lg={3} xl={4} className="g-4">
-                    {filteredMovies.map((movie) => (
+                  {filteredMovies.map((movie) => (
                     <Col key={movie._id} xs={12} md={4}>
                       <MovieCard
-                        movie={movie} // Pass the whole movie object to MovieCard, show all the movie details
+                        movie={movie}
                         addFav={() => addFav(movie)}
-                        removeFav={(movie) => removeFav(movie, onMovieRemoved)}  // Pass the movie id to removeFav only id needed for remove
+                        removeFav={(movie) => removeFav(movie, onMovieRemoved)}
                         isFavorite={favorites.includes(movie._id)}
                       />
                     </Col>
@@ -205,33 +206,10 @@ export const MainView = () => {
           ))}
           <Route path="/profile" element={<ProfileView user={user} movies={movies} setUser={setUser} addFav={addFav} removeFav={removeFav} />} />
           <Route path="/favorites" element={<FavoriteMovies user={user} addFav={addFav} removeFav={removeFav} />} />
-          <Route
-            path="/login"
-            element={
-              <>
-                {user ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Col md={10}>
-                    <LoginView onLoggedIn={setUser} />
-                  </Col>
-                )}
-              </>
-            }
-          />
-          <Route path="/signup" element={
-            <>
-              {user ? (
-                <Navigate to="/" />
-              ) : (
-                <Col md={10}>
-                  <SignupView onSignedUp={(user) => setUser(user)} />
-                </Col>
-              )}
-            </>
-          } />
+          <Route path="/login" element={user ? <Navigate to="/" /> : <Col md={10}><LoginView onLoggedIn={setUser} /></Col>} />
+          <Route path="/signup" element={user ? <Navigate to="/" /> : <Col md={10}><SignupView onSignedUp={setUser} /></Col>} />
         </Routes>
       </Container>
     </BrowserRouter>
   );
-};
+          }
