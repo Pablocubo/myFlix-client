@@ -43,7 +43,7 @@ export const LoginView = ({ onLoggedIn }) => {
 
     <Container>
       <Row className="justify-content-center">
-        <Col md={6}>
+        <Col xs={12}>
           <Card style={{ marginTop: 100, marginBottom: 50 }}>
             <Card.Body>
               <Card.Title style={{ textAlign: "left", fontSize: "2rem" }}>
