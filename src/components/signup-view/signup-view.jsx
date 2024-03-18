@@ -44,7 +44,7 @@ export const SignupView = () => {
 
 
   return (
-    <Container>
+    <Container style={{ marginTop: '100px' }}>
       <Row className="justify-content-center">
           <Col md={6}>
         <CardGroup>
