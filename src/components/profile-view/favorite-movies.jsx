@@ -46,7 +46,7 @@ export const FavoriteMovies = ({ user, removeFav }) => {
   return (
     <Col className="mb-5">
       <h3 className="title">Your Favorite Movies</h3>
-      <Row>
+      <Row xs={1} md={2} lg={3} xl={4} className="g-4">
         {favoriteMovies.map((movie) => (
           <Col key={movie._id} md={3}>
             <MovieCard

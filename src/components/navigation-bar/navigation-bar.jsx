@@ -29,11 +29,12 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
             <Navbar.Brand as={Link} to="/">
               <span className="h1 navbar-logo">Letflix</span>
             </Navbar.Brand>
+            
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
             <Button onClick={toggleTheme} variant="outline-secondary" className="ms-auto me-2">
               {theme === 'day' ? 'Night' : 'Day'} Mode
             </Button>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="h5 mt-1">
                 {!user && (
                   <>
@@ -57,6 +58,7 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                     <Nav.Link className="navLink" onClick={handleLogout}>Logout</Nav.Link>
                   </>
                 )}
+                
               </Nav>
             </Navbar.Collapse>
           </Container>
