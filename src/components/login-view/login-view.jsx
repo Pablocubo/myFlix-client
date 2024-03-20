@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Col, Form, Button, Container, Row, Card } from 'react-bootstrap';
-
+import "./login-view.scss";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -42,8 +42,8 @@ export const LoginView = ({ onLoggedIn }) => {
   return (
 
     <Container>
-      <Row className="justify-content-center">
-        <Col xs={12}>
+      <Row className="justify-content-center mt-3">
+        <Col xs={12} md={8} lg={4}>
           <Card style={{ marginTop: 100, marginBottom: 50 }}>
             <Card.Body>
               <Card.Title style={{ textAlign: "left", fontSize: "2rem" }}>

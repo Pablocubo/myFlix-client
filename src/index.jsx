@@ -1,7 +1,8 @@
+import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { ThemeProvider } from './components/theme-context/theme-context';
 import { MainView } from './components/main-view/main-view';
 import { Container } from "react-bootstrap";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import './index.scss'; //import statement that you need to bundle './index.scss'
 
@@ -9,9 +10,11 @@ import './index.scss'; //import statement that you need to bundle './index.scss'
 const App = () => {
 
   return (
-    <Container>
+    <ThemeProvider>
+    <Container className='background'>
       <MainView />
     </Container>
+    </ThemeProvider>
   );
 };
 

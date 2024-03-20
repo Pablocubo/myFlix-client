@@ -109,25 +109,29 @@ export const ProfileView = ({ user, setUser, addFav, removeFav }) => {
 
   return (
     <>
-      <Row>
-        <Card>
-          <Card.Body>
-            <Card.Title><h2> Hello {user.username} </h2></Card.Title>
-            <Card.Text>
-              <strong>Username:</strong> {user.username}
-            </Card.Text>
-            <Card.Text>
-              <strong>Email:</strong> {user.email}
-            </Card.Text>
-            <Card.Text>
-              <strong>Birthday:</strong> {formattedBirthday}
-            </Card.Text>
-            <Button onClick={handleDeleteAccount} className="button-delete mt-3" type="submit" variant="danger">
-              Delete account
-            </Button>
-          </Card.Body>
-        </Card>
-        <Col>
+      <Row className="justify-content-md-center">
+        <Col md={6}> {/* Adjust this value to control the width of your card */}
+          <Card className="mb-4">
+            <Card.Body>
+              <Card.Title><h2> Hello {user.username} </h2></Card.Title>
+              <Card.Text>
+                <strong>Username:</strong> {user.username}
+              </Card.Text>
+              <Card.Text>
+                <strong>Email:</strong> {user.email}
+              </Card.Text>
+              <Card.Text>
+                <strong>Birthday:</strong> {formattedBirthday}
+              </Card.Text>
+              <Button onClick={handleDeleteAccount} className="button-delete mt-3" type="button" variant="danger">
+                Delete account
+              </Button>
+            </Card.Body>
+          </Card>
+        </Col>
+      
+      
+        <Col md={6}>
           <UpdateUser
             formData={formData}
             handleUpdate={handleUpdate}

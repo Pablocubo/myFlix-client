@@ -161,79 +161,74 @@ export const MainView = () => {
           <Route path="/" element={
             !user ? (
               <>
-              {/* Only show login and signup options if user is not logged in */}
-              <Row className="justify-content-center mt-3">
-                <Col xs={12} md={6} lg={4} className="text-center">
-                  <LoginView onLoggedIn={setUser} />
-                </Col>
-              </Row>
-              <Row className="justify-content-center">
-                <Col>
-                  <SignupView />
-                </Col>
-              </Row>
-            </>
-                ) : movies.length === 0 ? (
-                <div>The list is empty!</div>
-                ) : (
-                 <>
-              <Row className="mb-3 justify-content-center">
-                <Col xs={12} md={8} lg={4}>
-                  <Form.Control
-                    type="search"
-                    placeholder="Search for movies..."
-                    value={search}
-                    onChange={handleSearchChange}
-                  />
-                </Col>
-              </Row>
-                  <Row xs={1} md={2} lg={3} xl={4} className="g-4">
-                    {filteredMovies.map((movie) => (
-                      <Col key={movie._id} xs={12} md={4}>
-                        <MovieCard
-                          movie={movie} // Pass the whole movie object to MovieCard, show all the movie details
-                          addFav={() => addFav(movie)}
-                          removeFav={(movie) => removeFav(movie, onMovieRemoved)}  // Pass the movie id to removeFav only id needed for remove
-                          isFavorite={favorites.includes(movie._id)}
-                        />
-                      </Col>
-                    ))}
-                  </Row>
-                </>
-                )
+                {/* Only show login and signup options if user is not logged in */}
+                <Row className="justify-content-center mt-3">
+                  <Col>
+                    <LoginView onLoggedIn={setUser} />
+                  </Col>
+                </Row>
+              </>
+            ) : movies.length === 0 ? (
+              <div>The list is empty!</div>
+            ) : (
+              <>
+                <Row className="mb-3 justify-content-center">
+                  <Col xs={12} md={8} lg={4}>
+                    <Form.Control
+                      type="search"
+                      placeholder="Search for movies..."
+                      value={search}
+                      onChange={handleSearchChange}
+                    />
+                  </Col>
+                </Row>
+                <Row xs={1} md={2} lg={3} xl={4} className="g-4">
+                  {filteredMovies.map((movie) => (
+                    <Col key={movie._id} xs={12} md={4}>
+                      <MovieCard
+                        movie={movie} // Pass the whole movie object to MovieCard, show all the movie details
+                        addFav={() => addFav(movie)}
+                        removeFav={(movie) => removeFav(movie, onMovieRemoved)}  // Pass the movie id to removeFav only id needed for remove
+                        isFavorite={favorites.includes(movie._id)}
+                      />
+                    </Col>
+                  ))}
+                </Row>
+              </>
+            )
           } />
-                {movies.map((movie) => (
-                  <Route key={movie._id} path={`/movies/${movie._id}`} element={<MovieView movie={movie} />} />
-                ))}
-                <Route path="/profile" element={<ProfileView user={user} movies={movies} setUser={setUser} addFav={addFav} removeFav={removeFav} />} />
-                <Route path="/favorites" element={<FavoriteMovies user={user} addFav={addFav} removeFav={removeFav} />} />
-                <Route
-                  path="/login"
-                  element={
-                    <>
-                      {user ? (
-                        <Navigate to="/" />
-                      ) : (
-                        <Col>
-                          <LoginView onLoggedIn={setUser} />
-                        </Col>
-                      )}
-                    </>
-                  }
-                />
-                <Route path="/signup" element={
-                  <>
-                    {user ? (
-                      <Navigate to="/" />
-                    ) : (
-                      <Col>
-                        <SignupView onSignedUp={(user) => setUser(user)} />
-                      </Col>
-                    )}
-                  </>
-                } />
-              </Routes>
-          </Container>
-        </BrowserRouter>
-        );
+          {movies.map((movie) => (
+            <Route key={movie._id} path={`/movies/${movie._id}`} element={<MovieView movie={movie} />} />
+          ))}
+          <Route path="/profile" element={<ProfileView user={user} movies={movies} setUser={setUser} addFav={addFav} removeFav={removeFav} />} />
+          <Route path="/favorites" element={<FavoriteMovies user={user} addFav={addFav} removeFav={removeFav} />} />
+          <Route
+            path="/login"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col>
+                    <LoginView onLoggedIn={setUser} />
+                  </Col>
+                )}
+              </>
+            }
+          />
+          <Route path="/signup" element={
+            <>
+              {user ? (
+                <Navigate to="/" />
+              ) : (
+                <Col>
+                  <SignupView onSignedUp={(user) => setUser(user)} />
+                </Col>
+              )}
+            </>
+          } />
+        </Routes>
+      </Container>
+    </BrowserRouter>
+  );
 };

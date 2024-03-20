@@ -1,0 +1,34 @@
+// Assuming this is in your global styles file (e.g., index.scss)
+
+// Default styles that don't change with theme
+body {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+// Day theme styles
+body.day {
+  background-color: #FFFFFF; // Light background for day theme
+  color: #000000e5; // Dark text for day theme
+
+  .navBar, .navBar a.nav-link {
+    color: #000000e5; // Ensuring navbar text is dark in day mode
+  }
+
+  .navbar-logo { // Targeting the Letflix logo specifically
+    color: #000000e5; // Dark color for day mode
+  }
+}
+
+// Night theme styles
+body.night {
+  background-color: #000000e5; // Dark background for night theme
+  color: #FFFFFF; // Light text for night theme
+
+  .navBar, .navBar a.nav-link {
+    color: #FFFFFF; // Ensuring navbar text is light in night mode
+  }
+
+  .navbar-logo { // Targeting the Letflix logo specifically
+    color: #FFFFFF; // Light color for night mode
+  }
+}
