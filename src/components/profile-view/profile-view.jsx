@@ -3,7 +3,7 @@ import { Row, Col, Card, Button } from "react-bootstrap";
 import { FavoriteMovies } from "./favorite-movies";
 import { UpdateUser } from "./update-user";
 import { useNavigate } from "react-router-dom";
-
+import './profile-view.scss';
 import moment from "moment";
 
 export const ProfileView = ({ user, setUser, addFav, removeFav }) => {
@@ -23,7 +23,7 @@ export const ProfileView = ({ user, setUser, addFav, removeFav }) => {
   }, [user]);
 
   // Format the birthdate for display
-  const formattedBirthday = moment(user?.Birthdate).format('MMMM Do, YYYY');
+  const formattedBirthday = moment(user.Birthday).format('MMMM Do, YYYY');
 
   // Preparing formData with current state values
   const formData = {

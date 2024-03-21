@@ -21,9 +21,9 @@ export const MovieCard = ({ movie, addFav, removeFav, isFavorite }) => {
         </div>
       </div>
       <Card.Body className="d-flex flex-column align-items-center mt-2">
-        <Card.Title className="movie-card-title mb-2">{movie.Title}</Card.Title>
-        <Card.Text className="mb-2">{movie.Director.Name}</Card.Text>
-        <Card.Text>{movie.Genre.Name}</Card.Text>
+        <Card.Title className="movie-card-title mb-2 text-uppercase">{movie.Title}</Card.Title>
+        <Card.Text className="mb-2 lead">{movie.Director.Name}</Card.Text>
+        <Card.Text className="text-uppercase">{movie.Genre.Name}</Card.Text>
         <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
           <Button variant="link" className="text-decoration-none">
             Open

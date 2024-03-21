@@ -32,7 +32,7 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
             
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-            <Button onClick={toggleTheme} variant="outline-secondary" className="ms-auto me-2">
+            <Button onClick={toggleTheme} variant="outline-secondary" className="ms-auto me-2 fixed-size-button">
               {theme === 'day' ? 'Night' : 'Day'} Mode
             </Button>
               <Nav className="h5 mt-1">

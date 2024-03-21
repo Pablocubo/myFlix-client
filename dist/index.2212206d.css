@@ -6,6 +6,15 @@ body.night .navBar, body.night .navBar a.nav-link, body.night .navbar-logo {
   color: #fff;
 }
 
+.fixed-size-button {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 40px;
+  display: flex;
+}
+
 .card-container {
   position: relative;
 }

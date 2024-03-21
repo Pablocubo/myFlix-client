@@ -32,3 +32,12 @@ body.night {
     color: #FFFFFF; // Light color for night mode
   }
 }
+
+.fixed-size-button {
+  width: 120px;  /* Example fixed width */
+  height: 40px;  /* Example fixed height */
+  display: flex;  /* Use flexbox to center content */
+  justify-content: center;  /* Center horizontally */
+  align-items: center;  /* Center vertically */
+  text-align: center;  /* Ensure text is centered if it wraps */
+}
