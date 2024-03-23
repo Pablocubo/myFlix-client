@@ -28,6 +28,7 @@ export const LoginView = ({ onLoggedIn }) => {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
           onLoggedIn(data.user);
+          window.location.reload(); // Reload the page to update the state of the NavigationBar and show movies. just a temporary fix since is not best practice
         } else {
           console.log("data.user:", data.user);
           alert("no such user");
@@ -43,8 +44,8 @@ export const LoginView = ({ onLoggedIn }) => {
 
     <Container>
       <Row className="justify-content-center mt-3">
-        <Col xs={12} md={8} lg={4}>
-          <Card style={{ marginTop: 100, marginBottom: 50 }}>
+        <Col xs={12} md={8} lg={6}>
+          <Card style={{ marginTop: 200, marginBottom: 50 }}>
             <Card.Body>
               <Card.Title style={{ textAlign: "left", fontSize: "2rem" }}>
                 Login
