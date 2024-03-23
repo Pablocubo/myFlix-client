@@ -1,8 +1,42 @@
-.back-button {
-  padding: 4px 12px 4 px 12px;
-  color: whitesmoke;
-  background-color: dodgerblue;
-  border: none;
-  border-radius: 4px;
-}
+.movie-view {
+  .movie-card {
+    max-width: 400px; // Adjust this value to control the card width
+    margin: auto; // Center the card horizontally
+    background-color: #181818;
+    color: #fff;
+    border: none;
 
+    .movie-image {
+      height: auto;
+      width: 100%; // Ensure the image is responsive and fits the card
+      object-fit: cover;
+    }
+
+    .movie-body {
+      padding: 20px;
+      .movie-description,
+      .movie-info {
+        color: #fff;
+      }
+
+      .movie-info {
+        margin-top: 10px;
+      }
+    }
+
+    .movie-footer {
+      background-color: #181818;
+      border-top: 1px solid #ffffff;
+    }
+
+    .movie-back-button {
+      background-color: #87CEFA;
+      border-color: #87CEFA;
+
+      &:hover {
+        background-color: darken(#87CEFA, 10%);
+        border-color: darken(#87CEFA, 10%);
+      }
+    }
+  }
+}

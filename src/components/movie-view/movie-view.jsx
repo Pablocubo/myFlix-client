@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import './movie-view.scss'
 
 export const MovieView = ({ movie }) => {
   if (!movie) return null;
@@ -9,29 +10,28 @@ export const MovieView = ({ movie }) => {
   const { Title, Description, Genre, Director, ImagePath } = movie;
 
   return (
-    <Row className="justify-content-center">
-      <Col md={4}>
-        <Card>
-          <Card.Img variant="top" src={ImagePath} alt={`Cover of ${Title}`} />
-          <Card.Body>
-            <Card.Title>{Title}</Card.Title>
-            <Card.Text>{Description}</Card.Text>
-            <div>
+    <Row className="justify-content-center movie-view">
+      <Col md={8} lg={6}>
+        <Card className="movie-card">
+          <Card.Img variant="top" src={ImagePath} alt={`Cover of ${Title}`} className="movie-image" />
+          <Card.Body className="movie-body">
+            {/* <Card.Title className="movie-title">{Title}</Card.Title> */}
+            <Card.Text className="movie-description">{Description}</Card.Text>
+            <div className="movie-info">
               <strong>Genre:</strong> {Genre ? Genre.Name : 'N/A'}
             </div>
-            <div>
+            <div className="movie-info">
               {Genre && Genre.Description}
             </div>
-            <div>
+            <div className="movie-info">
               <strong>Director:</strong> {Director ? Director.Name : 'N/A'}
             </div>
-            <div>
+            <div className="movie-info">
               {Director && <><strong>Bio:</strong> {Director.Bio}</>}
-              {Director && Director.Birth && <><strong>Birth:</strong> {Director.Birth}</>}
-            </div>
+                          </div>
           </Card.Body>
-          <Card.Footer>
-            <Link to="/" className="btn btn-primary">Back</Link>
+          <Card.Footer className="movie-footer">
+            <Link to="/" className="btn btn-primary movie-back-button">Back</Link>
           </Card.Footer>
         </Card>
       </Col>
