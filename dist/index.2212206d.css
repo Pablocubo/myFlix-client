@@ -15,6 +15,18 @@ body.night .navBar, body.night .navBar a.nav-link, body.night .navbar-logo {
   display: flex;
 }
 
+.container-style {
+  color: #fff;
+  background-color: #0000004d;
+  border-radius: 10px;
+  margin-top: 180px;
+  padding: 20px;
+}
+
+.container-style .form-label, .container-style .form-control, .container-style button {
+  color: inherit;
+}
+
 .card-container {
   position: relative;
 }
@@ -13424,7 +13436,7 @@ textarea.form-control-lg {
 .background:before {
   content: "";
   z-index: -1;
-  opacity: .2;
+  opacity: .7;
   background-image: url("background0.86cfbdc3.png");
   background-size: cover;
   width: 100%;

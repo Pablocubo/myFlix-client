@@ -1,0 +1,12 @@
+.container-style {
+  margin-top: 180px;
+  background-color: rgba(0, 0, 0, 0.3); // Translucent white
+  padding: 20px; // Adds space inside the container
+  border-radius: 10px; // Rounded corners
+  color: #ffffff; // Dark gray text color
+
+  // Nested styling for child elements
+  .form-label, .form-control, button {
+    color: inherit; // Inherits color from .container-style
+  }
+}
