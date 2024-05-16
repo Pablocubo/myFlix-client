@@ -16,8 +16,8 @@ body.night .navBar, body.night .navBar a.nav-link, body.night .navbar-logo {
 }
 
 .container-style {
-  color: #fff;
-  background-color: #0000004d;
+  color: #000;
+  background-color: #ffffffc4;
   border-radius: 10px;
   margin-top: 180px;
   padding: 20px;
